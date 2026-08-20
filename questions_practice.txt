@@ -1,0 +1,884 @@
+﻿#Class: 9
+#Subject: Computer Science
+#Exam Type: Cycle Test III 2026-27 (Practice)
+
+#Q1. What does HTML stand for?
+#Options#
+HyperText Markup Language**
+High Tech Modern Language
+Hyperlink and Text Management Language
+Home Tool Markup Language
+Hyper Transfer Markup Language
+
+#Q2. HTML is a markup language used to create:
+#Options#
+Operating systems
+Web pages and websites**
+Desktop applications only
+Databases
+Network cables
+
+#Q3. Which tag is used to create a hyperlink in HTML?
+#Options#
+<link>
+<href>
+<a>**
+<url>
+<hyper>
+
+#Q4. Which attribute specifies the destination address of a link in HTML?
+#Options#
+src
+alt
+target
+href**
+hl
+
+#Q5. Which HTML tag is used to create a paragraph?
+#Options#
+<para>
+<pt>
+<text>
+<pg>
+<p>**
+
+#Q6. Which tag is used for the largest heading in HTML?
+#Options#
+<h1>**
+<h6>
+<hd>
+<heading>
+<hbig>
+
+#Q7. Which HTML tag is used to create an unordered list?
+#Options#
+<ol>
+<ul>**
+<li>
+<list>
+<unlist>
+
+#Q8. Which HTML tag is used to create an ordered list?
+#Options#
+<ul>
+<li>
+<ol>**
+<list>
+<ord>
+
+#Q9. Which HTML tag is used to create a list item?
+#Options#
+<ol>
+<ul>
+<item>
+<li>**
+<line>
+
+#Q10. Which HTML tag is used to create a table?
+#Options#
+<td>
+<tr>
+<th>
+<tab>
+<table>**
+
+#Q11. Which HTML tag creates a row in a table?
+#Options#
+<tr>**
+<td>
+<th>
+<table>
+<row>
+
+#Q12. Which HTML tag creates a header cell in a table?
+#Options#
+<td>
+<th>**
+<tr>
+<header>
+<table-head>
+
+#Q13. Which HTML tag creates a data cell in a table?
+#Options#
+<th>
+<tr>
+<td>**
+<table>
+<data>
+
+#Q14. Which HTML tag is used to insert an image into a web page?
+#Options#
+<pic>
+<picture>
+<image>
+<img>**
+<photo>
+
+#Q15. Which attribute specifies the file name of an image in the <img> tag?
+#Options#
+href
+alt
+style
+id
+src**
+
+#Q16. Which attribute provides alternative text for an image if it fails to load?
+#Options#
+alt**
+src
+srcset
+title
+desc
+
+#Q17. Which HTML tag is used to create a form for collecting user input?
+#Options#
+<input>
+<form>**
+<field>
+<area>
+<label>
+
+#Q18. Which HTML tag is used to create a text input field?
+#Options#
+<text>
+<write>
+<input>**
+<field>
+<box>
+
+#Q19. Which HTML tag is used to create a drop-down list?
+#Options#
+<list>
+<dropdown>
+<option>
+<select>**
+<menu>
+
+#Q20. Which HTML tag is used to create a division or container in a document?
+#Options#
+<span>
+<section>
+<box>
+<container>
+<div>**
+
+#Q21. Which tag is used to create a line break in HTML?
+#Options#
+<br>**
+<lb>
+<break>
+<line>
+<hr>
+
+#Q22. Which tag is used to draw a horizontal line in HTML?
+#Options#
+<br>
+<hr>**
+<line>
+<hline>
+<separator>
+
+#Q23. Which tag makes text bold in HTML?
+#Options#
+<strongly>
+<bold>
+<b>**
+<dark>
+<fat>
+
+#Q24. Which tag makes text italic in HTML?
+#Options#
+<it>
+<slanted>
+<emph>
+<i>**
+<italics>
+
+#Q25. Which HTML tag is used to write subscript text?
+#Options#
+<sup>
+<down>
+<below>
+<small>
+<sub>**
+
+#Q26. Which HTML tag is used to write superscript text?
+#Options#
+<sup>**
+<sub>
+<up>
+<above>
+<high>
+
+#Q27. Which tag contains the main visible content of a webpage?
+#Options#
+<head>
+<body>**
+<title>
+<main>
+<html>
+
+#Q28. Which tag contains the title and metadata of an HTML document?
+#Options#
+<body>
+<main>
+<head>**
+<header>
+<meta>
+
+#Q29. Which HTML tag is used to link an external stylesheet?
+#Options#
+<style>
+<link rel>
+<sheet>
+<link>**
+<css]
+
+#Q30. Which attribute opens a hyperlink in a new browser tab?
+#Options#
+open
+new
+link
+src
+target**
+
+#Q31. What does CSS stand for?
+#Options#
+Cascading Style Sheets**
+Computer Style System
+Creative Style Sheets
+Color and Style System
+Cascading Size Sheets
+
+#Q32. What is CSS mainly used for?
+#Options#
+Writing web page content
+Styling the appearance of web pages**
+Creating computer programs
+Storing data in databases
+Sending emails
+
+#Q33. Which type of CSS is written directly inside an HTML element?
+#Options#
+External CSS
+Internal CSS
+Inline CSS**
+Embedded HTML
+Global CSS
+
+#Q34. Which type of CSS is written inside the <style> tag in the head section?
+#Options#
+Inline CSS
+External CSS
+Global CSS
+Internal CSS**
+Local CSS
+
+#Q35. Which type of CSS is written in a separate .css file?
+#Options#
+Inline CSS
+Internal CSS
+Local CSS
+Embedded CSS
+External CSS**
+
+#Q36. Which attribute is used to apply inline CSS to an element?
+#Options#
+style**
+class
+id
+css
+type
+
+#Q37. Which CSS property is used to change the text colour?
+#Options#
+text-color
+color**
+font-color
+background-color
+text-style
+
+#Q38. Which CSS property is used to set the background colour of an element?
+#Options#
+bgcolor
+color
+background-color**
+fill
+shade
+
+#Q39. Which CSS property is used to change the size of text?
+#Options#
+size
+text-size
+font-height
+font-size**
+text-style
+
+#Q40. Which CSS property is used to change the font typeface of text?
+#Options#
+font-type
+text-font
+typeface
+font
+font-family**
+
+#Q41. Which CSS property is used to make text bold?
+#Options#
+font-weight**
+font-bold
+text-weight
+bold
+font-style
+
+#Q42. Which CSS property creates rounded corners on an element?
+#Options#
+corner-round
+border-radius**
+round-border
+radius
+curve
+
+#Q43. Which CSS property sets the space between the content and the border of an element?
+#Options#
+margin
+spacing
+padding**
+gap
+space
+
+#Q44. Which CSS property sets the space outside the border of an element?
+#Options#
+padding
+spacing
+gap
+margin**
+outside
+
+#Q45. Which selector is used to target an element by its id in CSS?
+#Options#
+.
+(empty)
+*
+:
+#**
+
+#Q46. What is the Internet?
+#Options#
+A global network of interconnected computers**
+A single computer in a school
+A type of web browser
+A computer program
+A mobile phone network
+
+#Q47. What does WWW stand for?
+#Options#
+World Web Wide
+World Wide Web**
+Web World Wide
+World Wide Website
+Wide Web World
+
+#Q48. A software program used to access and view websites is called a:
+#Options#
+Search engine
+Operating system
+Web browser**
+Compiler
+Modem
+
+#Q49. Which of the following is a web browser?
+#Options#
+Google Search
+Google Drive
+Google Docs
+Google Chrome**
+Google Maps
+
+#Q50. A program or service used to find information on the Internet is called a:
+#Options#
+Web browser
+Website
+Protocol
+Server
+Search engine**
+
+#Q51. Which of the following is a search engine?
+#Options#
+Google**
+Chrome
+Notepad
+Windows
+VLC
+
+#Q52. What does URL stand for?
+#Options#
+Universal Resource Link
+Uniform Resource Locator**
+Uniform Resource Link
+Universal Reference Locator
+Unique Resource Location
+
+#Q53. A URL is the ______ of a resource available on the Internet.
+#Options#
+Software
+Type
+Address**
+Colour
+Size
+
+#Q54. Which protocol is more secure for accessing websites?
+#Options#
+HTTP
+FTP
+SMTP
+HTTPS**
+Telnet
+
+#Q55. What does HTTP stand for?
+#Options#
+HyperText Transport Program
+High Text Transfer Protocol
+Home Text Transfer Protocol
+Hyperlink Transfer Protocol
+HyperText Transfer Protocol**
+
+#Q56. What does HTTPS stand for?
+#Options#
+HyperText Transfer Protocol Secure**
+HyperText Transfer Protocol Server
+High Transfer Protocol Secure
+Hyperlink Transfer Protocol System
+Home Text Transfer Protocol
+
+#Q57. HTTPS keeps communication secure by encrypting data using:
+#Options#
+HTTP
+SSL/TLS**
+HTML
+FTP
+URL
+
+#Q58. Which protocol is commonly used to transfer files between computers on a network?
+#Options#
+HTTPS
+HTML
+FTP**
+URL
+SMTP
+
+#Q59. Which protocol is used to send email from a client to a mail server?
+#Options#
+HTTP
+HTTPS
+HTML
+SMTP**
+FTP
+
+#Q60. A collection of related web pages under one name is called a:
+#Options#
+Web browser
+Web server
+Search engine
+URL
+Website**
+
+#Q61. The first page that opens when you visit a website is called the:
+#Options#
+Home page**
+Index page
+Start page
+Front page
+Main page
+
+#Q62. The World Wide Web (WWW) was invented by:
+#Options#
+Bill Gates
+Tim Berners-Lee**
+Steve Jobs
+Charles Babbage
+Alan Turing
+
+#Q63. A word or phrase or image that you click to jump to another page is called a:
+#Options#
+Web page
+Browser
+Hyperlink**
+Protocol
+Server
+
+#Q64. The address of a website typed in the browser's address bar is its:
+#Options#
+HTML
+HTTP
+WWW
+URL**
+
+
+#Q65. In the URL https://www.google.com, the domain name is:
+#Options#
+https
+www
+com
+google
+google.com**
+
+#Q66. In a web address, "https" means the connection is:
+#Options#
+Secure and encrypted**
+Unsafe
+Slow
+Free
+Blocked
+
+#Q67. Which of the following is a valid web address (URL) format?
+#Options#
+www.example
+https://www.example.com**
+example
+com.example
+//example
+
+#Q68. Which device is commonly used to connect a computer to the Internet at home?
+#Options#
+Printer
+Scanner
+Modem or router**
+Projector
+Speaker
+
+#Q69. Web pages on the Internet are written mainly in:
+#Options#
+C++
+Java
+Python
+HTML**
+Pascal
+
+#Q70. A search engine finds web pages by:
+#Options#
+Storing them on a CD
+Asking users to type URLs
+Using satellite signals
+Browsing email
+Searching and indexing the web using keywords**
+
+#Q71. Which software is commonly used for remote login and remote computer access?
+#Options#
+AnyDesk**
+Notepad
+Calculator
+Paint
+VLC
+
+#Q72. AnyDesk is mainly used to:
+#Options#
+Edit photos
+Control a computer from a remote location**
+Play games
+Record audio
+Write documents
+
+#Q73. Which of the following is a video conferencing tool?
+#Options#
+Google Search
+Google Chrome
+Google Meet**
+Google Drive
+Google Maps
+
+#Q74. Zoom and Microsoft Teams are commonly used for:
+#Options#
+Designing graphics
+Compiling programs
+Storing files
+Video conferencing and online meetings**
+Browsing the web
+
+#Q75. In an online meeting, the "Mute" button is used to:
+#Options#
+Turn off your camera
+End the meeting
+Share the screen
+Record the meeting
+Turn off your microphone**
+
+#Q76. Remote desktop software allows a person to:
+#Options#
+Access and control another computer over the Internet**
+Print documents on a network
+Play CD-ROMs
+Defragment the hard disk
+Install drivers
+
+#Q77. Which of the following is NOT a remote access tool?
+#Options#
+AnyDesk
+Paint**
+TeamViewer
+Chrome Remote Desktop
+AnyDesk Remote
+
+#Q78. Which tool is often used for screen sharing during an online class?
+#Options#
+Notepad
+Calculator
+Zoom**
+Paint
+Word Processor
+
+#Q79. Remote access between two computers generally requires:
+#Options#
+A printer
+A scanner
+A projector
+An Internet connection between both computers**
+A television
+
+#Q80. Which of the following is NOT a video conferencing application?
+#Options#
+Google Meet
+Zoom
+Microsoft Teams
+Skype
+Notepad**
+
+#Q81. UI stands for:
+#Options#
+User Interface**
+User Internet
+Universal Interface
+User Input
+Under Interface
+
+#Q82. UX stands for:
+#Options#
+User External
+User Experience**
+Universal Experience
+User Expression
+Unified Extension
+
+#Q83. The main purpose of UX design is to:
+#Options#
+Write computer programs
+Increase Internet speed
+Improve the user's overall experience**
+Create databases
+Design microchips
+
+#Q84. The main purpose of UI design is to:
+#Options#
+Manage network cables
+Write HTML documents
+Compile code
+Design the visual layout the user interacts with**
+Test hardware
+
+#Q85. A wireframe is best described as:
+#Options#
+A finished, fully coded website
+A type of web server
+A programming language
+A search engine
+A basic visual layout or skeleton of a webpage or app**
+
+#Q86. Social media is best described as a platform for:
+#Options#
+Sharing content and interacting with others online**
+Storing hardware components
+Installing software
+Compiling programs
+Sending physical mail
+
+#Q87. Sharing your password publicly on social media is:
+#Options#
+A safe practice
+An unsafe practice**
+Required by law
+Entertainment
+Recommended by teachers
+
+#Q88. Which of the following is a social media platform?
+#Options#
+Chrome
+Notepad
+Facebook**
+Windows
+PowerPoint
+
+#Q89. A blog is best described as:
+#Options#
+A type of hardware
+A search engine
+An email address
+A website with regularly updated articles or posts**
+A computer virus
+
+#Q90. Using the Internet to harass or threaten someone is called:
+#Options#
+Browsing
+Downloading
+Uploading
+
+Cyberbullying**
+
+#Q91. Which of the following is a good password practice?
+#Options#
+Using a strong, unique password**
+Using your date of birth
+Sharing it with friends
+Using 'password' as your password
+Keeping the same password for every account
+
+#Q92. Clicking unknown links from suspicious websites is:
+#Options#
+Usually safe
+Unsafe and should be avoided**
+Required for studying
+A good way to earn money
+Recommended by experts
+
+#Q93. Which action helps protect your privacy online?
+#Options#
+Posting your address online
+Sending passwords to friends
+Not sharing personal details publicly**
+Accepting every friend request
+Sharing your phone number
+
+#Q94. A "digital footprint" is best described as:
+#Options#
+A type of computer virus
+A software update
+A storage device
+The trail of data you leave behind online**
+A web browser
+
+#Q95. Which is a benefit of the Internet for students?
+#Options#
+Wasting time on games only
+Sending physical letters
+Increasing pollution
+Slowing down computers
+Access to information and educational resources**
+
+#Q96. WDLC stands for:
+#Options#
+Web Development Life Cycle**
+Web Design and Layout Concept
+Web Data Link Control
+Web Document Language Code
+Web Development Language Cycle
+
+#Q97. The first step in the WDLC is usually:
+#Options#
+Debugging
+Planning and analysis**
+Testing
+Maintenance
+Publishing
+
+#Q98. In WDLC, the designing step mainly involves:
+#Options#
+Writing the final code
+Fixing bugs
+Creating the layout, wireframe or prototype**
+Promoting the site
+Buying hardware
+
+#Q99. In WDLC, the step where the website is actually coded is called:
+#Options#
+Planning
+Testing
+Maintenance
+Implementation or development**
+Analysis
+
+#Q100. Testing a website is done to:
+#Options#
+Delete the old website
+Sell the website
+Design the layout
+Choose colours
+Check that it works correctly without errors**
+
+#Q101. Publishing or deployment of a website means:
+#Options#
+Making the website available on the Internet**
+Writing the HTML code
+Designing wireframes
+Testing the code
+Collecting requirements
+
+#Q102. Which of the following is a step in the WDLC?
+#Options#
+Printing
+Maintenance**
+Drawing
+Singing
+Saving money
+
+#Q103. A web developer mainly uses which languages to build a basic website?
+#Options#
+Python and C++
+C++ and Pascal
+HTML, CSS and JavaScript**
+SQL and Excel
+Photoshop and Paint
+
+#Q104. Updating a website regularly to keep it working is part of:
+#Options#
+Planning
+Designing
+Testing
+Maintenance**
+Analysis
+
+#Q105. A good website should be:
+#Options#
+Very slow and confusing
+Full of pop-up ads
+With no text
+Impossible to open
+Easy to navigate and fast to load**
+
+#Q106. Which HTML tag is used to write JavaScript inside a web page?
+#Options#
+<script>**
+<javascript>
+<code>
+<run>
+<js>
+
+#Q107. Which keyboard key refreshes or reloads a web page?
+#Options#
+F1
+F5**
+F12
+F3
+Esc
+
+#Q108. HTML files are usually saved with the file extension:
+#Options#
+.pdf
+.jpg
+.html**
+.docx
+.exe
+
+#Q109. Which of the following is a top-level domain?
+#Options#
+www
+http
+html
+.com**
+css
+
+#Q110. An ordered list in HTML displays items with:
+#Options#
+Circles
+Squares
+Dashes
+Check marks
+Numbers**
+

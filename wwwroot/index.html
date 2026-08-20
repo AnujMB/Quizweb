@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Quiz</title>
+<link rel="stylesheet" href="css/app.css">
+</head>
+<body>
+<header id="topbar">
+  <div class="topbar-inner">
+    <div id="tb-title" class="tb-title">Quiz</div>
+    <div id="tb-counter" class="tb-counter" hidden>Question 1 of 1</div>
+    <div class="tb-right">
+      <div id="tb-timer" class="tb-timer" hidden>00:00</div>
+      <div class="zoom-group">
+        <button id="btn-zoom-out" class="icon-btn" title="Zoom out" type="button">&minus;</button>
+        <span id="zoom-label" class="zoom-label">100%</span>
+        <button id="btn-zoom-in" class="icon-btn" title="Zoom in" type="button">+</button>
+      </div>
+    </div>
+  </div>
+</header>
+
+<main id="main">
+  <!-- ============ START SCREEN ============ -->
+  <section id="view-start" class="view">
+    <div class="card start-card">
+      <h1 id="quiz-title">Quiz</h1>
+      <div id="quiz-info" class="quiz-info"></div>
+      <p class="subtitle">Enter your details to begin.</p>
+      <div class="fields">
+        <label>Student Name
+          <input id="in-name" type="text" maxlength="40" autocomplete="off" spellcheck="false">
+        </label>
+        <label>Class
+          <input id="in-class" type="text" maxlength="20" autocomplete="off" spellcheck="false">
+        </label>
+        <label>Section
+          <input id="in-section" type="text" maxlength="20" autocomplete="off" spellcheck="false">
+        </label>
+      </div>
+      <div id="taken-banner" class="banner banner-warn" hidden></div>
+      <div id="load-error" class="banner banner-error" hidden></div>
+      <div class="actions">
+        <button id="btn-start" class="primary" disabled type="button">Start Quiz</button>
+        <button id="btn-results" class="ghost" type="button" hidden>View Results</button>
+        <button id="btn-import" class="ghost" type="button" hidden>Import Questions</button>
+      </div>
+      <p class="hint" id="hint-time"></p>
+    </div>
+  </section>
+
+  <!-- ============ QUIZ / REVIEW SCREEN ============ -->
+  <section id="view-quiz" class="view" hidden>
+    <div class="quiz-layout">
+      <aside id="passage-pane" class="passage-pane" hidden>
+        <div id="passage-text" class="passage-text"></div>
+      </aside>
+      <div class="quiz-main">
+        <div id="review-status" class="review-status" hidden></div>
+        <div id="question-text" class="question-text"></div>
+        <div id="image-wrap" class="image-wrap" hidden>
+          <img id="question-image" alt="Question image">
+          <div id="image-resize" class="image-resize" title="Drag to resize"></div>
+        </div>
+        <div id="options" class="options"></div>
+        <div class="nav">
+          <button id="btn-prev" class="nav-btn" type="button" disabled>&larr; Prev</button>
+          <button id="btn-next" class="primary nav-btn" type="button">Next &rarr;</button>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ SCORE SCREEN ============ -->
+  <section id="view-score" class="view" hidden>
+    <div class="card score-card">
+      <div id="score-banner" class="score-banner"></div>
+      <div class="actions">
+        <button id="btn-review" class="primary" type="button">Review Answers</button>
+        <button id="btn-finish" class="ghost" type="button">Finish</button>
+      </div>
+      <p id="save-note" class="hint" hidden></p>
+    </div>
+  </section>
+
+  <!-- ============ RESULTS SCREEN ============ -->
+  <section id="view-results" class="view" hidden>
+    <div class="card results-card">
+      <div class="results-top">
+        <h1>Student Results</h1>
+        <button id="btn-back-results" class="ghost" type="button">&larr; Back</button>
+      </div>
+      <label class="picker">Student
+        <select id="student-select"></select>
+      </label>
+      <div id="results-body"></div>
+    </div>
+  </section>
+</main>
+
+<!-- ============ MODAL ============ -->
+<div id="modal-backdrop" class="modal-backdrop" hidden>
+  <div class="modal">
+    <div id="modal-title" class="modal-title"></div>
+    <div id="modal-text" class="modal-text"></div>
+    <div class="modal-actions">
+      <button id="modal-no" class="ghost" type="button">No</button>
+      <button id="modal-yes" class="primary" type="button">Yes</button>
+    </div>
+  </div>
+</div>
+
+<input type="file" id="import-file" accept=".csv,text/csv" hidden>
+
+<script src="js/app.js"></script>
+</body>
+</html>

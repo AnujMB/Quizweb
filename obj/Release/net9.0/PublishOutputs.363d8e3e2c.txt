@@ -1,0 +1,16 @@
+C:\Users\Anuj\AppData\Local\Temp\quizweb_pub_fresh\QuizWeb.exe
+C:\Users\Anuj\AppData\Local\Temp\quizweb_pub_fresh\publish\web.config
+C:\Users\Anuj\AppData\Local\Temp\quizweb_pub_fresh\publish\QuizWeb.deps.json
+C:\Users\Anuj\AppData\Local\Temp\quizweb_pub_fresh\publish\QuizWeb.runtimeconfig.json
+C:\Users\Anuj\AppData\Local\Temp\quizweb_pub_fresh\publish\QuizWeb.staticwebassets.endpoints.json
+C:\Users\Anuj\AppData\Local\Temp\quizweb_pub_fresh\config.txt
+C:\Users\Anuj\AppData\Local\Temp\quizweb_pub_fresh\images\pendulum.png
+C:\Users\Anuj\AppData\Local\Temp\quizweb_pub_fresh\images\triangle.png
+C:\Users\Anuj\AppData\Local\Temp\quizweb_pub_fresh\questions_template.csv
+C:\Users\Anuj\AppData\Local\Temp\quizweb_pub_fresh\questions_template.xlsx
+C:\Users\Anuj\AppData\Local\Temp\quizweb_pub_fresh\start-server.cmd
+C:\Users\Anuj\AppData\Local\Temp\quizweb_pub_fresh\USER_GUIDE.md
+C:\Users\Anuj\AppData\Local\Temp\quizweb_pub_fresh\QuizWeb.dll
+C:\Users\Anuj\AppData\Local\Temp\quizweb_pub_fresh\QuizWeb.deps.json
+C:\Users\Anuj\AppData\Local\Temp\quizweb_pub_fresh\QuizWeb.runtimeconfig.json
+C:\Users\Anuj\AppData\Local\Temp\quizweb_pub_fresh\QuizWeb.pdb

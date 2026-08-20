@@ -1,0 +1,87 @@
+Class: 9
+Subject: English
+Exam Type: First Term
+
+#Passage: The water cycle, also known as the hydrologic cycle, describes how water evaporates from the surface of the earth, rises into the atmosphere, cools and condenses into rain or snow in clouds, and falls again to the surface as precipitation. The water that falls on land collects in rivers, lakes and underground aquifers, and much of it eventually flows back to the oceans, where the cycle begins again. The sun is the main driver of the water cycle because its heat causes evaporation. Without the water cycle, fresh water would not be replaced and life on land could not survive.
+#Q1. What is the main source of energy that drives the water cycle?
+#Options#
+The moon
+The sun**
+The wind
+The earth's core
+#Q2. By which process does liquid water turn into water vapour?
+#Options#
+Condensation
+Precipitation
+Evaporation**
+Infiltration
+#Q3. Where does the water that falls on land eventually collect?
+#Options#
+Only in the oceans
+In rivers, lakes and underground aquifers**
+Only in the atmosphere
+It never returns to the land
+#Q4. What happens when water vapour rises and cools in the atmosphere?
+#Options#
+It condenses to form clouds and precipitation**
+It turns into solid rock
+It disappears permanently
+It stays as vapour forever
+
+#Passage: The Solar System consists of the Sun and everything that orbits around it, including eight planets, their moons, dwarf planets, asteroids and comets. The planets in order from the Sun are Mercury, Venus, Earth, Mars, Jupiter, Saturn, Uranus and Neptune. The four planets closest to the Sun are small and rocky, while the four outer planets are much larger and mostly made of gas. Asteroids are rocky objects that orbit the Sun, mostly between the orbits of Mars and Jupiter in a region called the asteroid belt. Comets are made of ice and dust and grow long glowing tails when they come close to the Sun.
+#Q5. How many planets are there in the Solar System?
+#Options#
+Six
+Seven
+Eight**
+Nine
+#Q6. Which planet is the largest in the Solar System?
+#Options#
+Saturn
+Jupiter**
+Neptune
+Earth
+#Q7. Where is the asteroid belt located?
+#Options#
+Beyond the orbit of Neptune
+Between Mars and Jupiter**
+Between Mercury and Venus
+Around the Moon
+#Q8. What are comets mostly made of?
+#Options#
+Rock and metal
+Ice and dust**
+Hot gas and lava
+Glass and sand
+#Q9. Which group of planets is small and rocky?
+#Options#
+The four planets closest to the Sun**
+The four outer planets
+The dwarf planets
+The moons of Jupiter
+#EndPassage
+
+#Q10. Which of these are primary colors? (Select all that apply)
+#Options#
+Red**
+Green
+Blue**
+Yellow**
+Orange
+Purple
+
+#Q11. What is the length of side c in the right triangle?
+#Image: images\triangle.png
+#Options#
+c = a + b
+c = a × b
+c = √(a² + b²)**
+c = a² + b²
+
+#Q12. What is the time period of a pendulum of length 1.5 m? (g = 9.8 m/s²)
+#Image: images\pendulum.png
+#Options#
+T ≈ 2.46 s**
+T ≈ 1.23 s
+T ≈ 4.92 s
+T ≈ 0.78 s

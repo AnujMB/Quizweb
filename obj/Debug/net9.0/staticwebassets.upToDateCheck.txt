@@ -1,0 +1,6 @@
+D:\anuj\opnsrc_try\ai\QuizWeb\wwwroot\index.html
+D:\anuj\opnsrc_try\ai\QuizWeb\wwwroot\css\app.css
+D:\anuj\opnsrc_try\ai\QuizWeb\wwwroot\js\app.js
+wwwroot\css\app.css
+wwwroot\index.html
+wwwroot\js\app.js

@@ -1,0 +1,7 @@
+Time=6
+NegativeMarking=25%
+resultFile=Result.txt
+allowResultViewing=true
+allowImport=false
+allowReview=true
+Port=5000
