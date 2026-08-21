@@ -4,4 +4,5 @@ resultFile=Result.txt
 allowResultViewing=true
 allowImport=true
 allowReview=true
+allowAnswerDetails=true
 Port=5000

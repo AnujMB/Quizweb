@@ -44,6 +44,7 @@ All your settings are in one small text file called **config.txt**, in the same 
 | `allowResultViewing=true` | Shows the **View Results** button. Set to `false` to hide it from students. | `allowResultViewing=false` |
 | `allowImport=true` | Shows the **Import Questions** button. Set to `false` to hide it from students. | `allowImport=false` |
 | `allowReview=true` | Shows the **Review Answers** button (after the quiz). Set to `false` to hide it from students. | `allowReview=false` |
+| `allowAnswerDetails=true` | In **View Results**, shows each student's detailed answers (question by question). Set to `false` to show only the student list in the dropdown, with no answer details. | `allowAnswerDetails=false` |
 | `Port=5000` | Part of the web address. Leave it alone unless the address does not work. | `Port=5000` |
 | `resultFile=Result.txt` | The file where results are saved. Leave it alone. | `resultFile=Result.txt` |
 

@@ -14,6 +14,7 @@ public sealed class QuizConfig
     public bool AllowResultViewing { get; private set; } = true;
     public bool AllowImport { get; private set; } = true;
     public bool AllowReview { get; private set; } = true;
+    public bool AllowAnswerDetails { get; private set; } = true;
     public int? Port { get; private set; }
 
     public string ResultPath(string dataDir)
@@ -58,6 +59,10 @@ public sealed class QuizConfig
             else if (key.Equals("allowReview", StringComparison.OrdinalIgnoreCase))
             {
                 c.AllowReview = !IsFalseValue(val);
+            }
+            else if (key.Equals("allowAnswerDetails", StringComparison.OrdinalIgnoreCase))
+            {
+                c.AllowAnswerDetails = !IsFalseValue(val);
             }
             else if (key.Equals("Port", StringComparison.OrdinalIgnoreCase)
                      && int.TryParse(val, out int port) && port is > 0 and < 65536)

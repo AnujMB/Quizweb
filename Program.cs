@@ -78,6 +78,7 @@ app.MapGet("/api/config", () => Results.Ok(new
     allowResultViewing = config.AllowResultViewing,
     allowImport = config.AllowImport,
     allowReview = config.AllowReview,
+    allowAnswerDetails = config.AllowAnswerDetails,
     subject = quizInfo.Subject,
     className = quizInfo.Class,
     examType = quizInfo.ExamType,
@@ -179,6 +180,8 @@ app.MapGet("/api/results/students", () =>
 app.MapGet("/api/results/detail", (string name, string className, string section) =>
 {
     if (!config.AllowResultViewing)
+        return Results.StatusCode(StatusCodes.Status403Forbidden);
+    if (!config.AllowAnswerDetails)
         return Results.StatusCode(StatusCodes.Status403Forbidden);
     var rows = ResultFile.LoadResults(config.ResultPath(dataDir));
     var match = rows.FirstOrDefault(r =>

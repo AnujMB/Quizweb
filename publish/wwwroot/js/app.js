@@ -526,10 +526,21 @@ async function submitQuiz(confirmFirst) {
   }
 }
 
+/* --------------------------- submit anyway --------------------------- */
+async function submitAnywayClicked() {
+  if (state.submitting || state.review) return;
+  const ok = await confirmDialog(
+    "Final Submission",
+    "Submitting will finalize your answers.\nYou will not be able to go back and revise.\n\nDo you want to submit?"
+  );
+  if (ok) submitQuiz(false);
+}
+
 /* ------------------------------ score view ------------------------------ */
 function showScore(res) {
   $("tb-counter").hidden = true;
   $("tb-timer").hidden = true;
+  $("btn-submit-anyway").hidden = true;
   const info = quizHeaderInfo();
   let banner = state.student.name + "  |  Class: " + state.student.className +
     "  |  Section: " + state.student.section;
@@ -559,6 +570,7 @@ function startReview() {
   state.index = 0;
   $("tb-counter").hidden = false;
   $("tb-timer").hidden = true;
+  $("btn-submit-anyway").hidden = true;
   showView("quiz");
   renderQuestion();
 }
@@ -629,6 +641,7 @@ function beginQuiz() {
   $("taken-banner").hidden = true;
   $("tb-counter").hidden = false;
   $("tb-timer").hidden = false;
+  $("btn-submit-anyway").hidden = false;
   showView("quiz");
   renderQuestion();
   startTimer();
@@ -640,6 +653,11 @@ async function openResults() {
     const students = await api("/api/results/students");
     const sel = $("student-select");
     sel.innerHTML = "";
+    state.resultsStudents = students;
+    state.resultsSortKey = null;
+    state.resultsSortDir = 1;
+    $("results-table-wrap").hidden = true;
+    $("results-table-btn-text").textContent = "Show Student Table";
     if (students.length === 0) {
       $("results-body").innerHTML = "<p class='hint'>No student results found yet.</p>";
     } else {
@@ -656,6 +674,8 @@ async function openResults() {
       });
       sel.selectedIndex = 0;
     }
+    $("btn-results-table").hidden = students.length === 0;
+    renderResultsTable();
     showView("results");
     renderStudentDetail();
   } catch (err) {
@@ -663,10 +683,77 @@ async function openResults() {
   }
 }
 
+function resultsSortValue(key, s) {
+  if (key === "marks") return s.marks;
+  const v = s[key];
+  return (v == null ? "" : String(v)).toLowerCase();
+}
+
+function renderResultsTable() {
+  const key = state.resultsSortKey;
+  const dir = state.resultsSortDir;
+  let rows = state.resultsStudents.slice();
+  if (key) {
+    rows.sort((a, b) => {
+      const av = resultsSortValue(key, a);
+      const bv = resultsSortValue(key, b);
+      if (av < bv) return -1 * dir;
+      if (av > bv) return 1 * dir;
+      return 0;
+    });
+  }
+  const tb = $("results-tbody");
+  tb.innerHTML = "";
+  rows.forEach((s) => {
+    const tr = document.createElement("tr");
+    const cells = [s.name, s.marks.toFixed(2), s.ipAddress || "N/A", s.class, s.section];
+    cells.forEach((c) => {
+      const td = document.createElement("td");
+      td.textContent = c;
+      tr.appendChild(td);
+    });
+    tb.appendChild(tr);
+  });
+  document.querySelectorAll(".results-table thead th").forEach((th) => {
+    const arrow = th.querySelector(".sort-arrow");
+    if (th.dataset.sort === key) arrow.textContent = dir > 0 ? " \u25B2" : " \u25BC";
+    else arrow.textContent = "";
+  });
+}
+
+function resultsTableHeaderClicked(th) {
+  const key = th.dataset.sort;
+  if (!key) return;
+  if (state.resultsSortKey === key) state.resultsSortDir *= -1;
+  else { state.resultsSortKey = key; state.resultsSortDir = 1; }
+  renderResultsTable();
+}
+
+function toggleResultsTable() {
+  const wrap = $("results-table-wrap");
+  wrap.hidden = !wrap.hidden;
+  $("results-table-btn-text").textContent = wrap.hidden ? "Show Student Table" : "Hide Student Table";
+  if (!wrap.hidden) renderResultsTable();
+}
+
 async function renderStudentDetail() {
   const sel = $("student-select");
   const opt = sel.selectedOptions[0];
   $("results-body").innerHTML = "";
+  // When answer details are disabled by config, show only the student list
+  // in the dropdown and keep the detail area hidden (no details fetched).
+  if (state.config && !state.config.allowAnswerDetails) {
+    $("results-body").hidden = true;
+    if (opt) {
+      const hint = document.createElement("p");
+      hint.className = "hint";
+      hint.textContent = "Answer details are disabled by the teacher.";
+      $("results-body").appendChild(hint);
+      $("results-body").hidden = false;
+    }
+    return;
+  }
+  $("results-body").hidden = false;
   if (!opt) return;
   try {
     const d = await api("/api/results/detail?name=" + encodeURIComponent(opt.dataset.name) +
@@ -775,6 +862,7 @@ function resetToStart() {
   $("btn-exit-taken").hidden = true;
   $("tb-counter").hidden = true;
   $("tb-timer").hidden = true;
+  $("btn-submit-anyway").hidden = true;
   toggleStart();
   showView("start");
 }
@@ -811,6 +899,7 @@ async function init() {
   $("btn-next").addEventListener("click", nextClicked);
   $("btn-zoom-in").addEventListener("click", () => changeZoom(0.1));
   $("btn-zoom-out").addEventListener("click", () => changeZoom(-0.1));
+  $("btn-submit-anyway").addEventListener("click", submitAnywayClicked);
   $("btn-review").addEventListener("click", startReview);
   $("btn-finish").addEventListener("click", async () => {
     const ok = await confirmDialog("Exit Quiz", "Do you want to exit the quiz?");
@@ -824,6 +913,9 @@ async function init() {
     e.target.value = "";
   });
   $("student-select").addEventListener("change", renderStudentDetail);
+  $("btn-results-table").addEventListener("click", toggleResultsTable);
+  document.querySelectorAll(".results-table thead th").forEach((th) =>
+    th.addEventListener("click", () => resultsTableHeaderClicked(th)));
 
   try {
     state.config = await api("/api/config");

@@ -113,4 +113,9 @@ D:\anuj\opnsrc_try\ai\QuizWeb_Manual\obj\Release\net9.0\refint\QuizWeb.dll
 D:\anuj\opnsrc_try\ai\QuizWeb_Manual\obj\Release\net9.0\QuizWeb.pdb
 D:\anuj\opnsrc_try\ai\QuizWeb_Manual\obj\Release\net9.0\QuizWeb.genruntimeconfig.cache
 D:\anuj\opnsrc_try\ai\QuizWeb_Manual\obj\Release\net9.0\ref\QuizWeb.dll
-D:\anuj\opnsrc_try\ai\QuizWeb_Manual\obj\Release\net9.0\compressed\usu22hziqv-03aahdy527.gz
+D:\anuj\opnsrc_try\ai\QuizWeb_Manual\bin\Release\net9.0\publish\publish\web.config
+D:\anuj\opnsrc_try\ai\QuizWeb_Manual\bin\Release\net9.0\publish\publish\QuizWeb.deps.json
+D:\anuj\opnsrc_try\ai\QuizWeb_Manual\bin\Release\net9.0\publish\publish\QuizWeb.runtimeconfig.json
+D:\anuj\opnsrc_try\ai\QuizWeb_Manual\bin\Release\net9.0\publish\publish\QuizWeb.staticwebassets.endpoints.json
+D:\anuj\opnsrc_try\ai\QuizWeb_Manual\obj\Release\net9.0\QuizWeb.sourcelink.json
+D:\anuj\opnsrc_try\ai\QuizWeb_Manual\obj\Release\net9.0\compressed\usu22hziqv-4qms9nk4sj.gz
