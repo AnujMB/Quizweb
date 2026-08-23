@@ -81,19 +81,25 @@ if (Directory.Exists(imagesDir))
     });
 }
 
-app.MapGet("/api/config", () => Results.Ok(new
+app.MapGet("/api/config", () =>
 {
-    timeMinutes = config.TimeMinutes,
-    negativeMarkingPct = config.NegativeMarkingPct,
-    allowResultViewing = config.AllowResultViewing,
-    allowImport = config.AllowImport,
-    allowReview = config.AllowReview,
-    allowAnswerDetails = config.AllowAnswerDetails,
-    subject = quizInfo.Subject,
-    className = quizInfo.Class,
-    examType = quizInfo.ExamType,
-    resultFile = config.ResultFile
-}));
+    var q = QuestionBank.Load(dataDir);
+    int totalQuestions = q.Found ? q.Questions.Count : bank.Questions.Count;
+    return Results.Ok(new
+    {
+        timeMinutes = config.TimeMinutes,
+        negativeMarkingPct = config.NegativeMarkingPct,
+        totalQuestions,
+        allowResultViewing = config.AllowResultViewing,
+        allowImport = config.AllowImport,
+        allowReview = config.AllowReview,
+        allowAnswerDetails = config.AllowAnswerDetails,
+        subject = quizInfo.Subject,
+        className = quizInfo.Class,
+        examType = quizInfo.ExamType,
+        resultFile = config.ResultFile
+    });
+});
 
 app.MapGet("/api/questions", () =>
 {

@@ -5,6 +5,6 @@ allowResultViewing=true
 allowImport=false
 allowReview=true
 allowAnswerDetails=true
-# Folder for this quiz (e.g. Math, Nepali_ThirdCycleTest). Leave empty to use publish/ root.
-quizFolder=Math
+# Folder for this quiz (e.g. Math, Radhika_Nepali). Leave empty to use publish/ root.
+quizFolder=
 Port=5000

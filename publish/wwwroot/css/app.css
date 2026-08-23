@@ -270,6 +270,12 @@ button:disabled { opacity: .45; cursor: not-allowed; }
   margin: 16px 0 0;
 }
 
+.hint--meta {
+  color: var(--text);
+  font-size: calc(14px * var(--zoom));
+  font-weight: 600;
+}
+
 /* ---------- Quiz layout ---------- */
 .quiz-layout {
   display: grid;

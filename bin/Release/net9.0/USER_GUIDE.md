@@ -89,6 +89,29 @@ Your questions are in an Excel file called **questions.xlsx** (in the same folde
 
 ---
 
+## Part 5B — Multiple teachers / subjects (folder per quiz) — long-term setup
+
+When many teachers share the same host, keep each quiz in its own folder so results never mix.
+
+**How it works:**
+* `config.txt` stays in `publish/` next to `QuizWeb.exe`.
+* Each quiz lives in a subfolder — any name you like, e.g. `Math`, `sanjaya`, `Radhika_Nepali` (letters, digits, `_` `-` and space only). Inside that folder put its own `questions.xlsx` (and optional `images/`).
+* Tell the app which folder to use: add one line to `publish/config.txt`:
+  ```
+  quizFolder=Math
+  ```
+  or `quizFolder=Radhika_Nepali`. Leave it empty or delete the line to use the root `publish/` itself (old behaviour).
+* Restart `QuizWeb.exe`. The black window now shows `Folder: Math`. All reading and saving uses that folder: `Math/questions.xlsx` is served, answers go to `Math/Result.txt`, `Math/images/` is served, and **View Results** shows only that folder's students. `Radhika_Nepali/Result.txt` stays untouched.
+
+**Workflow:**
+1. In `publish/`, copy the empty `TEMPLATE` folder (or just create `Math/`) and put the subject's `questions.xlsx` inside.
+2. Edit `config.txt` → `quizFolder=Math` → Save → restart.
+3. After the exam, keep the folder as archive, or duplicate it for the next exam. To run Science next, set `quizFolder=Science` and restart — no file is overwritten.
+
+**Rules:** Folder name is sanitized to first segment before `/`/`\`, max 50 chars, `..` blocked. If the folder doesn't exist it is created. If it has no `questions.xlsx`, the start screen shows `No questions file found`. The `publish/` examples `Math/` and `Radhika_Nepali/` are already there for you to copy.
+
+---
+
 ## Quick help
 
 - **Students cannot open the page?** Check the address is exactly what the black window shows, and that students are on the same school network. Check that you clicked **Allow** when Windows asked about the app.
@@ -105,7 +128,7 @@ Your questions are in an Excel file called **questions.xlsx** (in the same folde
 
 * Single self-contained Kestrel server (`QuizWeb.exe`, `Program.cs:40`) serves static files from `publish/wwwroot` and an `images/` folder (`Program.cs:61`). Binds `http://0.0.0.0:{Port}` (default `5000`, `config.txt: Port=5000`). No database — questions from `questions.xlsx` (preferred) or `questions.txt`, results appended to `Result.txt` (`Data/ResultFile.cs`).
 * Scoring is **server-side** (`Services/QuizEngine.cs:92`): client sends only selected letters (`A`, `B&D`), server recomputes `correct/wrong/marks` from the bank. Editing JS cannot inflate marks.
-* Data files (`config.txt`, `questions.xlsx`, `Result.txt`) live next to the exe and are **not** web-served — only `wwwroot` + `/images` are exposed (`Program.cs:64`).
+* Data files live next to the exe and are **not** web-served — only `wwwroot` + `/images` are exposed (`Program.cs:64`). When `quizFolder` is set (`Services/QuizConfig.cs:18`, `Program.cs:35`), the effective data folder becomes `publish/<quizFolder>/` — so `publish/Math/questions.xlsx` → `publish/Math/Result.txt` + `publish/Math/images/` are used; `publish/config.txt` itself stays in the root. Empty `quizFolder` = root (backward compatible).
 
 ### 2. Config flags (server-enforced, restart required)
 
@@ -117,7 +140,8 @@ Your questions are in an Excel file called **questions.xlsx** (in the same folde
 | `allowReview` | `config.txt` | Gates `POST /api/submit` `review` field. Hides **Review Answers** button. When `false`, no correct answers ever leave the server. |
 | `allowAnswerDetails` | `config.txt` | Gates `GET /api/results/detail` → `403` if `false`. Hides answer blocks in results view. |
 | `allowImport` | `config.txt` | Gates `POST /api/import` → `403`. In `publish` set `false`. |
-| `Port` / `resultFile` | `config.txt` | Network/file location. |
+| `quizFolder` | `config.txt` | Subfolder for this quiz (`Math`, `Radhika_Nepali`). Empty = root. Sanitized to `a-z0-9 _-`, first segment only, `..` blocked. Creates folder if missing. |
+| `Port` / `resultFile` | `config.txt` | Network/file location. `resultFile` is relative to `quizFolder` when set. |
 
 ### 3. APIs (base `http://<host-ip>:5000`)
 

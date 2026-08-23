@@ -69,6 +69,19 @@ function infoDialog(title, text) {
 function sanitize(value) {
   return value.replace(/[^A-Za-z0-9 .'\-]/g, "");
 }
+function sanitizeClass(value) {
+  return value.replace(/[^0-9]/g, "").slice(0, 2);
+}
+function sanitizeSection(value) {
+  return value.replace(/[^A-Za-z]/g, "").slice(0, 1).toUpperCase();
+}
+function sanitizeFor(el, value) {
+  if (el.id === "in-class") return sanitizeClass(value);
+  if (el.id === "in-section") return sanitizeSection(value);
+  // name: allow 60 chars max, filtered
+  if (el.id === "in-name") return sanitize(value).slice(0, 60);
+  return sanitize(value);
+}
 
 function escapeHtml(value) {
   return String(value)
@@ -81,7 +94,7 @@ function escapeHtml(value) {
 
 function wireStudentInput(el) {
   el.addEventListener("input", () => {
-    const clean = sanitize(el.value);
+    const clean = sanitizeFor(el, el.value);
     if (clean !== el.value) {
       const pos = el.selectionStart;
       el.value = clean;
@@ -91,12 +104,13 @@ function wireStudentInput(el) {
   });
   el.addEventListener("paste", (e) => {
     e.preventDefault();
-    const text = sanitize((e.clipboardData || window.clipboardData).getData("text") || "");
+    const text = sanitizeFor(el, (e.clipboardData || window.clipboardData).getData("text") || "");
     const start = el.selectionStart, end = el.selectionEnd;
     const val = el.value.slice(0, start) + text + el.value.slice(end);
-    el.value = val;
+    // re-sanitize after splice (enforces max length)
+    el.value = sanitizeFor(el, val);
     const pos = start + text.length;
-    el.selectionStart = el.selectionEnd = pos;
+    el.selectionStart = el.selectionEnd = Math.min(pos, el.value.length);
     toggleStart();
   });
 }
@@ -733,8 +747,12 @@ function renderResultsTable() {
   tb.innerHTML = "";
   rows.forEach((s) => {
     const tr = document.createElement("tr");
-    const cells = [s.name, s.marks.toFixed(2), s.ipAddress || "N/A", s.class, s.section];
-    cells.forEach((c) => {
+    const displayName = s.name.length > 40 ? s.name.slice(0, 40) + "..." : s.name;
+    const nameTd = document.createElement("td");
+    nameTd.textContent = displayName;
+    if (s.name.length > 40) nameTd.title = s.name;
+    tr.appendChild(nameTd);
+    [s.marks.toFixed(2), s.ipAddress || "N/A", s.class, s.section].forEach((c) => {
       const td = document.createElement("td");
       td.textContent = c;
       tr.appendChild(td);
@@ -1017,13 +1035,18 @@ async function init() {
     const infoParts = [];
     if (state.quizInfo.subject) infoParts.push(state.quizInfo.subject);
     if (state.quizInfo.className) infoParts.push("Class " + state.quizInfo.className);
-    if (state.quizInfo.examType) infoParts.push(state.quizInfo.examType);
     $("quiz-info").textContent = infoParts.join("  •  ");
 
-    $("hint-time").textContent = "Time: " + state.config.timeMinutes + " min" +
-      (state.config.negativeMarkingPct > 0
-        ? "  |  Negative marking: " + Math.round(state.config.negativeMarkingPct) + "%"
-        : "");
+    const tq = state.config.totalQuestions;
+    const hintEl = $("hint-time");
+    hintEl.classList.add("hint--meta");
+    let html = "";
+    if (typeof tq === "number" && tq > 0) html += "Number of questions: " + tq;
+    html += (html ? "  |  " : "") + "Time: " + state.config.timeMinutes + " min";
+    if (state.config.negativeMarkingPct > 0) {
+      html += '  |  <span style="color:var(--red);font-weight:700">Negative marking: ' + Math.round(state.config.negativeMarkingPct) + '%</span>';
+    }
+    hintEl.innerHTML = html;
 
     $("btn-results").hidden = !state.config.allowResultViewing;
     $("btn-import").hidden = !state.config.allowImport;
