@@ -736,6 +736,61 @@ function toggleResultsTable() {
   if (!wrap.hidden) renderResultsTable();
 }
 
+async function refreshResults() {
+  const btn = $("btn-results-refresh");
+  if (btn.disabled) return;
+  btn.disabled = true;
+  const origLabel = btn.textContent;
+  btn.textContent = "\u21BB Refreshing...";
+  try {
+    const students = await api("/api/results/students");
+    const sel = $("student-select");
+    const prevOpt = sel.selectedOptions[0];
+    const prevKey = prevOpt
+      ? prevOpt.dataset.name + "\u0001" + prevOpt.dataset.className + "\u0001" + prevOpt.dataset.section
+      : null;
+    const wasOpen = !$("results-table-wrap").hidden;
+
+    state.resultsStudents = students;
+    sel.innerHTML = "";
+    if (students.length === 0) {
+      $("results-body").innerHTML = "<p class='hint'>No student results found yet.</p>";
+      $("btn-results-table").hidden = true;
+      $("results-table-wrap").hidden = true;
+    } else {
+      students.forEach((s, i) => {
+        const opt = document.createElement("option");
+        opt.value = i;
+        opt.dataset.name = s.name;
+        opt.dataset.className = s.class;
+        opt.dataset.section = s.section;
+        opt.textContent = s.name + "  |  Marks: " + s.marks.toFixed(2) +
+          "  |  IP: " + (s.ipAddress || "N/A") +
+          "  |  Class: " + s.class + "  |  Section: " + s.section;
+        sel.appendChild(opt);
+      });
+      let restoreIdx = 0;
+      if (prevKey) {
+        for (let i = 0; i < sel.options.length; i++) {
+          const o = sel.options[i];
+          const k = o.dataset.name + "\u0001" + o.dataset.className + "\u0001" + o.dataset.section;
+          if (k.toLowerCase() === prevKey.toLowerCase()) { restoreIdx = i; break; }
+        }
+      }
+      sel.selectedIndex = restoreIdx;
+      $("btn-results-table").hidden = false;
+      $("results-table-wrap").hidden = wasOpen ? false : true;
+    }
+    renderResultsTable();
+    await renderStudentDetail();
+  } catch (err) {
+    await infoDialog("Refresh failed", err.message);
+  } finally {
+    btn.disabled = false;
+    btn.textContent = origLabel;
+  }
+}
+
 async function renderStudentDetail() {
   const sel = $("student-select");
   const opt = sel.selectedOptions[0];
@@ -914,6 +969,7 @@ async function init() {
   });
   $("student-select").addEventListener("change", renderStudentDetail);
   $("btn-results-table").addEventListener("click", toggleResultsTable);
+  $("btn-results-refresh").addEventListener("click", refreshResults);
   document.querySelectorAll(".results-table thead th").forEach((th) =>
     th.addEventListener("click", () => resultsTableHeaderClicked(th)));
 
