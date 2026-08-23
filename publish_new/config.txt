@@ -2,10 +2,9 @@ Time=1
 NegativeMarking=25%
 resultFile=Result.txt
 allowResultViewing=true
-allowImport=false
-allowReview=false
-allowAnswerDetails=false
+allowImport=true
+allowReview=true
+allowAnswerDetails=true
 # Folder for this quiz (e.g. Math, Radhika_Nepali). Leave empty to use publish/ root.
-quizFolder=Math
+quizFolder=
 Port=5000
-adminPasswordHash=56bae5bbfe37c4472e5a8222e4f4027e6a759dcbeda6a6721fde5d0a158ef9b5

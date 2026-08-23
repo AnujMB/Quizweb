@@ -115,11 +115,3 @@ D:\anuj\opnsrc_try\ai\QuizWeb_Manual\obj\Release\net9.0\QuizWeb.sourcelink.json
 D:\anuj\opnsrc_try\ai\QuizWeb_Manual\obj\Release\net9.0\compressed\a57jj5c47z-6ia73ckjlz.gz
 D:\anuj\opnsrc_try\ai\QuizWeb_Manual\obj\Release\net9.0\compressed\17ct35ragm-lnswtem1s0.gz
 D:\anuj\opnsrc_try\ai\QuizWeb_Manual\obj\Release\net9.0\compressed\usu22hziqv-c878kryh1w.gz
-D:\anuj\opnsrc_try\ai\QuizWeb_Manual\bin\Release\net9.0\publish_new\publish\web.config
-D:\anuj\opnsrc_try\ai\QuizWeb_Manual\bin\Release\net9.0\publish_new\web.config
-D:\anuj\opnsrc_try\ai\QuizWeb_Manual\bin\Release\net9.0\publish_new\publish\QuizWeb.deps.json
-D:\anuj\opnsrc_try\ai\QuizWeb_Manual\bin\Release\net9.0\publish_new\publish\QuizWeb.runtimeconfig.json
-D:\anuj\opnsrc_try\ai\QuizWeb_Manual\bin\Release\net9.0\publish_new\publish\QuizWeb.staticwebassets.endpoints.json
-D:\anuj\opnsrc_try\ai\QuizWeb_Manual\bin\Release\net9.0\publish_new\QuizWeb.deps.json
-D:\anuj\opnsrc_try\ai\QuizWeb_Manual\bin\Release\net9.0\publish_new\QuizWeb.runtimeconfig.json
-D:\anuj\opnsrc_try\ai\QuizWeb_Manual\bin\Release\net9.0\publish_new\QuizWeb.staticwebassets.endpoints.json

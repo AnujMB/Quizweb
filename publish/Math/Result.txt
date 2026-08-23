@@ -1,4 +1,4 @@
-Name,Class,Section,Exam Type,Subject,Quiz Class,Marks obtained,Exam date,ComputerName,IPAddress,Q1,Q2,Q3,Q4,Q5,Q6,Q7,Q8,Q9,Q10
+Name,Class,Section,Exam Type,Subject,Quiz Class,Marks obtained,Exam date,ComputerName,IPAddress,Q1,Q2
 math one,1,1,Cycle Test III 2026-27 (Practice),Computer Science,9,1.50,08-23-2026 01:56,,127.0.0.1,B,,C,A,E
 math two,1,1,Cycle Test III 2026-27 (Practice),Computer Science,9,-0.25,08-23-2026 01:57,,127.0.0.1,,,,B,
 math three,1,1,Cycle Test III 2026-27 (Practice),Computer Science,9,0.00,08-23-2026 02:11,,127.0.0.1,,,,,
@@ -9,3 +9,4 @@ Anuj Man Bajracharya and Bajracharya Man Anuj both togetheri,10,A,Cycle Test III
 After the implementation of admin i tried to check agian ifi,12,D,Cycle Test III 2026-27 (Practice),Computer Science,9,0.00,08-23-2026 07:13,,127.0.0.1,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,
 blackless,2,D,Cycle Test III 2026-27 (Practice),Computer Science,9,0.58,08-23-2026 07:15,,127.0.0.1,,,,A,,,,,,,,,,,,,,A,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,B,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,
 Math 100,1,D,Cycle Test III 2026-27 (Practice),Computer Science,9,1.79,08-23-2026 07:20,,127.0.0.1,D,,,,,,,,A,B
+Math folder ko 2 question,3,D,Cycle Test III 2026-27 (Practice),Computer Science,9,0.25,08-23-2026 07:40,,127.0.0.1,A,E

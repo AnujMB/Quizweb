@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Quiz</title>
+<link rel="stylesheet" href="css/app.css">
+</head>
+<body>
+<header id="topbar">
+  <div class="topbar-inner">
+    <div id="tb-title" class="tb-title">Quiz</div>
+    <div id="tb-counter" class="tb-counter" hidden>Question 1 of 1</div>
+    <div class="tb-right">
+      <button id="btn-submit-anyway" class="tb-submit" type="button" hidden>Submit Anyway</button>
+      <div id="tb-timer" class="tb-timer" hidden>00:00</div>
+      <div class="zoom-group">
+        <button id="btn-zoom-out" class="icon-btn" title="Zoom out" type="button">&minus;</button>
+        <span id="zoom-label" class="zoom-label">100%</span>
+        <button id="btn-zoom-in" class="icon-btn" title="Zoom in" type="button">+</button>
+      </div>
+    </div>
+  </div>
+</header>
+
+<main id="main">
+  <!-- ============ START SCREEN ============ -->
+  <section id="view-start" class="view">
+    <div class="card start-card">
+      <h1 id="quiz-title">Quiz</h1>
+      <div id="quiz-info" class="quiz-info"></div>
+      <p class="subtitle">Enter your details to begin.</p>
+      <div class="fields">
+        <label>Student Name
+          <input id="in-name" type="text" maxlength="60" autocomplete="off" spellcheck="false">
+        </label>
+        <label>Class
+          <input id="in-class" type="text" maxlength="2" autocomplete="off" spellcheck="false" inputmode="numeric" pattern="[0-9]*">
+        </label>
+        <label>Section
+          <input id="in-section" type="text" maxlength="1" autocomplete="off" spellcheck="false" autocapitalize="characters">
+        </label>
+      </div>
+      <div id="taken-banner" class="banner banner-warn" hidden></div>
+      <div id="load-error" class="banner banner-error" hidden></div>
+      <div class="actions">
+        <button id="btn-start" class="primary" disabled type="button">Start Quiz</button>
+        <button id="btn-results" class="ghost" type="button" hidden>View Results</button>
+        <button id="btn-import" class="ghost" type="button" hidden>Import Questions</button>
+      </div>
+      <p class="hint" id="hint-time"></p>
+      <div class="admin-link">
+        <button id="btn-admin" class="link-btn" type="button">Admin</button>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ QUIZ / REVIEW SCREEN ============ -->
+  <section id="view-quiz" class="view" hidden>
+    <div class="quiz-layout">
+      <aside id="passage-pane" class="passage-pane" hidden>
+        <div id="passage-text" class="passage-text"></div>
+      </aside>
+      <div class="quiz-main">
+        <div id="review-status" class="review-status" hidden></div>
+        <div id="question-text" class="question-text"></div>
+        <div id="image-wrap" class="image-wrap" hidden>
+          <img id="question-image" alt="Question image">
+          <div id="image-resize" class="image-resize" title="Drag to resize"></div>
+        </div>
+        <div id="options" class="options"></div>
+        <div class="nav">
+          <button id="btn-prev" class="nav-btn" type="button" disabled>&larr; Prev</button>
+          <button id="btn-next" class="primary nav-btn" type="button">Next &rarr;</button>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ SCORE SCREEN ============ -->
+  <section id="view-score" class="view" hidden>
+    <div class="card score-card">
+      <div id="score-banner" class="score-banner"></div>
+      <div class="actions">
+        <button id="btn-review" class="primary" type="button">Review Answers</button>
+        <button id="btn-finish" class="ghost" type="button">Finish</button>
+      </div>
+      <p id="save-note" class="hint" hidden></p>
+    </div>
+  </section>
+
+  <!-- ============ RESULTS SCREEN ============ -->
+  <section id="view-results" class="view" hidden>
+    <div class="card results-card">
+      <div class="results-top">
+        <h1>Student Results</h1>
+        <button id="btn-back-results" class="ghost" type="button">&larr; Back</button>
+      </div>
+      <label class="picker">Student
+        <select id="student-select"></select>
+      </label>
+      <div class="results-table-bar">
+        <button id="btn-results-table" class="tb-submit" type="button" title="Show or hide the student summary table">
+          <span class="results-table-ico">&#9636;</span> <span id="results-table-btn-text">Show Student Table</span>
+        </button>
+        <button id="btn-results-refresh" class="ghost" type="button" title="Refresh latest scores">&#8635; Refresh</button>
+      </div>
+      <div id="results-table-wrap" hidden>
+        <table class="results-table">
+          <thead>
+            <tr>
+              <th data-sort="name">Name<span class="sort-arrow"></span></th>
+              <th data-sort="marks">Marks<span class="sort-arrow"></span></th>
+              <th data-sort="ipAddress">IP<span class="sort-arrow"></span></th>
+              <th data-sort="class">Class<span class="sort-arrow"></span></th>
+              <th data-sort="section">Section<span class="sort-arrow"></span></th>
+            </tr>
+          </thead>
+          <tbody id="results-tbody"></tbody>
+        </table>
+      </div>
+      <div id="results-body"></div>
+    </div>
+  </section>
+</main>
+
+<!-- ============ MODAL ============ -->
+<div id="modal-backdrop" class="modal-backdrop" hidden>
+  <div class="modal">
+    <div id="modal-title" class="modal-title"></div>
+    <div id="modal-text" class="modal-text"></div>
+    <div class="modal-actions">
+      <button id="modal-no" class="ghost" type="button">No</button>
+      <button id="modal-yes" class="primary" type="button">Yes</button>
+    </div>
+  </div>
+</div>
+
+<!-- ============ ADMIN ============ -->
+<div id="admin-backdrop" class="modal-backdrop" hidden>
+  <div class="modal admin-modal">
+    <div class="modal-title">Admin</div>
+    <div id="admin-login">
+      <p class="hint">Enter admin password to manage settings.</p>
+      <p id="admin-setup-hint" class="hint" hidden>No admin password set. Create one to secure the panel.</p>
+      <label>Password
+        <input id="admin-pass" type="password" autocomplete="off">
+      </label>
+      <div class="modal-actions">
+        <button id="admin-login-btn" class="primary" type="button">Login</button>
+        <button id="admin-cancel" class="ghost" type="button">Cancel</button>
+      </div>
+      <p id="admin-login-error" class="hint" style="color:var(--red)" hidden></p>
+    </div>
+    <div id="admin-panel" hidden>
+      <div class="admin-grid">
+        <label>Time (minutes)
+          <input id="admin-time" type="number" min="1" max="300">
+        </label>
+        <label>Negative Marking (%)
+          <input id="admin-neg" type="number" min="0" max="100">
+        </label>
+        <label>Quiz Folder
+          <input id="admin-folder" type="text" placeholder="e.g. Math">
+          <span class="hint">Subfolder in publish/ (e.g. Math, Radhika_Nepali). Empty = root.</span>
+          <span class="hint">Available: <span id="admin-folders"></span></span>
+        </label>
+        <label>Result File
+          <input id="admin-resultfile" type="text">
+        </label>
+        <label>Port
+          <input id="admin-port" type="number" min="1" max="65535">
+        </label>
+        <label class="check"><input id="admin-allowResultViewing" type="checkbox"> Allow Result Viewing (View Results button)</label>
+        <label class="check"><input id="admin-allowImport" type="checkbox"> Allow Import</label>
+        <label class="check"><input id="admin-allowReview" type="checkbox"> Allow Review (after quiz)</label>
+        <label class="check"><input id="admin-allowAnswerDetails" type="checkbox"> Allow Answer Details (in View Results)</label>
+        <label>New Admin Password (leave blank to keep)
+          <input id="admin-newpass" type="password" autocomplete="new-password" placeholder="min 4 chars">
+        </label>
+      </div>
+      <div class="modal-actions">
+        <button id="admin-save" class="primary" type="button">Save (hot-reload)</button>
+        <button id="admin-restart" class="ghost" type="button" title="Restart server for folder/port">Restart Server</button>
+        <button id="admin-close" class="ghost" type="button">Close</button>
+      </div>
+      <p id="admin-msg" class="hint" hidden></p>
+    </div>
+  </div>
+</div>
+
+<input type="file" id="import-file" accept=".csv,text/csv" hidden>
+
+<script src="js/app.js"></script>
+</body>
+</html>

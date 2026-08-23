@@ -504,7 +504,9 @@ app.MapPost("/api/admin/restart", (HttpContext ctx) =>
     try
     {
         string arguments = args.Length > 0 ? string.Join(" ", args.Select(a => "\"" + a.Replace("\"", "\\\"") + "\"")) : "";
-        string cmd = $"timeout /t 1 /nobreak >nul & \"{exe}\" {arguments}";
+        // Use `start` so the new QuizWeb gets its own visible black window (console) for teachers.
+        // The initial cmd is hidden and just waits 1s for the old port to free.
+        string cmd = $"timeout /t 1 /nobreak >nul & start \"\" \"{exe}\" {arguments}";
         var psi = new System.Diagnostics.ProcessStartInfo("cmd.exe", $"/c {cmd}")
         {
             UseShellExecute = false,
