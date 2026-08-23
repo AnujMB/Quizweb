@@ -1,0 +1,5 @@
+Name,Class,Section,Exam Type,Subject,Quiz Class,Marks obtained,Exam date,ComputerName,IPAddress,Q1,Q2,Q3,Q4,Q5
+math one,1,1,Cycle Test III 2026-27 (Practice),Computer Science,9,1.50,08-23-2026 01:56,,127.0.0.1,B,,C,A,E
+math two,1,1,Cycle Test III 2026-27 (Practice),Computer Science,9,-0.25,08-23-2026 01:57,,127.0.0.1,,,,B,
+math three,1,1,Cycle Test III 2026-27 (Practice),Computer Science,9,0.00,08-23-2026 02:11,,127.0.0.1,,,,,
+Math 2,1,1,Cycle Test III 2026-27 (Practice),Computer Science,9,-0.25,08-23-2026 03:23,,127.0.0.1,,,B,,

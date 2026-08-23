@@ -27,12 +27,22 @@ if (args.Length > 0)
             Console.WriteLine("  QuizWeb --import <file.csv> [--out <file.txt>]   Convert a CSV into questions.txt");
             Console.WriteLine("  QuizWeb --export-xlsx <file.txt> [--out <file.xlsx>]   Convert a questions.txt into questions.xlsx");
             Console.WriteLine("  QuizWeb --check <file.xlsx>   Validate a workbook and report issues");
-            Console.WriteLine("Data files (config.txt, questions.xlsx/.txt, images, result file) live in the folder the app runs from.");
+            Console.WriteLine("Data files (config.txt lives next to the exe; when quizFolder is set,");
+            Console.WriteLine("  questions.xlsx/.txt, images/ and Result.txt live inside that subfolder).");
             return 0;
     }
 }
 
 var config = QuizConfig.Load(dataDir);
+// If quizFolder is set (e.g. Math, Radhika_Nepali), all quiz data
+// (questions.xlsx/.txt, Result.txt, images/) lives inside that subfolder.
+// This keeps each teacher/subject isolated with no code change per quiz.
+string baseDir = dataDir;
+if (!string.IsNullOrWhiteSpace(config.QuizFolder))
+{
+    dataDir = Path.Combine(baseDir, config.QuizFolder);
+    try { Directory.CreateDirectory(dataDir); } catch { /* best effort */ }
+}
 var bank = QuestionBank.Load(dataDir);
 var quizInfo = bank.Info;
 int port = config.Port ?? 5000;
@@ -301,7 +311,8 @@ static void PrintBanner(int configPort, QuizConfig config, string[] args)
     }
     Console.WriteLine("==================================================");
     Console.WriteLine("  Quiz Web App");
-    Console.WriteLine("  Time: " + config.TimeMinutes + " min | Negative marking: "
+    string folderInfo = string.IsNullOrWhiteSpace(config.QuizFolder) ? "(root)" : config.QuizFolder;
+    Console.WriteLine("  Folder: " + folderInfo + " | Time: " + config.TimeMinutes + " min | Negative marking: "
         + config.NegativeMarkingPct + "% | Result file: " + config.ResultFile);
     Console.WriteLine("  Students on the LAN open one of these URLs:");
     foreach (string ip in LocalAddresses())

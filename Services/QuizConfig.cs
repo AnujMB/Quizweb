@@ -16,6 +16,7 @@ public sealed class QuizConfig
     public bool AllowReview { get; private set; } = true;
     public bool AllowAnswerDetails { get; private set; } = true;
     public int? Port { get; private set; }
+    public string QuizFolder { get; private set; } = "";
 
     public string ResultPath(string dataDir)
         => Path.IsPathRooted(ResultFile) ? ResultFile : Path.Combine(dataDir, ResultFile);
@@ -69,10 +70,39 @@ public sealed class QuizConfig
             {
                 c.Port = port;
             }
+            else if (key.Equals("quizFolder", StringComparison.OrdinalIgnoreCase)
+                  || key.Equals("folder", StringComparison.OrdinalIgnoreCase)
+                  || key.Equals("dataFolder", StringComparison.OrdinalIgnoreCase))
+            {
+                string sanitized = SanitizeFolderName(val);
+                if (!string.IsNullOrWhiteSpace(sanitized))
+                    c.QuizFolder = sanitized;
+            }
         }
         return c;
     }
 
     private static bool IsFalseValue(string val)
         => val.Trim().ToLowerInvariant() is "false" or "0" or "no" or "off";
+
+    private static string SanitizeFolderName(string raw)
+    {
+        if (string.IsNullOrWhiteSpace(raw)) return "";
+        raw = raw.Trim().TrimStart('/', '\\');
+        int slash = raw.IndexOfAny(new[] { '/', '\\' });
+        if (slash >= 0) raw = raw.Substring(0, slash);
+        raw = raw.Trim();
+        if (raw == "." || raw == "..") return "";
+        var sb = new System.Text.StringBuilder();
+        foreach (char ch in raw)
+        {
+            if (char.IsLetterOrDigit(ch) || ch == '_' || ch == '-' || ch == ' ')
+                sb.Append(ch);
+            // drop everything else (including '.' to prevent hidden folders)
+        }
+        string s = sb.ToString().Trim();
+        if (s.Length > 50) s = s.Substring(0, 50).Trim();
+        if (s == "." || s == "..") return "";
+        return s;
+    }
 }
