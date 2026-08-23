@@ -276,6 +276,15 @@ button:disabled { opacity: .45; cursor: not-allowed; }
   font-weight: 600;
 }
 
+.admin-link { margin-top: 18px; text-align: center; }
+.link-btn { background: none; border: none; color: var(--accent); cursor: pointer; font-size: calc(13px * var(--zoom)); text-decoration: underline; }
+.link-btn:hover { color: var(--accent-dark); }
+.admin-modal { max-width: 520px; width: 95%; max-height: 90vh; overflow-y: auto; }
+.admin-grid { display: grid; gap: 12px; text-align: left; margin: 16px 0; }
+.admin-grid label { display: grid; gap: 6px; font-weight: 600; font-size: calc(14px * var(--zoom)); }
+.admin-grid label.check { display: flex; align-items: center; gap: 8px; font-weight: 600; }
+.admin-grid input[type="text"], .admin-grid input[type="number"], .admin-grid input[type="password"] { width: 100%; padding: 8px 10px; border: 1.5px solid var(--border); border-radius: 8px; font-size: calc(14px * var(--zoom)); font-family: inherit; }
+
 /* ---------- Quiz layout ---------- */
 .quiz-layout {
   display: grid;

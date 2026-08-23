@@ -12,7 +12,7 @@ namespace QuizWeb.Services;
 /// </summary>
 public sealed class ResultStore : IDisposable
 {
-    private readonly string _path;
+    private string _path;
     private readonly SemaphoreSlim _gate = new(1, 1);
     private readonly ConcurrentQueue<(string[] Fields, string[] Answers)> _pending = new();
     private readonly System.Threading.Timer _retryTimer;
@@ -24,6 +24,8 @@ public sealed class ResultStore : IDisposable
         _retryTimer = new System.Threading.Timer(_ => Drain(), null,
             TimeSpan.FromSeconds(2), TimeSpan.FromSeconds(2));
     }
+
+    public void UpdatePath(string newPath) => _path = newPath;
 
     /// <summary>Attempts one immediate append. Returns false when the file is busy.</summary>
     public bool TryAppend(string[] fields, string[] answers)

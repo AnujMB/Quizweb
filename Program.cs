@@ -285,6 +285,242 @@ app.MapPost("/api/import", async (HttpContext ctx) =>
     }
 });
 
+// ---------------- Admin (hot-reload + restart) ----------------
+var adminTokens = new System.Collections.Concurrent.ConcurrentDictionary<string, DateTime>();
+var loginAttempts = new System.Collections.Concurrent.ConcurrentDictionary<string, (int count, DateTime blockUntil)>();
+
+bool IsAdminAuthorized(HttpContext ctx)
+{
+    if (string.IsNullOrEmpty(config.AdminPasswordHash)) return false;
+    string token = ctx.Request.Headers["X-Admin-Token"].ToString();
+    if (string.IsNullOrEmpty(token))
+    {
+        string auth = ctx.Request.Headers.Authorization.ToString();
+        if (auth.StartsWith("Bearer ", StringComparison.OrdinalIgnoreCase))
+            token = auth.Substring(7).Trim();
+    }
+    if (string.IsNullOrEmpty(token)) return false;
+    if (adminTokens.TryGetValue(token, out DateTime exp))
+    {
+        if (exp > DateTime.UtcNow) return true;
+        adminTokens.TryRemove(token, out _);
+    }
+    return false;
+}
+
+void CleanupAdminTokens()
+{
+    var now = DateTime.UtcNow;
+    foreach (var kv in adminTokens)
+        if (kv.Value <= now) adminTokens.TryRemove(kv.Key, out _);
+}
+
+void UpdateConfigFile(Dictionary<string, string> updates)
+{
+    string cfgPath = Path.Combine(baseDir, "config.txt");
+    List<string> lines = new();
+    if (File.Exists(cfgPath)) lines = File.ReadAllLines(cfgPath).ToList();
+    foreach (var kv in updates)
+    {
+        bool found = false;
+        for (int i = 0; i < lines.Count; i++)
+        {
+            string line = lines[i];
+            int eq = line.IndexOf('=');
+            if (eq > 0 && line.Substring(0, eq).Trim().Equals(kv.Key, StringComparison.OrdinalIgnoreCase))
+            {
+                lines[i] = kv.Key + "=" + kv.Value;
+                found = true;
+                break;
+            }
+        }
+        if (!found) lines.Add(kv.Key + "=" + kv.Value);
+    }
+    File.WriteAllLines(cfgPath, lines);
+}
+
+app.MapGet("/api/admin/status", () => Results.Ok(new { hasPassword = !string.IsNullOrEmpty(config.AdminPasswordHash) }));
+
+app.MapPost("/api/admin/login", async (HttpContext ctx) =>
+{
+    string ip = ctx.Connection.RemoteIpAddress?.ToString() ?? "unknown";
+    if (loginAttempts.TryGetValue(ip, out var st) && st.blockUntil > DateTime.UtcNow)
+        return Results.StatusCode(StatusCodes.Status429TooManyRequests);
+
+    LoginRequest? req = null;
+    try { req = await ctx.Request.ReadFromJsonAsync<LoginRequest>(); } catch {}
+    if (req == null || string.IsNullOrWhiteSpace(req.Password))
+        return Results.BadRequest("Missing password.");
+
+    if (string.IsNullOrEmpty(config.AdminPasswordHash))
+        return Results.BadRequest("Admin password not set. Use setup or set adminPassword in config.txt and restart.");
+
+    bool ok = config.VerifyAdminPassword(req.Password);
+    if (!ok)
+    {
+        var cur = loginAttempts.GetOrAdd(ip, (0, DateTime.MinValue));
+        int cnt = cur.count + 1;
+        DateTime block = cnt >= 5 ? DateTime.UtcNow.AddMinutes(5) : DateTime.MinValue;
+        loginAttempts[ip] = (cnt, block);
+        if (cnt >= 5) return Results.StatusCode(StatusCodes.Status429TooManyRequests);
+        return Results.Json(new { ok = false }, statusCode: 401);
+    }
+    loginAttempts.TryRemove(ip, out _);
+    string token = Guid.NewGuid().ToString("N");
+    adminTokens[token] = DateTime.UtcNow.AddMinutes(30);
+    CleanupAdminTokens();
+    return Results.Ok(new { ok = true, token });
+});
+
+app.MapPost("/api/admin/setup", async (HttpContext ctx) =>
+{
+    if (!string.IsNullOrEmpty(config.AdminPasswordHash))
+        return Results.BadRequest("Admin password already set. Use login.");
+    LoginRequest? req = null;
+    try { req = await ctx.Request.ReadFromJsonAsync<LoginRequest>(); } catch {}
+    if (req == null || string.IsNullOrWhiteSpace(req.Password) || req.Password.Length < 4)
+        return Results.BadRequest("Password must be at least 4 characters.");
+    string hash = QuizConfig.ComputeHash(req.Password);
+    UpdateConfigFile(new Dictionary<string, string> { ["adminPasswordHash"] = hash });
+    // hot-reload to pick up new hash
+    config = QuizConfig.Load(baseDir);
+    return Results.Ok(new { ok = true });
+});
+
+app.MapGet("/api/admin/config", (HttpContext ctx) =>
+{
+    if (!IsAdminAuthorized(ctx)) return Results.StatusCode(StatusCodes.Status401Unauthorized);
+    var folders = new List<string>();
+    try
+    {
+        foreach (var d in Directory.GetDirectories(baseDir))
+        {
+            string name = Path.GetFileName(d);
+            if (name.Equals("wwwroot", StringComparison.OrdinalIgnoreCase)) continue;
+            if (name.Equals("publish", StringComparison.OrdinalIgnoreCase)) continue;
+            if (name.StartsWith(".")) continue;
+            if (File.Exists(Path.Combine(d, "questions.xlsx")) || File.Exists(Path.Combine(d, "questions.txt")))
+                folders.Add(name);
+        }
+    } catch {}
+    return Results.Ok(new
+    {
+        timeMinutes = config.TimeMinutes,
+        negativeMarkingPct = config.NegativeMarkingPct,
+        resultFile = config.ResultFile,
+        allowResultViewing = config.AllowResultViewing,
+        allowImport = config.AllowImport,
+        allowReview = config.AllowReview,
+        allowAnswerDetails = config.AllowAnswerDetails,
+        port = config.Port,
+        quizFolder = config.QuizFolder,
+        hasPassword = !string.IsNullOrEmpty(config.AdminPasswordHash),
+        availableFolders = folders
+    });
+});
+
+app.MapPost("/api/admin/config", async (HttpContext ctx) =>
+{
+    if (!IsAdminAuthorized(ctx)) return Results.StatusCode(StatusCodes.Status401Unauthorized);
+    AdminConfigRequest? req = null;
+    try { req = await ctx.Request.ReadFromJsonAsync<AdminConfigRequest>(); } catch {}
+    if (req == null) return Results.BadRequest("Invalid config.");
+
+    var updates = new Dictionary<string, string>(StringComparer.OrdinalIgnoreCase);
+    if (req.Time.HasValue) updates["Time"] = req.Time.Value.ToString();
+    if (req.NegativeMarking != null)
+    {
+        string v = req.NegativeMarking.Trim();
+        if (v.EndsWith("%")) v = v[..^1];
+        updates["NegativeMarking"] = v + "%";
+    }
+    if (req.ResultFile != null) updates["resultFile"] = req.ResultFile;
+    if (req.AllowResultViewing.HasValue) updates["allowResultViewing"] = req.AllowResultViewing.Value ? "true" : "false";
+    if (req.AllowImport.HasValue) updates["allowImport"] = req.AllowImport.Value ? "true" : "false";
+    if (req.AllowReview.HasValue) updates["allowReview"] = req.AllowReview.Value ? "true" : "false";
+    if (req.AllowAnswerDetails.HasValue) updates["allowAnswerDetails"] = req.AllowAnswerDetails.Value ? "true" : "false";
+    if (req.Port.HasValue) updates["Port"] = req.Port.Value.ToString();
+    if (req.QuizFolder != null)
+    {
+        string sanitized = req.QuizFolder.Trim();
+        // allow empty to clear
+        if (sanitized.Length == 0) updates["quizFolder"] = "";
+        else
+        {
+            // reuse sanitize logic via QuizConfig
+            var tmp = new QuizConfig();
+            // we call the same sanitize via reflection? just write raw, Load will sanitize
+            updates["quizFolder"] = sanitized;
+        }
+    }
+    if (!string.IsNullOrWhiteSpace(req.NewAdminPassword))
+    {
+        if (req.NewAdminPassword.Length < 4) return Results.BadRequest("Admin password must be at least 4 characters.");
+        updates["adminPasswordHash"] = QuizConfig.ComputeHash(req.NewAdminPassword);
+        // remove plain adminPassword if present
+    }
+
+    string oldFolder = config.QuizFolder;
+    int? oldPort = config.Port;
+    UpdateConfigFile(updates);
+
+    // Check if restart needed for folder/port
+    var newConfig = QuizConfig.Load(baseDir);
+    bool needRestart = !string.Equals(oldFolder ?? "", newConfig.QuizFolder ?? "", StringComparison.OrdinalIgnoreCase)
+                    || oldPort != newConfig.Port;
+
+    if (needRestart)
+    {
+        return Results.Ok(new { ok = true, needRestart = true, message = "Config saved. Restart required for folder/port change. Use Restart button." });
+    }
+
+    // Hot-reload in-place for other settings
+    string newDataDir = baseDir;
+    if (!string.IsNullOrWhiteSpace(newConfig.QuizFolder))
+    {
+        newDataDir = Path.Combine(baseDir, newConfig.QuizFolder);
+        try { Directory.CreateDirectory(newDataDir); } catch {}
+    }
+    // update globals
+    config = newConfig;
+    dataDir = newDataDir;
+    bank = QuestionBank.Load(dataDir);
+    quizInfo = bank.Info;
+    // update ResultStore path
+    try
+    {
+        var rs = app.Services.GetRequiredService<ResultStore>();
+        rs.UpdatePath(config.ResultPath(dataDir));
+    } catch {}
+    return Results.Ok(new { ok = true, needRestart = false });
+});
+
+app.MapPost("/api/admin/restart", (HttpContext ctx) =>
+{
+    if (!IsAdminAuthorized(ctx)) return Results.StatusCode(StatusCodes.Status401Unauthorized);
+    string exe = Environment.ProcessPath ?? Path.Combine(baseDir, "QuizWeb.exe");
+    if (!File.Exists(exe)) exe = Path.Combine(baseDir, "QuizWeb.exe");
+    if (!File.Exists(exe)) return Results.Problem("Cannot determine executable path.");
+    try
+    {
+        string arguments = args.Length > 0 ? string.Join(" ", args.Select(a => "\"" + a.Replace("\"", "\\\"") + "\"")) : "";
+        string cmd = $"timeout /t 1 /nobreak >nul & \"{exe}\" {arguments}";
+        var psi = new System.Diagnostics.ProcessStartInfo("cmd.exe", $"/c {cmd}")
+        {
+            UseShellExecute = false,
+            WorkingDirectory = baseDir,
+            CreateNoWindow = true,
+            WindowStyle = System.Diagnostics.ProcessWindowStyle.Hidden
+        };
+        System.Diagnostics.Process.Start(psi);
+    }
+    catch (Exception ex) { return Results.Problem("Failed to start new process: " + ex.Message); }
+
+    var lifetime = app.Services.GetRequiredService<Microsoft.Extensions.Hosting.IHostApplicationLifetime>();
+    _ = Task.Run(async () => { await Task.Delay(300); lifetime.StopApplication(); });
+    return Results.Ok(new { ok = true, restarting = true });
+});
+
 var store = app.Services.GetRequiredService<ResultStore>();
 try
 {
@@ -352,4 +588,23 @@ public sealed class CheckRequest
     public string Name { get; set; } = "";
     public string Class { get; set; } = "";
     public string Section { get; set; } = "";
+}
+
+public sealed class LoginRequest
+{
+    public string Password { get; set; } = "";
+}
+
+public sealed class AdminConfigRequest
+{
+    public int? Time { get; set; }
+    public string? NegativeMarking { get; set; }
+    public string? ResultFile { get; set; }
+    public bool? AllowResultViewing { get; set; }
+    public bool? AllowImport { get; set; }
+    public bool? AllowReview { get; set; }
+    public bool? AllowAnswerDetails { get; set; }
+    public int? Port { get; set; }
+    public string? QuizFolder { get; set; }
+    public string? NewAdminPassword { get; set; }
 }

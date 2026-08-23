@@ -112,6 +112,20 @@ When many teachers share the same host, keep each quiz in its own folder so resu
 
 ---
 
+## Part 5C — Admin (change settings without restarting)
+
+On the start page click **Admin** (small link under the timer hint).
+
+* **First time:** No password is set — you will see “No admin password set. Create one”. Enter a new password (min 4 chars) and click **Create Password** (it is saved hashed as `adminPasswordHash` in `config.txt`).
+* **Next times:** Enter the same password and click **Login**. After 5 wrong tries the login is blocked for 5 minutes.
+* In the panel you can edit: **Time**, **Negative Marking %**, **Quiz Folder**, **Result File**, **Port**, and the four `allow*` toggles. You can also set a **New Admin Password** (leave blank to keep).
+* **Save (hot-reload)** — writes `config.txt` and reloads immediately for `Time`, `NegativeMarking`, `allow*`, `resultFile`. Students see new time/flags on next refresh — no restart needed.
+* **Restart Server** — needed only for **Quiz Folder** or **Port** changes (they change the data folder / listening socket). Click it, wait 3 seconds and refresh (`Ctrl+F5`). The black window stays open — the server restarts itself via `cmd /c timeout`.
+
+> Tip: Keep `allowResultViewing=false` during the exam, then open Admin and toggle it on for results — no need to close the black window.
+
+---
+
 ## Quick help
 
 - **Students cannot open the page?** Check the address is exactly what the black window shows, and that students are on the same school network. Check that you clicked **Allow** when Windows asked about the app.
@@ -141,6 +155,7 @@ When many teachers share the same host, keep each quiz in its own folder so resu
 | `allowAnswerDetails` | `config.txt` | Gates `GET /api/results/detail` → `403` if `false`. Hides answer blocks in results view. |
 | `allowImport` | `config.txt` | Gates `POST /api/import` → `403`. In `publish` set `false`. |
 | `quizFolder` | `config.txt` | Subfolder for this quiz (`Math`, `Radhika_Nepali`). Empty = root. Sanitized to `a-z0-9 _-`, first segment only, `..` blocked. Creates folder if missing. |
+| `adminPassword` / `adminPasswordHash` | `config.txt` | Admin password (plain or `SHA256` hash). Set via Admin panel; leave empty for no password. `adminPasswordHash` is preferred. |
 | `Port` / `resultFile` | `config.txt` | Network/file location. `resultFile` is relative to `quizFolder` when set. |
 
 ### 3. APIs (base `http://<host-ip>:5000`)
@@ -154,6 +169,12 @@ When many teachers share the same host, keep each quiz in its own folder so resu
 | `GET` | `/api/results/students` | `allowResultViewing` | — | Array sorted `marks desc`: `name, class, section, subject, examType, quizClass, marks, date, computerName, ipAddress` (`Program.cs:166`). `403` if disabled. |
 | `GET` | `/api/results/detail?name=&className=&section=` | `allowResultViewing && allowAnswerDetails` | query params | `name, class, section, marks, date, computerName, ipAddress, answers, correctMap` (`Program.cs:192`) where `correctMap` is `{ "1":[0], "2":[1,3] }` (indices A=0). `403` if gated, `404` if no match. |
 | `POST` | `/api/import` | `allowImport` | `multipart/form-data` field `questions` (CSV) | `questionsWritten, rowsSkipped, warnings` — also regenerates `questions.xlsx`. `403` in `publish`. |
+| `GET` | `/api/admin/status` | none | — | `hasPassword` |
+| `POST` | `/api/admin/setup` | only when no password | `{"password":"..."} min 4` | `ok` — creates `adminPasswordHash` |
+| `POST` | `/api/admin/login` | — | `{"password":"..."}` | `ok, token` (30 min, `X-Admin-Token` / `Bearer`), `401`/`429` on fail |
+| `GET` | `/api/admin/config` | `X-Admin-Token` | — | Current config + `availableFolders` |
+| `POST` | `/api/admin/config` | `X-Admin-Token` | `{"time":25,"negativeMarking":"25%","quizFolder":"Math","port":5000,"allowReview":true,...,"newAdminPassword":"..."}` | `ok, needRestart` — hot-reloads unless `quizFolder`/`port` changed |
+| `POST` | `/api/admin/restart` | `X-Admin-Token` | — | `restarting` — server restarts via `cmd /c timeout` |
 
 Test quickly (PowerShell):
 ```powershell

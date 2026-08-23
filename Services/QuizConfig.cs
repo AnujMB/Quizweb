@@ -17,6 +17,7 @@ public sealed class QuizConfig
     public bool AllowAnswerDetails { get; private set; } = true;
     public int? Port { get; private set; }
     public string QuizFolder { get; private set; } = "";
+    public string AdminPasswordHash { get; private set; } = "";
 
     public string ResultPath(string dataDir)
         => Path.IsPathRooted(ResultFile) ? ResultFile : Path.Combine(dataDir, ResultFile);
@@ -78,6 +79,14 @@ public sealed class QuizConfig
                 if (!string.IsNullOrWhiteSpace(sanitized))
                     c.QuizFolder = sanitized;
             }
+            else if (key.Equals("adminPassword", StringComparison.OrdinalIgnoreCase) && val.Length > 0)
+            {
+                c.AdminPasswordHash = ComputeHash(val);
+            }
+            else if (key.Equals("adminPasswordHash", StringComparison.OrdinalIgnoreCase) && val.Length > 0)
+            {
+                c.AdminPasswordHash = val.Trim().ToLowerInvariant();
+            }
         }
         return c;
     }
@@ -104,5 +113,19 @@ public sealed class QuizConfig
         if (s.Length > 50) s = s.Substring(0, 50).Trim();
         if (s == "." || s == "..") return "";
         return s;
+    }
+
+    public static string ComputeHash(string input)
+    {
+        using var sha = System.Security.Cryptography.SHA256.Create();
+        byte[] bytes = System.Text.Encoding.UTF8.GetBytes(input);
+        byte[] hash = sha.ComputeHash(bytes);
+        return Convert.ToHexString(hash).ToLowerInvariant();
+    }
+
+    public bool VerifyAdminPassword(string password)
+    {
+        if (string.IsNullOrEmpty(AdminPasswordHash)) return false;
+        return ComputeHash(password) == AdminPasswordHash;
     }
 }

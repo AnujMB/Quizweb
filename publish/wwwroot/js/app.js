@@ -1059,6 +1059,165 @@ async function init() {
 
 document.addEventListener("DOMContentLoaded", init);
 
+/* ------------------------------ admin ------------------------------ */
+let adminToken = localStorage.getItem("adminToken") || null;
+
+async function openAdmin() {
+  $("admin-login-error").hidden = true;
+  $("admin-msg").hidden = true;
+  $("admin-pass").value = "";
+  $("admin-newpass").value = "";
+  $("admin-backdrop").hidden = false;
+  try {
+    const st = await fetch("/api/admin/status").then(r => r.json());
+    $("admin-setup-hint").hidden = !!st.hasPassword;
+    $("admin-login-btn").textContent = st.hasPassword ? "Login" : "Create Password";
+  } catch {}
+  $("admin-login").hidden = false;
+  $("admin-panel").hidden = true;
+  $("admin-pass").focus();
+}
+
+function closeAdmin() {
+  $("admin-backdrop").hidden = true;
+}
+
+async function adminLogin() {
+  const pass = $("admin-pass").value;
+  if (!pass) { $("admin-login-error").textContent = "Enter password."; $("admin-login-error").hidden = false; return; }
+  $("admin-login-error").hidden = true;
+  try {
+    const st = await fetch("/api/admin/status").then(r => r.json());
+    let res;
+    if (!st.hasPassword) {
+      res = await fetch("/api/admin/setup", { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify({ password: pass }) });
+      if (!res.ok) throw new Error(await res.text());
+      // now login
+      res = await fetch("/api/admin/login", { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify({ password: pass }) });
+    } else {
+      res = await fetch("/api/admin/login", { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify({ password: pass }) });
+    }
+    if (!res.ok) {
+      const txt = await res.text();
+      throw new Error(res.status === 429 ? "Too many attempts. Try later." : (txt || "Login failed."));
+    }
+    const data = await res.json();
+    if (!data.ok && !data.token) throw new Error("Login failed.");
+    adminToken = data.token;
+    localStorage.setItem("adminToken", adminToken);
+    await loadAdminConfig();
+    $("admin-login").hidden = true;
+    $("admin-panel").hidden = false;
+  } catch (err) {
+    $("admin-login-error").textContent = err.message;
+    $("admin-login-error").hidden = false;
+  }
+}
+
+async function loadAdminConfig() {
+  const res = await fetch("/api/admin/config", { headers: { "X-Admin-Token": adminToken || "" } });
+  if (!res.ok) throw new Error("Failed to load config.");
+  const c = await res.json();
+  $("admin-time").value = c.timeMinutes ?? "";
+  $("admin-neg").value = c.negativeMarkingPct ?? 0;
+  $("admin-folder").value = c.quizFolder ?? "";
+  $("admin-resultfile").value = c.resultFile ?? "";
+  $("admin-port").value = c.port ?? "";
+  $("admin-allowResultViewing").checked = !!c.allowResultViewing;
+  $("admin-allowImport").checked = !!c.allowImport;
+  $("admin-allowReview").checked = !!c.allowReview;
+  $("admin-allowAnswerDetails").checked = !!c.allowAnswerDetails;
+  $("admin-folders").textContent = (c.availableFolders && c.availableFolders.length) ? c.availableFolders.join(", ") : "(none)";
+  $("admin-msg").hidden = true;
+}
+
+async function adminSave() {
+  const payload = {
+    time: parseInt($("admin-time").value, 10) || undefined,
+    negativeMarking: $("admin-neg").value,
+    quizFolder: $("admin-folder").value,
+    resultFile: $("admin-resultfile").value || undefined,
+    port: $("admin-port").value ? parseInt($("admin-port").value, 10) : undefined,
+    allowResultViewing: $("admin-allowResultViewing").checked,
+    allowImport: $("admin-allowImport").checked,
+    allowReview: $("admin-allowReview").checked,
+    allowAnswerDetails: $("admin-allowAnswerDetails").checked,
+  };
+  const newPass = $("admin-newpass").value.trim();
+  if (newPass) {
+    if (newPass.length < 4) { $("admin-msg").textContent = "New password must be at least 4 characters."; $("admin-msg").hidden = false; return; }
+    payload.newAdminPassword = newPass;
+  }
+  $("admin-msg").textContent = "Saving...";
+  $("admin-msg").hidden = false;
+  try {
+    const res = await fetch("/api/admin/config", { method: "POST", headers: { "Content-Type": "application/json", "X-Admin-Token": adminToken || "" }, body: JSON.stringify(payload) });
+    const data = await res.json().catch(() => ({}));
+    if (!res.ok) throw new Error(data.message || await res.text() || "Save failed.");
+    if (data.needRestart) {
+      $("admin-msg").textContent = "Saved. Restart required for folder/port. Click Restart Server.";
+    } else {
+      $("admin-msg").textContent = "Saved and hot-reloaded.";
+      // refresh local config display
+      try {
+        state.config = await api("/api/config");
+        state.quizInfo = { subject: state.config.subject || "", className: state.config.className || "", examType: state.config.examType || "" };
+        $("quiz-title").textContent = state.quizInfo.examType || "Quiz";
+        $("tb-title").textContent = state.quizInfo.examType || "Quiz";
+        const tq2 = state.config.totalQuestions;
+        const hintEl2 = $("hint-time");
+        let html2 = "";
+        if (typeof tq2 === "number" && tq2 > 0) html2 += "Number of questions: " + tq2;
+        html2 += (html2 ? "  |  " : "") + "Time: " + state.config.timeMinutes + " min";
+        if (state.config.negativeMarkingPct > 0) html2 += '  |  <span style="color:var(--red);font-weight:700">Negative marking: ' + Math.round(state.config.negativeMarkingPct) + '%</span>';
+        hintEl2.innerHTML = html2;
+        $("btn-results").hidden = !state.config.allowResultViewing;
+        $("btn-review").hidden = !state.config.allowReview;
+      } catch {}
+    }
+    $("admin-newpass").value = "";
+  } catch (err) {
+    $("admin-msg").textContent = "Save failed: " + err.message;
+  }
+  $("admin-msg").hidden = false;
+}
+
+async function adminRestart() {
+  if (!confirm("Restart the server? Students will be disconnected for a moment.")) return;
+  $("admin-msg").textContent = "Restarting...";
+  $("admin-msg").hidden = false;
+  try {
+    const res = await fetch("/api/admin/restart", { method: "POST", headers: { "X-Admin-Token": adminToken || "" } });
+    const data = await res.json().catch(() => ({}));
+    if (!res.ok) throw new Error(data.title || "Restart failed.");
+    $("admin-msg").textContent = "Restarting... Please wait 3 seconds and refresh (Ctrl+F5).";
+    setTimeout(() => { closeAdmin(); location.reload(); }, 3500);
+  } catch (err) {
+    $("admin-msg").textContent = "Restart failed: " + err.message;
+    $("admin-msg").hidden = false;
+  }
+}
+
+function wireAdmin() {
+  const b = $("btn-admin");
+  if (b) b.addEventListener("click", openAdmin);
+  const c1 = $("admin-cancel");
+  if (c1) c1.addEventListener("click", closeAdmin);
+  const c2 = $("admin-close");
+  if (c2) c2.addEventListener("click", closeAdmin);
+  const lb = $("admin-login-btn");
+  if (lb) lb.addEventListener("click", adminLogin);
+  const pass = $("admin-pass");
+  if (pass) pass.addEventListener("keydown", e => { if (e.key === "Enter") adminLogin(); });
+  const save = $("admin-save");
+  if (save) save.addEventListener("click", adminSave);
+  const rst = $("admin-restart");
+  if (rst) rst.addEventListener("click", adminRestart);
+  const backdrop = $("admin-backdrop");
+  if (backdrop) backdrop.addEventListener("click", e => { if (e.target === backdrop) closeAdmin(); });
+}
+setTimeout(wireAdmin, 0);
+
 // Save progress when user tries to leave the page (close tab, navigate, etc.)
 window.addEventListener('beforeunload', function(event) {
     // Don't save if already submitting

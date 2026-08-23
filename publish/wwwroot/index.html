@@ -49,6 +49,9 @@
         <button id="btn-import" class="ghost" type="button" hidden>Import Questions</button>
       </div>
       <p class="hint" id="hint-time"></p>
+      <div class="admin-link">
+        <button id="btn-admin" class="link-btn" type="button">Admin</button>
+      </div>
     </div>
   </section>
 
@@ -129,6 +132,59 @@
     <div class="modal-actions">
       <button id="modal-no" class="ghost" type="button">No</button>
       <button id="modal-yes" class="primary" type="button">Yes</button>
+    </div>
+  </div>
+</div>
+
+<!-- ============ ADMIN ============ -->
+<div id="admin-backdrop" class="modal-backdrop" hidden>
+  <div class="modal admin-modal">
+    <div class="modal-title">Admin</div>
+    <div id="admin-login">
+      <p class="hint">Enter admin password to manage settings.</p>
+      <p id="admin-setup-hint" class="hint" hidden>No admin password set. Create one to secure the panel.</p>
+      <label>Password
+        <input id="admin-pass" type="password" autocomplete="off">
+      </label>
+      <div class="modal-actions">
+        <button id="admin-login-btn" class="primary" type="button">Login</button>
+        <button id="admin-cancel" class="ghost" type="button">Cancel</button>
+      </div>
+      <p id="admin-login-error" class="hint" style="color:var(--red)" hidden></p>
+    </div>
+    <div id="admin-panel" hidden>
+      <div class="admin-grid">
+        <label>Time (minutes)
+          <input id="admin-time" type="number" min="1" max="300">
+        </label>
+        <label>Negative Marking (%)
+          <input id="admin-neg" type="number" min="0" max="100">
+        </label>
+        <label>Quiz Folder
+          <input id="admin-folder" type="text" placeholder="e.g. Math">
+          <span class="hint">Subfolder in publish/ (e.g. Math, Radhika_Nepali). Empty = root.</span>
+          <span class="hint">Available: <span id="admin-folders"></span></span>
+        </label>
+        <label>Result File
+          <input id="admin-resultfile" type="text">
+        </label>
+        <label>Port
+          <input id="admin-port" type="number" min="1" max="65535">
+        </label>
+        <label class="check"><input id="admin-allowResultViewing" type="checkbox"> Allow Result Viewing (View Results button)</label>
+        <label class="check"><input id="admin-allowImport" type="checkbox"> Allow Import</label>
+        <label class="check"><input id="admin-allowReview" type="checkbox"> Allow Review (after quiz)</label>
+        <label class="check"><input id="admin-allowAnswerDetails" type="checkbox"> Allow Answer Details (in View Results)</label>
+        <label>New Admin Password (leave blank to keep)
+          <input id="admin-newpass" type="password" autocomplete="new-password" placeholder="min 4 chars">
+        </label>
+      </div>
+      <div class="modal-actions">
+        <button id="admin-save" class="primary" type="button">Save (hot-reload)</button>
+        <button id="admin-restart" class="ghost" type="button" title="Restart server for folder/port">Restart Server</button>
+        <button id="admin-close" class="ghost" type="button">Close</button>
+      </div>
+      <p id="admin-msg" class="hint" hidden></p>
     </div>
   </div>
 </div>
