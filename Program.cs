@@ -100,7 +100,6 @@ app.MapGet("/api/questions", () =>
             x.Number,
             x.Text,
             x.Options,
-            x.CorrectIndices,
             x.IsMultiCorrect,
             image = NormalizeImagePath(x.ImagePath),
             x.Passage,
@@ -155,7 +154,26 @@ app.MapPost("/api/submit", async (SubmitRequest req, HttpContext httpCtx) =>
         {
             var result = QuizEngine.Submit(req, questions, quizInfo, config, dataDir, store);
             sessions.Remove(req.Name, req.Class, req.Section);
-            return Results.Ok(result);
+            if (result.AlreadyTaken || !config.AllowReview)
+                return Results.Ok(result);
+            var review = questions.Select(q => new
+            {
+                number = q.Number,
+                correctIndices = q.CorrectIndices
+            }).ToList();
+            return Results.Ok(new
+            {
+                result.AlreadyTaken,
+                result.PreviousMarks,
+                result.Marks,
+                result.Correct,
+                result.Wrong,
+                result.Attempted,
+                result.Total,
+                result.Saved,
+                result.SavePending,
+                review
+            });
         }
         finally
         {
@@ -189,12 +207,15 @@ app.MapGet("/api/results/detail", (string name, string className, string section
         string.Equals(r.Class, className, StringComparison.OrdinalIgnoreCase) &&
         string.Equals(r.Section, section, StringComparison.OrdinalIgnoreCase));
     if (match == null) return Results.NotFound();
+    var bankQuestions = QuestionBank.Load(dataDir).Questions;
+    var correctMap = bankQuestions.ToDictionary(q => q.Number, q => q.CorrectIndices);
     return Results.Ok(new
     {
         match.Name, match.Class, match.Section, match.Subject, match.ExamType,
         match.QuizClass, match.Marks, match.Date,
         match.ComputerName, match.IPAddress,
-        answers = match.Answers
+        answers = match.Answers,
+        correctMap
     });
 });
 

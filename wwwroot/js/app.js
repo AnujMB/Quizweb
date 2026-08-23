@@ -10,11 +10,12 @@ const $ = (id) => document.getElementById(id);
 const state = {
   config: null,          // from /api/config
   quizInfo: { subject: "", className: "", examType: "" },
-  bank: [],              // questions in bank order (numbers = original)
+  bank: [],              // questions in bank order (numbers = original, no correctIndices until review/detail)
   order: [],             // shuffled display order (subset/references of bank)
   index: 0,              // current display index
   answers: new Map(),    // displayIndex -> Set of option indices
   review: false,
+  reviewData: null,      // Map<number, int[]> — populated only after submit when allowReview
   taken: false,
   zoom: 1,
   timerHandle: null,
@@ -283,7 +284,8 @@ function renderQuestion() {
     row.dataset.index = i;
 
     if (state.review) {
-      const isCorrect = q.correctIndices.includes(i);
+      const correctIndices = state.reviewData ? (state.reviewData.get(q.number) || []) : [];
+      const isCorrect = correctIndices.includes(i);
       const isSelected = selected.has(i);
       if (isCorrect) row.classList.add("correct");
       else if (isSelected) row.classList.add("wrong");
@@ -507,6 +509,11 @@ async function submitQuiz(confirmFirst) {
       return;
     }
 
+    if (res.review && Array.isArray(res.review)) {
+      state.reviewData = new Map(res.review.map(r => [r.number, r.correctIndices || []]));
+    } else {
+      state.reviewData = null;
+    }
     state.submitting = false;
     showScore(res);
   } catch (err) {
@@ -575,6 +582,20 @@ function startReview() {
   renderQuestion();
 }
 
+/* ----------------------------- helper: ensure bank loaded ----------------------------- */
+async function ensureBank() {
+  if (state.bank.length > 0) return;
+  const bankRes = await api("/api/questions");
+  state.bank = bankRes.questions || [];
+  if (bankRes.quizInfo) {
+    state.quizInfo = {
+      subject: bankRes.quizInfo.subject || "",
+      className: bankRes.quizInfo.class || "",
+      examType: bankRes.quizInfo.examType || ""
+    };
+  }
+}
+
 /* ----------------------------- start screen ----------------------------- */
 async function startClicked() {
   if (state.submitting || state.taken) return;
@@ -601,12 +622,15 @@ async function startClicked() {
       $("taken-banner").hidden = false;
       $("btn-start").hidden = true;
       $("btn-exit-taken").hidden = false;
+      $("btn-start").disabled = false;
       return;
     }
     if (res.alreadyTaken) {
       showTakenState(res.previousMarks);
       return;
     }
+    await ensureBank();
+    if (state.bank.length === 0) throw new Error("No questions available.");
     beginQuiz();
   } catch (err) {
     $("btn-start").disabled = false;
@@ -622,8 +646,9 @@ function showTakenState(prevMarks) {
   let txt = state.student.name + "  |  Class: " + state.student.className +
     "  |  Section: " + state.student.section;
   if (info) txt += "\n" + info;
+  const totalStr = state.bank.length > 0 ? " out of " + state.bank.length : "";
   txt += "\n\nYou have already taken this test.\nYour previous score: " +
-    prevMarks.toFixed(2) + " out of " + state.bank.length;
+    prevMarks.toFixed(2) + totalStr;
   $("taken-banner").textContent = txt;
   $("taken-banner").hidden = false;
   $("btn-start").hidden = true;
@@ -636,6 +661,7 @@ function beginQuiz() {
   state.index = 0;
   state.answers = new Map();
   state.review = false;
+  state.reviewData = null;
   state.taken = false;
 
   $("taken-banner").hidden = true;
@@ -650,6 +676,7 @@ function beginQuiz() {
 /* ------------------------------- results ------------------------------- */
 async function openResults() {
   try {
+    await ensureBank();
     const students = await api("/api/results/students");
     const sel = $("student-select");
     sel.innerHTML = "";
@@ -823,10 +850,12 @@ async function renderStudentDetail() {
       "   |   Computer: " + (d.computerName || "N/A");
     $("results-body").appendChild(summary);
 
+    const correctMap = d.correctMap || {};
     for (const q of state.bank) {
       const qno = q.number;
+      const correctIndices = correctMap[qno] ?? correctMap[String(qno)] ?? [];
       const studentAns = d.answers && d.answers[qno] ? String(d.answers[qno]) : "";
-      const correctLetters = q.correctIndices.map((i) => String.fromCharCode(65 + i)).join("&");
+      const correctLetters = correctIndices.map((i) => String.fromCharCode(65 + i)).join("&");
       const answered = !!studentAns.trim();
       const correct = answered && studentAns.toUpperCase() === correctLetters.toUpperCase();
       const verdict = !answered ? "Not attempted" : correct ? "Correct" : "Wrong";
@@ -857,7 +886,7 @@ async function renderStudentDetail() {
         const letter = String.fromCharCode(65 + i);
         const oel = document.createElement("div");
         oel.className = "rq-option";
-        const isCorrectOpt = q.correctIndices.includes(i);
+        const isCorrectOpt = correctIndices.includes(i);
         const isSelected = chosen.includes(letter);
         if (isCorrectOpt) oel.classList.add("correct");
         if (isSelected && !isCorrectOpt) oel.classList.add("wrong");
@@ -902,6 +931,7 @@ function showLoadError(msg) {
 function resetToStart() {
   stopTimer();
   state.review = false;
+  state.reviewData = null;
   state.taken = false;
   state.order = [];
   state.answers = new Map();
@@ -975,9 +1005,11 @@ async function init() {
 
   try {
     state.config = await api("/api/config");
-    const bankRes = await api("/api/questions");
-    state.bank = bankRes.questions;
-    state.quizInfo = bankRes.quizInfo || state.quizInfo;
+    state.quizInfo = {
+      subject: state.config.subject || "",
+      className: state.config.className || "",
+      examType: state.config.examType || ""
+    };
 
     $("quiz-title").textContent = state.quizInfo.examType || "Quiz";
     $("tb-title").textContent = state.quizInfo.examType || "Quiz";
@@ -998,8 +1030,7 @@ async function init() {
     $("btn-review").hidden = !state.config.allowReview;
     toggleStart();
   } catch (err) {
-    showLoadError("Could not load the question bank: " + err.message +
-      "\n\nMake sure questions.xlsx (or questions.txt) is next to the app.");
+    showLoadError("Could not load quiz config: " + err.message);
   }
 }
 

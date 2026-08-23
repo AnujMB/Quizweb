@@ -1,6 +1,6 @@
 {
   "Version": 1,
-  "Hash": "9QCG7qlwr5ofBwH3MJi5AbFk55UBYcu+6lUnnaKGzb0=",
+  "Hash": "5PiQZaLbVBBG4QtnGeV4C9zBHObwTPqDl0JLCaNb778=",
   "Source": "QuizWeb",
   "BasePath": "_content/QuizWeb",
   "Mode": "Default",
@@ -17,12 +17,12 @@
   ],
   "Assets": [
     {
-      "Identity": "D:\\anuj\\opnsrc_try\\ai\\QuizWeb_Manual\\obj\\Release\\net9.0\\compressed\\17ct35ragm-1xm7xz0z22.gz",
+      "Identity": "D:\\anuj\\opnsrc_try\\ai\\QuizWeb_Manual\\obj\\Release\\net9.0\\compressed\\17ct35ragm-wp8wsd433a.gz",
       "SourceId": "QuizWeb",
       "SourceType": "Discovered",
       "ContentRoot": "D:\\anuj\\opnsrc_try\\ai\\QuizWeb_Manual\\obj\\Release\\net9.0\\compressed\\",
       "BasePath": "_content/QuizWeb",
-      "RelativePath": "index#[.{fingerprint=1xm7xz0z22}]?.html.gz",
+      "RelativePath": "index#[.{fingerprint=wp8wsd433a}]?.html.gz",
       "AssetKind": "All",
       "AssetMode": "All",
       "AssetRole": "Alternative",
@@ -31,19 +31,19 @@
       "RelatedAsset": "D:\\anuj\\opnsrc_try\\ai\\QuizWeb_Manual\\wwwroot\\index.html",
       "AssetTraitName": "Content-Encoding",
       "AssetTraitValue": "gzip",
-      "Fingerprint": "4w3agh54of",
-      "Integrity": "NHZe8/AO935nvNz8pKK8wtkXF1tNePInOuRpiXUirs8=",
+      "Fingerprint": "kozwva0nek",
+      "Integrity": "XNzdHhYe9pGRrdEOe32+whI0X/8hrORq3QX0GGarlNM=",
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
       "OriginalItemSpec": "D:\\anuj\\opnsrc_try\\ai\\QuizWeb_Manual\\wwwroot\\index.html"
     },
     {
-      "Identity": "D:\\anuj\\opnsrc_try\\ai\\QuizWeb_Manual\\obj\\Release\\net9.0\\compressed\\a57jj5c47z-49l1zisian.gz",
+      "Identity": "D:\\anuj\\opnsrc_try\\ai\\QuizWeb_Manual\\obj\\Release\\net9.0\\compressed\\a57jj5c47z-lzrugl5jvj.gz",
       "SourceId": "QuizWeb",
       "SourceType": "Discovered",
       "ContentRoot": "D:\\anuj\\opnsrc_try\\ai\\QuizWeb_Manual\\obj\\Release\\net9.0\\compressed\\",
       "BasePath": "_content/QuizWeb",
-      "RelativePath": "css/app#[.{fingerprint=49l1zisian}]?.css.gz",
+      "RelativePath": "css/app#[.{fingerprint=lzrugl5jvj}]?.css.gz",
       "AssetKind": "All",
       "AssetMode": "All",
       "AssetRole": "Alternative",
@@ -52,19 +52,19 @@
       "RelatedAsset": "D:\\anuj\\opnsrc_try\\ai\\QuizWeb_Manual\\wwwroot\\css\\app.css",
       "AssetTraitName": "Content-Encoding",
       "AssetTraitValue": "gzip",
-      "Fingerprint": "w8zjl74b6s",
-      "Integrity": "0BVu9D4cvITsJW54OBqWPl7y14ivDgCOeQnIw42Eid8=",
+      "Fingerprint": "2474geb5mf",
+      "Integrity": "AvUgbh9F8Xd600rmIlRj+4W7QBYTYjSJVResQTEgP84=",
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
       "OriginalItemSpec": "D:\\anuj\\opnsrc_try\\ai\\QuizWeb_Manual\\wwwroot\\css\\app.css"
     },
     {
-      "Identity": "D:\\anuj\\opnsrc_try\\ai\\QuizWeb_Manual\\obj\\Release\\net9.0\\compressed\\publish\\17ct35ragm-1xm7xz0z22.br",
+      "Identity": "D:\\anuj\\opnsrc_try\\ai\\QuizWeb_Manual\\obj\\Release\\net9.0\\compressed\\publish\\17ct35ragm-wp8wsd433a.br",
       "SourceId": "QuizWeb",
       "SourceType": "Discovered",
       "ContentRoot": "D:\\anuj\\opnsrc_try\\ai\\QuizWeb_Manual\\obj\\Release\\net9.0\\compressed\\publish\\",
       "BasePath": "_content/QuizWeb",
-      "RelativePath": "index#[.{fingerprint=1xm7xz0z22}]?.html.br",
+      "RelativePath": "index#[.{fingerprint=wp8wsd433a}]?.html.br",
       "AssetKind": "All",
       "AssetMode": "All",
       "AssetRole": "Alternative",
@@ -73,19 +73,19 @@
       "RelatedAsset": "D:\\anuj\\opnsrc_try\\ai\\QuizWeb_Manual\\wwwroot\\index.html",
       "AssetTraitName": "Content-Encoding",
       "AssetTraitValue": "br",
-      "Fingerprint": "cszl6m8avz",
-      "Integrity": "bIZlrU0S50AhD8l7bopyqNG9WE4Q8w7646pwrrlMyPg=",
+      "Fingerprint": "ni2ikixm5k",
+      "Integrity": "P4nsqXIv+iFpPPr9/XRPBIAAOlaOJN5+7SrvrdW9j0s=",
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
       "OriginalItemSpec": "D:\\anuj\\opnsrc_try\\ai\\QuizWeb_Manual\\wwwroot\\index.html"
     },
     {
-      "Identity": "D:\\anuj\\opnsrc_try\\ai\\QuizWeb_Manual\\obj\\Release\\net9.0\\compressed\\publish\\a57jj5c47z-49l1zisian.br",
+      "Identity": "D:\\anuj\\opnsrc_try\\ai\\QuizWeb_Manual\\obj\\Release\\net9.0\\compressed\\publish\\a57jj5c47z-lzrugl5jvj.br",
       "SourceId": "QuizWeb",
       "SourceType": "Discovered",
       "ContentRoot": "D:\\anuj\\opnsrc_try\\ai\\QuizWeb_Manual\\obj\\Release\\net9.0\\compressed\\publish\\",
       "BasePath": "_content/QuizWeb",
-      "RelativePath": "css/app#[.{fingerprint=49l1zisian}]?.css.br",
+      "RelativePath": "css/app#[.{fingerprint=lzrugl5jvj}]?.css.br",
       "AssetKind": "All",
       "AssetMode": "All",
       "AssetRole": "Alternative",
@@ -94,19 +94,19 @@
       "RelatedAsset": "D:\\anuj\\opnsrc_try\\ai\\QuizWeb_Manual\\wwwroot\\css\\app.css",
       "AssetTraitName": "Content-Encoding",
       "AssetTraitValue": "br",
-      "Fingerprint": "ejhzj5lc4f",
-      "Integrity": "irrsGlBaf+dAZf6KkYyFkxM/Ia18e00VJjDcTVsy+hA=",
+      "Fingerprint": "msp6vzggyc",
+      "Integrity": "FrNawcpcD9I8wkq8sLMtAPkf+pO+ERstouVxHUN6XW0=",
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
       "OriginalItemSpec": "D:\\anuj\\opnsrc_try\\ai\\QuizWeb_Manual\\wwwroot\\css\\app.css"
     },
     {
-      "Identity": "D:\\anuj\\opnsrc_try\\ai\\QuizWeb_Manual\\obj\\Release\\net9.0\\compressed\\publish\\usu22hziqv-4qms9nk4sj.br",
+      "Identity": "D:\\anuj\\opnsrc_try\\ai\\QuizWeb_Manual\\obj\\Release\\net9.0\\compressed\\publish\\usu22hziqv-20yt85367g.br",
       "SourceId": "QuizWeb",
       "SourceType": "Discovered",
       "ContentRoot": "D:\\anuj\\opnsrc_try\\ai\\QuizWeb_Manual\\obj\\Release\\net9.0\\compressed\\publish\\",
       "BasePath": "_content/QuizWeb",
-      "RelativePath": "js/app#[.{fingerprint=4qms9nk4sj}]?.js.br",
+      "RelativePath": "js/app#[.{fingerprint=20yt85367g}]?.js.br",
       "AssetKind": "All",
       "AssetMode": "All",
       "AssetRole": "Alternative",
@@ -115,19 +115,19 @@
       "RelatedAsset": "D:\\anuj\\opnsrc_try\\ai\\QuizWeb_Manual\\wwwroot\\js\\app.js",
       "AssetTraitName": "Content-Encoding",
       "AssetTraitValue": "br",
-      "Fingerprint": "n27jaqnbsi",
-      "Integrity": "cTPyic0nBeyZkDHLBBBKi/c5VCQvwVTsNJUvKLif6jU=",
+      "Fingerprint": "bs51memeaf",
+      "Integrity": "i4HS7zRpfFYcF7J2hLtacYN35ZYXEQ7ZIyeM/F2ttXA=",
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
       "OriginalItemSpec": "D:\\anuj\\opnsrc_try\\ai\\QuizWeb_Manual\\wwwroot\\js\\app.js"
     },
     {
-      "Identity": "D:\\anuj\\opnsrc_try\\ai\\QuizWeb_Manual\\obj\\Release\\net9.0\\compressed\\usu22hziqv-4qms9nk4sj.gz",
+      "Identity": "D:\\anuj\\opnsrc_try\\ai\\QuizWeb_Manual\\obj\\Release\\net9.0\\compressed\\usu22hziqv-20yt85367g.gz",
       "SourceId": "QuizWeb",
       "SourceType": "Discovered",
       "ContentRoot": "D:\\anuj\\opnsrc_try\\ai\\QuizWeb_Manual\\obj\\Release\\net9.0\\compressed\\",
       "BasePath": "_content/QuizWeb",
-      "RelativePath": "js/app#[.{fingerprint=4qms9nk4sj}]?.js.gz",
+      "RelativePath": "js/app#[.{fingerprint=20yt85367g}]?.js.gz",
       "AssetKind": "All",
       "AssetMode": "All",
       "AssetRole": "Alternative",
@@ -136,8 +136,8 @@
       "RelatedAsset": "D:\\anuj\\opnsrc_try\\ai\\QuizWeb_Manual\\wwwroot\\js\\app.js",
       "AssetTraitName": "Content-Encoding",
       "AssetTraitValue": "gzip",
-      "Fingerprint": "00szzvv5ak",
-      "Integrity": "gIdoAjPM7RMUy8q0GUIGHidMGSuKdBf8PPUeHbv0ipw=",
+      "Fingerprint": "4xrowke4hi",
+      "Integrity": "qIyQ/YhWkzWgY0u41vK0tBVIvPy7GW6rLay8KoxJloY=",
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
       "OriginalItemSpec": "D:\\anuj\\opnsrc_try\\ai\\QuizWeb_Manual\\wwwroot\\js\\app.js"
@@ -157,8 +157,8 @@
       "RelatedAsset": "",
       "AssetTraitName": "",
       "AssetTraitValue": "",
-      "Fingerprint": "49l1zisian",
-      "Integrity": "KBPCjrOGW8jtmcAry0goKmMG6oVaO2IFqvLDAKh3BnU=",
+      "Fingerprint": "lzrugl5jvj",
+      "Integrity": "z4Ir3jNoC6uLb5jl3srkRu0kyLrVzzopPGlNtsjAaTg=",
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
       "OriginalItemSpec": "wwwroot\\css\\app.css"
@@ -178,8 +178,8 @@
       "RelatedAsset": "",
       "AssetTraitName": "",
       "AssetTraitValue": "",
-      "Fingerprint": "1xm7xz0z22",
-      "Integrity": "O6O7JN6Vj73c6KoCZT3jefHJwDkGBCEzIRHmWMCttwI=",
+      "Fingerprint": "wp8wsd433a",
+      "Integrity": "3Bu/qnp3oMD0635HQLe55QjwzIqUTZ2uJnroVaGCJcM=",
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
       "OriginalItemSpec": "wwwroot\\index.html"
@@ -199,8 +199,8 @@
       "RelatedAsset": "",
       "AssetTraitName": "",
       "AssetTraitValue": "",
-      "Fingerprint": "4qms9nk4sj",
-      "Integrity": "9PghRtLbvzKaQtfzr8A7YiW9vbPVUlg3ZLI4PH4xPdk=",
+      "Fingerprint": "20yt85367g",
+      "Integrity": "Yj3BDnUud71leBx9cmU9tstphNvHtbLLjTLXaFwn5yo=",
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
       "OriginalItemSpec": "wwwroot\\js\\app.js"
@@ -208,13 +208,13 @@
   ],
   "Endpoints": [
     {
-      "Route": "css/app.49l1zisian.css",
-      "AssetFile": "D:\\anuj\\opnsrc_try\\ai\\QuizWeb_Manual\\obj\\Release\\net9.0\\compressed\\a57jj5c47z-49l1zisian.gz",
+      "Route": "css/app.css",
+      "AssetFile": "D:\\anuj\\opnsrc_try\\ai\\QuizWeb_Manual\\obj\\Release\\net9.0\\compressed\\a57jj5c47z-lzrugl5jvj.gz",
       "Selectors": [
         {
           "Name": "Content-Encoding",
           "Value": "gzip",
-          "Quality": "0.000346140533"
+          "Quality": "0.000325945241"
         }
       ],
       "ResponseHeaders": [
@@ -224,15 +224,252 @@
         },
         {
           "Name": "Content-Length",
-          "Value": "2888"
+          "Value": "3067"
         },
         {
           "Name": "ETag",
-          "Value": "\"0BVu9D4cvITsJW54OBqWPl7y14ivDgCOeQnIw42Eid8=\""
+          "Value": "\"AvUgbh9F8Xd600rmIlRj+4W7QBYTYjSJVResQTEgP84=\""
         },
         {
           "Name": "Last-Modified",
-          "Value": "Mon, 17 Aug 2026 16:36:00 GMT"
+          "Value": "Sun, 23 Aug 2026 01:26:33 GMT"
+        },
+        {
+          "Name": "Cache-Control",
+          "Value": "no-cache"
+        },
+        {
+          "Name": "Content-Encoding",
+          "Value": "gzip"
+        },
+        {
+          "Name": "Vary",
+          "Value": "Content-Encoding"
+        },
+        {
+          "Name": "Content-Type",
+          "Value": "text/css"
+        },
+        {
+          "Name": "ETag",
+          "Value": "W/\"z4Ir3jNoC6uLb5jl3srkRu0kyLrVzzopPGlNtsjAaTg=\""
+        }
+      ],
+      "EndpointProperties": [
+        {
+          "Name": "integrity",
+          "Value": "sha256-z4Ir3jNoC6uLb5jl3srkRu0kyLrVzzopPGlNtsjAaTg="
+        }
+      ]
+    },
+    {
+      "Route": "css/app.css",
+      "AssetFile": "D:\\anuj\\opnsrc_try\\ai\\QuizWeb_Manual\\obj\\Release\\net9.0\\compressed\\publish\\a57jj5c47z-lzrugl5jvj.br",
+      "Selectors": [
+        {
+          "Name": "Content-Encoding",
+          "Value": "br",
+          "Quality": "0.000379218809"
+        }
+      ],
+      "ResponseHeaders": [
+        {
+          "Name": "Accept-Ranges",
+          "Value": "bytes"
+        },
+        {
+          "Name": "Content-Length",
+          "Value": "2636"
+        },
+        {
+          "Name": "ETag",
+          "Value": "\"FrNawcpcD9I8wkq8sLMtAPkf+pO+ERstouVxHUN6XW0=\""
+        },
+        {
+          "Name": "Last-Modified",
+          "Value": "Sun, 23 Aug 2026 01:26:33 GMT"
+        },
+        {
+          "Name": "Cache-Control",
+          "Value": "no-cache"
+        },
+        {
+          "Name": "Content-Encoding",
+          "Value": "br"
+        },
+        {
+          "Name": "Vary",
+          "Value": "Content-Encoding"
+        },
+        {
+          "Name": "Content-Type",
+          "Value": "text/css"
+        },
+        {
+          "Name": "ETag",
+          "Value": "W/\"z4Ir3jNoC6uLb5jl3srkRu0kyLrVzzopPGlNtsjAaTg=\""
+        }
+      ],
+      "EndpointProperties": [
+        {
+          "Name": "integrity",
+          "Value": "sha256-z4Ir3jNoC6uLb5jl3srkRu0kyLrVzzopPGlNtsjAaTg="
+        }
+      ]
+    },
+    {
+      "Route": "css/app.css",
+      "AssetFile": "D:\\anuj\\opnsrc_try\\ai\\QuizWeb_Manual\\wwwroot\\css\\app.css",
+      "Selectors": [],
+      "ResponseHeaders": [
+        {
+          "Name": "Accept-Ranges",
+          "Value": "bytes"
+        },
+        {
+          "Name": "Content-Length",
+          "Value": "11860"
+        },
+        {
+          "Name": "Content-Type",
+          "Value": "text/css"
+        },
+        {
+          "Name": "ETag",
+          "Value": "\"z4Ir3jNoC6uLb5jl3srkRu0kyLrVzzopPGlNtsjAaTg=\""
+        },
+        {
+          "Name": "Last-Modified",
+          "Value": "Sun, 23 Aug 2026 01:26:33 GMT"
+        },
+        {
+          "Name": "Cache-Control",
+          "Value": "no-cache"
+        }
+      ],
+      "EndpointProperties": [
+        {
+          "Name": "integrity",
+          "Value": "sha256-z4Ir3jNoC6uLb5jl3srkRu0kyLrVzzopPGlNtsjAaTg="
+        }
+      ]
+    },
+    {
+      "Route": "css/app.css.br",
+      "AssetFile": "D:\\anuj\\opnsrc_try\\ai\\QuizWeb_Manual\\obj\\Release\\net9.0\\compressed\\publish\\a57jj5c47z-lzrugl5jvj.br",
+      "Selectors": [],
+      "ResponseHeaders": [
+        {
+          "Name": "Accept-Ranges",
+          "Value": "bytes"
+        },
+        {
+          "Name": "Content-Length",
+          "Value": "2636"
+        },
+        {
+          "Name": "Content-Type",
+          "Value": "text/css"
+        },
+        {
+          "Name": "ETag",
+          "Value": "\"FrNawcpcD9I8wkq8sLMtAPkf+pO+ERstouVxHUN6XW0=\""
+        },
+        {
+          "Name": "Last-Modified",
+          "Value": "Sun, 23 Aug 2026 01:26:33 GMT"
+        },
+        {
+          "Name": "Cache-Control",
+          "Value": "no-cache"
+        },
+        {
+          "Name": "Content-Encoding",
+          "Value": "br"
+        },
+        {
+          "Name": "Vary",
+          "Value": "Content-Encoding"
+        }
+      ],
+      "EndpointProperties": [
+        {
+          "Name": "integrity",
+          "Value": "sha256-FrNawcpcD9I8wkq8sLMtAPkf+pO+ERstouVxHUN6XW0="
+        }
+      ]
+    },
+    {
+      "Route": "css/app.css.gz",
+      "AssetFile": "D:\\anuj\\opnsrc_try\\ai\\QuizWeb_Manual\\obj\\Release\\net9.0\\compressed\\a57jj5c47z-lzrugl5jvj.gz",
+      "Selectors": [],
+      "ResponseHeaders": [
+        {
+          "Name": "Accept-Ranges",
+          "Value": "bytes"
+        },
+        {
+          "Name": "Content-Length",
+          "Value": "3067"
+        },
+        {
+          "Name": "Content-Type",
+          "Value": "text/css"
+        },
+        {
+          "Name": "ETag",
+          "Value": "\"AvUgbh9F8Xd600rmIlRj+4W7QBYTYjSJVResQTEgP84=\""
+        },
+        {
+          "Name": "Last-Modified",
+          "Value": "Sun, 23 Aug 2026 01:26:33 GMT"
+        },
+        {
+          "Name": "Cache-Control",
+          "Value": "no-cache"
+        },
+        {
+          "Name": "Content-Encoding",
+          "Value": "gzip"
+        },
+        {
+          "Name": "Vary",
+          "Value": "Content-Encoding"
+        }
+      ],
+      "EndpointProperties": [
+        {
+          "Name": "integrity",
+          "Value": "sha256-AvUgbh9F8Xd600rmIlRj+4W7QBYTYjSJVResQTEgP84="
+        }
+      ]
+    },
+    {
+      "Route": "css/app.lzrugl5jvj.css",
+      "AssetFile": "D:\\anuj\\opnsrc_try\\ai\\QuizWeb_Manual\\obj\\Release\\net9.0\\compressed\\a57jj5c47z-lzrugl5jvj.gz",
+      "Selectors": [
+        {
+          "Name": "Content-Encoding",
+          "Value": "gzip",
+          "Quality": "0.000325945241"
+        }
+      ],
+      "ResponseHeaders": [
+        {
+          "Name": "Accept-Ranges",
+          "Value": "bytes"
+        },
+        {
+          "Name": "Content-Length",
+          "Value": "3067"
+        },
+        {
+          "Name": "ETag",
+          "Value": "\"AvUgbh9F8Xd600rmIlRj+4W7QBYTYjSJVResQTEgP84=\""
+        },
+        {
+          "Name": "Last-Modified",
+          "Value": "Sun, 23 Aug 2026 01:26:33 GMT"
         },
         {
           "Name": "Cache-Control",
@@ -252,13 +489,13 @@
         },
         {
           "Name": "ETag",
-          "Value": "W/\"KBPCjrOGW8jtmcAry0goKmMG6oVaO2IFqvLDAKh3BnU=\""
+          "Value": "W/\"z4Ir3jNoC6uLb5jl3srkRu0kyLrVzzopPGlNtsjAaTg=\""
         }
       ],
       "EndpointProperties": [
         {
           "Name": "fingerprint",
-          "Value": "49l1zisian"
+          "Value": "lzrugl5jvj"
         },
         {
           "Name": "label",
@@ -266,18 +503,18 @@
         },
         {
           "Name": "integrity",
-          "Value": "sha256-KBPCjrOGW8jtmcAry0goKmMG6oVaO2IFqvLDAKh3BnU="
+          "Value": "sha256-z4Ir3jNoC6uLb5jl3srkRu0kyLrVzzopPGlNtsjAaTg="
         }
       ]
     },
     {
-      "Route": "css/app.49l1zisian.css",
-      "AssetFile": "D:\\anuj\\opnsrc_try\\ai\\QuizWeb_Manual\\obj\\Release\\net9.0\\compressed\\publish\\a57jj5c47z-49l1zisian.br",
+      "Route": "css/app.lzrugl5jvj.css",
+      "AssetFile": "D:\\anuj\\opnsrc_try\\ai\\QuizWeb_Manual\\obj\\Release\\net9.0\\compressed\\publish\\a57jj5c47z-lzrugl5jvj.br",
       "Selectors": [
         {
           "Name": "Content-Encoding",
           "Value": "br",
-          "Quality": "0.000405022276"
+          "Quality": "0.000379218809"
         }
       ],
       "ResponseHeaders": [
@@ -287,15 +524,15 @@
         },
         {
           "Name": "Content-Length",
-          "Value": "2468"
+          "Value": "2636"
         },
         {
           "Name": "ETag",
-          "Value": "\"irrsGlBaf+dAZf6KkYyFkxM/Ia18e00VJjDcTVsy+hA=\""
+          "Value": "\"FrNawcpcD9I8wkq8sLMtAPkf+pO+ERstouVxHUN6XW0=\""
         },
         {
           "Name": "Last-Modified",
-          "Value": "Mon, 17 Aug 2026 16:36:00 GMT"
+          "Value": "Sun, 23 Aug 2026 01:26:33 GMT"
         },
         {
           "Name": "Cache-Control",
@@ -315,13 +552,13 @@
         },
         {
           "Name": "ETag",
-          "Value": "W/\"KBPCjrOGW8jtmcAry0goKmMG6oVaO2IFqvLDAKh3BnU=\""
+          "Value": "W/\"z4Ir3jNoC6uLb5jl3srkRu0kyLrVzzopPGlNtsjAaTg=\""
         }
       ],
       "EndpointProperties": [
         {
           "Name": "fingerprint",
-          "Value": "49l1zisian"
+          "Value": "lzrugl5jvj"
         },
         {
           "Name": "label",
@@ -329,12 +566,12 @@
         },
         {
           "Name": "integrity",
-          "Value": "sha256-KBPCjrOGW8jtmcAry0goKmMG6oVaO2IFqvLDAKh3BnU="
+          "Value": "sha256-z4Ir3jNoC6uLb5jl3srkRu0kyLrVzzopPGlNtsjAaTg="
         }
       ]
     },
     {
-      "Route": "css/app.49l1zisian.css",
+      "Route": "css/app.lzrugl5jvj.css",
       "AssetFile": "D:\\anuj\\opnsrc_try\\ai\\QuizWeb_Manual\\wwwroot\\css\\app.css",
       "Selectors": [],
       "ResponseHeaders": [
@@ -344,7 +581,7 @@
         },
         {
           "Name": "Content-Length",
-          "Value": "10770"
+          "Value": "11860"
         },
         {
           "Name": "Content-Type",
@@ -352,11 +589,11 @@
         },
         {
           "Name": "ETag",
-          "Value": "\"KBPCjrOGW8jtmcAry0goKmMG6oVaO2IFqvLDAKh3BnU=\""
+          "Value": "\"z4Ir3jNoC6uLb5jl3srkRu0kyLrVzzopPGlNtsjAaTg=\""
         },
         {
           "Name": "Last-Modified",
-          "Value": "Mon, 17 Aug 2026 16:36:00 GMT"
+          "Value": "Sun, 23 Aug 2026 01:26:33 GMT"
         },
         {
           "Name": "Cache-Control",
@@ -366,7 +603,7 @@
       "EndpointProperties": [
         {
           "Name": "fingerprint",
-          "Value": "49l1zisian"
+          "Value": "lzrugl5jvj"
         },
         {
           "Name": "label",
@@ -374,13 +611,13 @@
         },
         {
           "Name": "integrity",
-          "Value": "sha256-KBPCjrOGW8jtmcAry0goKmMG6oVaO2IFqvLDAKh3BnU="
+          "Value": "sha256-z4Ir3jNoC6uLb5jl3srkRu0kyLrVzzopPGlNtsjAaTg="
         }
       ]
     },
     {
-      "Route": "css/app.49l1zisian.css.br",
-      "AssetFile": "D:\\anuj\\opnsrc_try\\ai\\QuizWeb_Manual\\obj\\Release\\net9.0\\compressed\\publish\\a57jj5c47z-49l1zisian.br",
+      "Route": "css/app.lzrugl5jvj.css.br",
+      "AssetFile": "D:\\anuj\\opnsrc_try\\ai\\QuizWeb_Manual\\obj\\Release\\net9.0\\compressed\\publish\\a57jj5c47z-lzrugl5jvj.br",
       "Selectors": [],
       "ResponseHeaders": [
         {
@@ -389,7 +626,7 @@
         },
         {
           "Name": "Content-Length",
-          "Value": "2468"
+          "Value": "2636"
         },
         {
           "Name": "Content-Type",
@@ -397,11 +634,11 @@
         },
         {
           "Name": "ETag",
-          "Value": "\"irrsGlBaf+dAZf6KkYyFkxM/Ia18e00VJjDcTVsy+hA=\""
+          "Value": "\"FrNawcpcD9I8wkq8sLMtAPkf+pO+ERstouVxHUN6XW0=\""
         },
         {
           "Name": "Last-Modified",
-          "Value": "Mon, 17 Aug 2026 16:36:00 GMT"
+          "Value": "Sun, 23 Aug 2026 01:26:33 GMT"
         },
         {
           "Name": "Cache-Control",
@@ -419,7 +656,7 @@
       "EndpointProperties": [
         {
           "Name": "fingerprint",
-          "Value": "49l1zisian"
+          "Value": "lzrugl5jvj"
         },
         {
           "Name": "label",
@@ -427,13 +664,13 @@
         },
         {
           "Name": "integrity",
-          "Value": "sha256-irrsGlBaf+dAZf6KkYyFkxM/Ia18e00VJjDcTVsy+hA="
+          "Value": "sha256-FrNawcpcD9I8wkq8sLMtAPkf+pO+ERstouVxHUN6XW0="
         }
       ]
     },
     {
-      "Route": "css/app.49l1zisian.css.gz",
-      "AssetFile": "D:\\anuj\\opnsrc_try\\ai\\QuizWeb_Manual\\obj\\Release\\net9.0\\compressed\\a57jj5c47z-49l1zisian.gz",
+      "Route": "css/app.lzrugl5jvj.css.gz",
+      "AssetFile": "D:\\anuj\\opnsrc_try\\ai\\QuizWeb_Manual\\obj\\Release\\net9.0\\compressed\\a57jj5c47z-lzrugl5jvj.gz",
       "Selectors": [],
       "ResponseHeaders": [
         {
@@ -442,7 +679,7 @@
         },
         {
           "Name": "Content-Length",
-          "Value": "2888"
+          "Value": "3067"
         },
         {
           "Name": "Content-Type",
@@ -450,11 +687,11 @@
         },
         {
           "Name": "ETag",
-          "Value": "\"0BVu9D4cvITsJW54OBqWPl7y14ivDgCOeQnIw42Eid8=\""
+          "Value": "\"AvUgbh9F8Xd600rmIlRj+4W7QBYTYjSJVResQTEgP84=\""
         },
         {
           "Name": "Last-Modified",
-          "Value": "Mon, 17 Aug 2026 16:36:00 GMT"
+          "Value": "Sun, 23 Aug 2026 01:26:33 GMT"
         },
         {
           "Name": "Cache-Control",
@@ -472,7 +709,7 @@
       "EndpointProperties": [
         {
           "Name": "fingerprint",
-          "Value": "49l1zisian"
+          "Value": "lzrugl5jvj"
         },
         {
           "Name": "label",
@@ -480,18 +717,18 @@
         },
         {
           "Name": "integrity",
-          "Value": "sha256-0BVu9D4cvITsJW54OBqWPl7y14ivDgCOeQnIw42Eid8="
+          "Value": "sha256-AvUgbh9F8Xd600rmIlRj+4W7QBYTYjSJVResQTEgP84="
         }
       ]
     },
     {
-      "Route": "css/app.css",
-      "AssetFile": "D:\\anuj\\opnsrc_try\\ai\\QuizWeb_Manual\\obj\\Release\\net9.0\\compressed\\a57jj5c47z-49l1zisian.gz",
+      "Route": "index.html",
+      "AssetFile": "D:\\anuj\\opnsrc_try\\ai\\QuizWeb_Manual\\obj\\Release\\net9.0\\compressed\\17ct35ragm-wp8wsd433a.gz",
       "Selectors": [
         {
           "Name": "Content-Encoding",
           "Value": "gzip",
-          "Quality": "0.000346140533"
+          "Quality": "0.000641848524"
         }
       ],
       "ResponseHeaders": [
@@ -501,256 +738,19 @@
         },
         {
           "Name": "Content-Length",
-          "Value": "2888"
+          "Value": "1557"
         },
         {
           "Name": "ETag",
-          "Value": "\"0BVu9D4cvITsJW54OBqWPl7y14ivDgCOeQnIw42Eid8=\""
+          "Value": "\"XNzdHhYe9pGRrdEOe32+whI0X/8hrORq3QX0GGarlNM=\""
         },
         {
           "Name": "Last-Modified",
-          "Value": "Mon, 17 Aug 2026 16:36:00 GMT"
+          "Value": "Sun, 23 Aug 2026 01:26:29 GMT"
         },
         {
           "Name": "Cache-Control",
           "Value": "no-cache"
-        },
-        {
-          "Name": "Content-Encoding",
-          "Value": "gzip"
-        },
-        {
-          "Name": "Vary",
-          "Value": "Content-Encoding"
-        },
-        {
-          "Name": "Content-Type",
-          "Value": "text/css"
-        },
-        {
-          "Name": "ETag",
-          "Value": "W/\"KBPCjrOGW8jtmcAry0goKmMG6oVaO2IFqvLDAKh3BnU=\""
-        }
-      ],
-      "EndpointProperties": [
-        {
-          "Name": "integrity",
-          "Value": "sha256-KBPCjrOGW8jtmcAry0goKmMG6oVaO2IFqvLDAKh3BnU="
-        }
-      ]
-    },
-    {
-      "Route": "css/app.css",
-      "AssetFile": "D:\\anuj\\opnsrc_try\\ai\\QuizWeb_Manual\\obj\\Release\\net9.0\\compressed\\publish\\a57jj5c47z-49l1zisian.br",
-      "Selectors": [
-        {
-          "Name": "Content-Encoding",
-          "Value": "br",
-          "Quality": "0.000405022276"
-        }
-      ],
-      "ResponseHeaders": [
-        {
-          "Name": "Accept-Ranges",
-          "Value": "bytes"
-        },
-        {
-          "Name": "Content-Length",
-          "Value": "2468"
-        },
-        {
-          "Name": "ETag",
-          "Value": "\"irrsGlBaf+dAZf6KkYyFkxM/Ia18e00VJjDcTVsy+hA=\""
-        },
-        {
-          "Name": "Last-Modified",
-          "Value": "Mon, 17 Aug 2026 16:36:00 GMT"
-        },
-        {
-          "Name": "Cache-Control",
-          "Value": "no-cache"
-        },
-        {
-          "Name": "Content-Encoding",
-          "Value": "br"
-        },
-        {
-          "Name": "Vary",
-          "Value": "Content-Encoding"
-        },
-        {
-          "Name": "Content-Type",
-          "Value": "text/css"
-        },
-        {
-          "Name": "ETag",
-          "Value": "W/\"KBPCjrOGW8jtmcAry0goKmMG6oVaO2IFqvLDAKh3BnU=\""
-        }
-      ],
-      "EndpointProperties": [
-        {
-          "Name": "integrity",
-          "Value": "sha256-KBPCjrOGW8jtmcAry0goKmMG6oVaO2IFqvLDAKh3BnU="
-        }
-      ]
-    },
-    {
-      "Route": "css/app.css",
-      "AssetFile": "D:\\anuj\\opnsrc_try\\ai\\QuizWeb_Manual\\wwwroot\\css\\app.css",
-      "Selectors": [],
-      "ResponseHeaders": [
-        {
-          "Name": "Accept-Ranges",
-          "Value": "bytes"
-        },
-        {
-          "Name": "Content-Length",
-          "Value": "10770"
-        },
-        {
-          "Name": "Content-Type",
-          "Value": "text/css"
-        },
-        {
-          "Name": "ETag",
-          "Value": "\"KBPCjrOGW8jtmcAry0goKmMG6oVaO2IFqvLDAKh3BnU=\""
-        },
-        {
-          "Name": "Last-Modified",
-          "Value": "Mon, 17 Aug 2026 16:36:00 GMT"
-        },
-        {
-          "Name": "Cache-Control",
-          "Value": "no-cache"
-        }
-      ],
-      "EndpointProperties": [
-        {
-          "Name": "integrity",
-          "Value": "sha256-KBPCjrOGW8jtmcAry0goKmMG6oVaO2IFqvLDAKh3BnU="
-        }
-      ]
-    },
-    {
-      "Route": "css/app.css.br",
-      "AssetFile": "D:\\anuj\\opnsrc_try\\ai\\QuizWeb_Manual\\obj\\Release\\net9.0\\compressed\\publish\\a57jj5c47z-49l1zisian.br",
-      "Selectors": [],
-      "ResponseHeaders": [
-        {
-          "Name": "Accept-Ranges",
-          "Value": "bytes"
-        },
-        {
-          "Name": "Content-Length",
-          "Value": "2468"
-        },
-        {
-          "Name": "Content-Type",
-          "Value": "text/css"
-        },
-        {
-          "Name": "ETag",
-          "Value": "\"irrsGlBaf+dAZf6KkYyFkxM/Ia18e00VJjDcTVsy+hA=\""
-        },
-        {
-          "Name": "Last-Modified",
-          "Value": "Mon, 17 Aug 2026 16:36:00 GMT"
-        },
-        {
-          "Name": "Cache-Control",
-          "Value": "no-cache"
-        },
-        {
-          "Name": "Content-Encoding",
-          "Value": "br"
-        },
-        {
-          "Name": "Vary",
-          "Value": "Content-Encoding"
-        }
-      ],
-      "EndpointProperties": [
-        {
-          "Name": "integrity",
-          "Value": "sha256-irrsGlBaf+dAZf6KkYyFkxM/Ia18e00VJjDcTVsy+hA="
-        }
-      ]
-    },
-    {
-      "Route": "css/app.css.gz",
-      "AssetFile": "D:\\anuj\\opnsrc_try\\ai\\QuizWeb_Manual\\obj\\Release\\net9.0\\compressed\\a57jj5c47z-49l1zisian.gz",
-      "Selectors": [],
-      "ResponseHeaders": [
-        {
-          "Name": "Accept-Ranges",
-          "Value": "bytes"
-        },
-        {
-          "Name": "Content-Length",
-          "Value": "2888"
-        },
-        {
-          "Name": "Content-Type",
-          "Value": "text/css"
-        },
-        {
-          "Name": "ETag",
-          "Value": "\"0BVu9D4cvITsJW54OBqWPl7y14ivDgCOeQnIw42Eid8=\""
-        },
-        {
-          "Name": "Last-Modified",
-          "Value": "Mon, 17 Aug 2026 16:36:00 GMT"
-        },
-        {
-          "Name": "Cache-Control",
-          "Value": "no-cache"
-        },
-        {
-          "Name": "Content-Encoding",
-          "Value": "gzip"
-        },
-        {
-          "Name": "Vary",
-          "Value": "Content-Encoding"
-        }
-      ],
-      "EndpointProperties": [
-        {
-          "Name": "integrity",
-          "Value": "sha256-0BVu9D4cvITsJW54OBqWPl7y14ivDgCOeQnIw42Eid8="
-        }
-      ]
-    },
-    {
-      "Route": "index.1xm7xz0z22.html",
-      "AssetFile": "D:\\anuj\\opnsrc_try\\ai\\QuizWeb_Manual\\obj\\Release\\net9.0\\compressed\\17ct35ragm-1xm7xz0z22.gz",
-      "Selectors": [
-        {
-          "Name": "Content-Encoding",
-          "Value": "gzip",
-          "Quality": "0.000768639508"
-        }
-      ],
-      "ResponseHeaders": [
-        {
-          "Name": "Accept-Ranges",
-          "Value": "bytes"
-        },
-        {
-          "Name": "Content-Length",
-          "Value": "1300"
-        },
-        {
-          "Name": "ETag",
-          "Value": "\"NHZe8/AO935nvNz8pKK8wtkXF1tNePInOuRpiXUirs8=\""
-        },
-        {
-          "Name": "Last-Modified",
-          "Value": "Thu, 13 Aug 2026 00:45:08 GMT"
-        },
-        {
-          "Name": "Cache-Control",
-          "Value": "max-age=31536000, immutable"
         },
         {
           "Name": "Content-Encoding",
@@ -766,32 +766,24 @@
         },
         {
           "Name": "ETag",
-          "Value": "W/\"O6O7JN6Vj73c6KoCZT3jefHJwDkGBCEzIRHmWMCttwI=\""
+          "Value": "W/\"3Bu/qnp3oMD0635HQLe55QjwzIqUTZ2uJnroVaGCJcM=\""
         }
       ],
       "EndpointProperties": [
         {
-          "Name": "fingerprint",
-          "Value": "1xm7xz0z22"
-        },
-        {
-          "Name": "label",
-          "Value": "index.html"
-        },
-        {
           "Name": "integrity",
-          "Value": "sha256-O6O7JN6Vj73c6KoCZT3jefHJwDkGBCEzIRHmWMCttwI="
+          "Value": "sha256-3Bu/qnp3oMD0635HQLe55QjwzIqUTZ2uJnroVaGCJcM="
         }
       ]
     },
     {
-      "Route": "index.1xm7xz0z22.html",
-      "AssetFile": "D:\\anuj\\opnsrc_try\\ai\\QuizWeb_Manual\\obj\\Release\\net9.0\\compressed\\publish\\17ct35ragm-1xm7xz0z22.br",
+      "Route": "index.html",
+      "AssetFile": "D:\\anuj\\opnsrc_try\\ai\\QuizWeb_Manual\\obj\\Release\\net9.0\\compressed\\publish\\17ct35ragm-wp8wsd433a.br",
       "Selectors": [
         {
           "Name": "Content-Encoding",
           "Value": "br",
-          "Quality": "0.000990099010"
+          "Quality": "0.000821692687"
         }
       ],
       "ResponseHeaders": [
@@ -801,19 +793,19 @@
         },
         {
           "Name": "Content-Length",
-          "Value": "1009"
+          "Value": "1216"
         },
         {
           "Name": "ETag",
-          "Value": "\"bIZlrU0S50AhD8l7bopyqNG9WE4Q8w7646pwrrlMyPg=\""
+          "Value": "\"P4nsqXIv+iFpPPr9/XRPBIAAOlaOJN5+7SrvrdW9j0s=\""
         },
         {
           "Name": "Last-Modified",
-          "Value": "Thu, 13 Aug 2026 00:45:08 GMT"
+          "Value": "Sun, 23 Aug 2026 01:26:29 GMT"
         },
         {
           "Name": "Cache-Control",
-          "Value": "max-age=31536000, immutable"
+          "Value": "no-cache"
         },
         {
           "Name": "Content-Encoding",
@@ -829,26 +821,18 @@
         },
         {
           "Name": "ETag",
-          "Value": "W/\"O6O7JN6Vj73c6KoCZT3jefHJwDkGBCEzIRHmWMCttwI=\""
+          "Value": "W/\"3Bu/qnp3oMD0635HQLe55QjwzIqUTZ2uJnroVaGCJcM=\""
         }
       ],
       "EndpointProperties": [
         {
-          "Name": "fingerprint",
-          "Value": "1xm7xz0z22"
-        },
-        {
-          "Name": "label",
-          "Value": "index.html"
-        },
-        {
           "Name": "integrity",
-          "Value": "sha256-O6O7JN6Vj73c6KoCZT3jefHJwDkGBCEzIRHmWMCttwI="
+          "Value": "sha256-3Bu/qnp3oMD0635HQLe55QjwzIqUTZ2uJnroVaGCJcM="
         }
       ]
     },
     {
-      "Route": "index.1xm7xz0z22.html",
+      "Route": "index.html",
       "AssetFile": "D:\\anuj\\opnsrc_try\\ai\\QuizWeb_Manual\\wwwroot\\index.html",
       "Selectors": [],
       "ResponseHeaders": [
@@ -858,7 +842,7 @@
         },
         {
           "Name": "Content-Length",
-          "Value": "4488"
+          "Value": "5642"
         },
         {
           "Name": "Content-Type",
@@ -866,11 +850,264 @@
         },
         {
           "Name": "ETag",
-          "Value": "\"O6O7JN6Vj73c6KoCZT3jefHJwDkGBCEzIRHmWMCttwI=\""
+          "Value": "\"3Bu/qnp3oMD0635HQLe55QjwzIqUTZ2uJnroVaGCJcM=\""
         },
         {
           "Name": "Last-Modified",
-          "Value": "Thu, 13 Aug 2026 00:45:08 GMT"
+          "Value": "Sun, 23 Aug 2026 01:26:29 GMT"
+        },
+        {
+          "Name": "Cache-Control",
+          "Value": "no-cache"
+        }
+      ],
+      "EndpointProperties": [
+        {
+          "Name": "integrity",
+          "Value": "sha256-3Bu/qnp3oMD0635HQLe55QjwzIqUTZ2uJnroVaGCJcM="
+        }
+      ]
+    },
+    {
+      "Route": "index.html.br",
+      "AssetFile": "D:\\anuj\\opnsrc_try\\ai\\QuizWeb_Manual\\obj\\Release\\net9.0\\compressed\\publish\\17ct35ragm-wp8wsd433a.br",
+      "Selectors": [],
+      "ResponseHeaders": [
+        {
+          "Name": "Accept-Ranges",
+          "Value": "bytes"
+        },
+        {
+          "Name": "Content-Length",
+          "Value": "1216"
+        },
+        {
+          "Name": "Content-Type",
+          "Value": "text/html"
+        },
+        {
+          "Name": "ETag",
+          "Value": "\"P4nsqXIv+iFpPPr9/XRPBIAAOlaOJN5+7SrvrdW9j0s=\""
+        },
+        {
+          "Name": "Last-Modified",
+          "Value": "Sun, 23 Aug 2026 01:26:29 GMT"
+        },
+        {
+          "Name": "Cache-Control",
+          "Value": "no-cache"
+        },
+        {
+          "Name": "Content-Encoding",
+          "Value": "br"
+        },
+        {
+          "Name": "Vary",
+          "Value": "Content-Encoding"
+        }
+      ],
+      "EndpointProperties": [
+        {
+          "Name": "integrity",
+          "Value": "sha256-P4nsqXIv+iFpPPr9/XRPBIAAOlaOJN5+7SrvrdW9j0s="
+        }
+      ]
+    },
+    {
+      "Route": "index.html.gz",
+      "AssetFile": "D:\\anuj\\opnsrc_try\\ai\\QuizWeb_Manual\\obj\\Release\\net9.0\\compressed\\17ct35ragm-wp8wsd433a.gz",
+      "Selectors": [],
+      "ResponseHeaders": [
+        {
+          "Name": "Accept-Ranges",
+          "Value": "bytes"
+        },
+        {
+          "Name": "Content-Length",
+          "Value": "1557"
+        },
+        {
+          "Name": "Content-Type",
+          "Value": "text/html"
+        },
+        {
+          "Name": "ETag",
+          "Value": "\"XNzdHhYe9pGRrdEOe32+whI0X/8hrORq3QX0GGarlNM=\""
+        },
+        {
+          "Name": "Last-Modified",
+          "Value": "Sun, 23 Aug 2026 01:26:29 GMT"
+        },
+        {
+          "Name": "Cache-Control",
+          "Value": "no-cache"
+        },
+        {
+          "Name": "Content-Encoding",
+          "Value": "gzip"
+        },
+        {
+          "Name": "Vary",
+          "Value": "Content-Encoding"
+        }
+      ],
+      "EndpointProperties": [
+        {
+          "Name": "integrity",
+          "Value": "sha256-XNzdHhYe9pGRrdEOe32+whI0X/8hrORq3QX0GGarlNM="
+        }
+      ]
+    },
+    {
+      "Route": "index.wp8wsd433a.html",
+      "AssetFile": "D:\\anuj\\opnsrc_try\\ai\\QuizWeb_Manual\\obj\\Release\\net9.0\\compressed\\17ct35ragm-wp8wsd433a.gz",
+      "Selectors": [
+        {
+          "Name": "Content-Encoding",
+          "Value": "gzip",
+          "Quality": "0.000641848524"
+        }
+      ],
+      "ResponseHeaders": [
+        {
+          "Name": "Accept-Ranges",
+          "Value": "bytes"
+        },
+        {
+          "Name": "Content-Length",
+          "Value": "1557"
+        },
+        {
+          "Name": "ETag",
+          "Value": "\"XNzdHhYe9pGRrdEOe32+whI0X/8hrORq3QX0GGarlNM=\""
+        },
+        {
+          "Name": "Last-Modified",
+          "Value": "Sun, 23 Aug 2026 01:26:29 GMT"
+        },
+        {
+          "Name": "Cache-Control",
+          "Value": "max-age=31536000, immutable"
+        },
+        {
+          "Name": "Content-Encoding",
+          "Value": "gzip"
+        },
+        {
+          "Name": "Vary",
+          "Value": "Content-Encoding"
+        },
+        {
+          "Name": "Content-Type",
+          "Value": "text/html"
+        },
+        {
+          "Name": "ETag",
+          "Value": "W/\"3Bu/qnp3oMD0635HQLe55QjwzIqUTZ2uJnroVaGCJcM=\""
+        }
+      ],
+      "EndpointProperties": [
+        {
+          "Name": "fingerprint",
+          "Value": "wp8wsd433a"
+        },
+        {
+          "Name": "label",
+          "Value": "index.html"
+        },
+        {
+          "Name": "integrity",
+          "Value": "sha256-3Bu/qnp3oMD0635HQLe55QjwzIqUTZ2uJnroVaGCJcM="
+        }
+      ]
+    },
+    {
+      "Route": "index.wp8wsd433a.html",
+      "AssetFile": "D:\\anuj\\opnsrc_try\\ai\\QuizWeb_Manual\\obj\\Release\\net9.0\\compressed\\publish\\17ct35ragm-wp8wsd433a.br",
+      "Selectors": [
+        {
+          "Name": "Content-Encoding",
+          "Value": "br",
+          "Quality": "0.000821692687"
+        }
+      ],
+      "ResponseHeaders": [
+        {
+          "Name": "Accept-Ranges",
+          "Value": "bytes"
+        },
+        {
+          "Name": "Content-Length",
+          "Value": "1216"
+        },
+        {
+          "Name": "ETag",
+          "Value": "\"P4nsqXIv+iFpPPr9/XRPBIAAOlaOJN5+7SrvrdW9j0s=\""
+        },
+        {
+          "Name": "Last-Modified",
+          "Value": "Sun, 23 Aug 2026 01:26:29 GMT"
+        },
+        {
+          "Name": "Cache-Control",
+          "Value": "max-age=31536000, immutable"
+        },
+        {
+          "Name": "Content-Encoding",
+          "Value": "br"
+        },
+        {
+          "Name": "Vary",
+          "Value": "Content-Encoding"
+        },
+        {
+          "Name": "Content-Type",
+          "Value": "text/html"
+        },
+        {
+          "Name": "ETag",
+          "Value": "W/\"3Bu/qnp3oMD0635HQLe55QjwzIqUTZ2uJnroVaGCJcM=\""
+        }
+      ],
+      "EndpointProperties": [
+        {
+          "Name": "fingerprint",
+          "Value": "wp8wsd433a"
+        },
+        {
+          "Name": "label",
+          "Value": "index.html"
+        },
+        {
+          "Name": "integrity",
+          "Value": "sha256-3Bu/qnp3oMD0635HQLe55QjwzIqUTZ2uJnroVaGCJcM="
+        }
+      ]
+    },
+    {
+      "Route": "index.wp8wsd433a.html",
+      "AssetFile": "D:\\anuj\\opnsrc_try\\ai\\QuizWeb_Manual\\wwwroot\\index.html",
+      "Selectors": [],
+      "ResponseHeaders": [
+        {
+          "Name": "Accept-Ranges",
+          "Value": "bytes"
+        },
+        {
+          "Name": "Content-Length",
+          "Value": "5642"
+        },
+        {
+          "Name": "Content-Type",
+          "Value": "text/html"
+        },
+        {
+          "Name": "ETag",
+          "Value": "\"3Bu/qnp3oMD0635HQLe55QjwzIqUTZ2uJnroVaGCJcM=\""
+        },
+        {
+          "Name": "Last-Modified",
+          "Value": "Sun, 23 Aug 2026 01:26:29 GMT"
         },
         {
           "Name": "Cache-Control",
@@ -880,7 +1117,7 @@
       "EndpointProperties": [
         {
           "Name": "fingerprint",
-          "Value": "1xm7xz0z22"
+          "Value": "wp8wsd433a"
         },
         {
           "Name": "label",
@@ -888,13 +1125,13 @@
         },
         {
           "Name": "integrity",
-          "Value": "sha256-O6O7JN6Vj73c6KoCZT3jefHJwDkGBCEzIRHmWMCttwI="
+          "Value": "sha256-3Bu/qnp3oMD0635HQLe55QjwzIqUTZ2uJnroVaGCJcM="
         }
       ]
     },
     {
-      "Route": "index.1xm7xz0z22.html.br",
-      "AssetFile": "D:\\anuj\\opnsrc_try\\ai\\QuizWeb_Manual\\obj\\Release\\net9.0\\compressed\\publish\\17ct35ragm-1xm7xz0z22.br",
+      "Route": "index.wp8wsd433a.html.br",
+      "AssetFile": "D:\\anuj\\opnsrc_try\\ai\\QuizWeb_Manual\\obj\\Release\\net9.0\\compressed\\publish\\17ct35ragm-wp8wsd433a.br",
       "Selectors": [],
       "ResponseHeaders": [
         {
@@ -903,7 +1140,7 @@
         },
         {
           "Name": "Content-Length",
-          "Value": "1009"
+          "Value": "1216"
         },
         {
           "Name": "Content-Type",
@@ -911,11 +1148,11 @@
         },
         {
           "Name": "ETag",
-          "Value": "\"bIZlrU0S50AhD8l7bopyqNG9WE4Q8w7646pwrrlMyPg=\""
+          "Value": "\"P4nsqXIv+iFpPPr9/XRPBIAAOlaOJN5+7SrvrdW9j0s=\""
         },
         {
           "Name": "Last-Modified",
-          "Value": "Thu, 13 Aug 2026 00:45:08 GMT"
+          "Value": "Sun, 23 Aug 2026 01:26:29 GMT"
         },
         {
           "Name": "Cache-Control",
@@ -933,7 +1170,7 @@
       "EndpointProperties": [
         {
           "Name": "fingerprint",
-          "Value": "1xm7xz0z22"
+          "Value": "wp8wsd433a"
         },
         {
           "Name": "label",
@@ -941,13 +1178,13 @@
         },
         {
           "Name": "integrity",
-          "Value": "sha256-bIZlrU0S50AhD8l7bopyqNG9WE4Q8w7646pwrrlMyPg="
+          "Value": "sha256-P4nsqXIv+iFpPPr9/XRPBIAAOlaOJN5+7SrvrdW9j0s="
         }
       ]
     },
     {
-      "Route": "index.1xm7xz0z22.html.gz",
-      "AssetFile": "D:\\anuj\\opnsrc_try\\ai\\QuizWeb_Manual\\obj\\Release\\net9.0\\compressed\\17ct35ragm-1xm7xz0z22.gz",
+      "Route": "index.wp8wsd433a.html.gz",
+      "AssetFile": "D:\\anuj\\opnsrc_try\\ai\\QuizWeb_Manual\\obj\\Release\\net9.0\\compressed\\17ct35ragm-wp8wsd433a.gz",
       "Selectors": [],
       "ResponseHeaders": [
         {
@@ -956,7 +1193,7 @@
         },
         {
           "Name": "Content-Length",
-          "Value": "1300"
+          "Value": "1557"
         },
         {
           "Name": "Content-Type",
@@ -964,11 +1201,11 @@
         },
         {
           "Name": "ETag",
-          "Value": "\"NHZe8/AO935nvNz8pKK8wtkXF1tNePInOuRpiXUirs8=\""
+          "Value": "\"XNzdHhYe9pGRrdEOe32+whI0X/8hrORq3QX0GGarlNM=\""
         },
         {
           "Name": "Last-Modified",
-          "Value": "Thu, 13 Aug 2026 00:45:08 GMT"
+          "Value": "Sun, 23 Aug 2026 01:26:29 GMT"
         },
         {
           "Name": "Cache-Control",
@@ -986,7 +1223,7 @@
       "EndpointProperties": [
         {
           "Name": "fingerprint",
-          "Value": "1xm7xz0z22"
+          "Value": "wp8wsd433a"
         },
         {
           "Name": "label",
@@ -994,73 +1231,18 @@
         },
         {
           "Name": "integrity",
-          "Value": "sha256-NHZe8/AO935nvNz8pKK8wtkXF1tNePInOuRpiXUirs8="
+          "Value": "sha256-XNzdHhYe9pGRrdEOe32+whI0X/8hrORq3QX0GGarlNM="
         }
       ]
     },
     {
-      "Route": "index.html",
-      "AssetFile": "D:\\anuj\\opnsrc_try\\ai\\QuizWeb_Manual\\obj\\Release\\net9.0\\compressed\\17ct35ragm-1xm7xz0z22.gz",
-      "Selectors": [
-        {
-          "Name": "Content-Encoding",
-          "Value": "gzip",
-          "Quality": "0.000768639508"
-        }
-      ],
-      "ResponseHeaders": [
-        {
-          "Name": "Accept-Ranges",
-          "Value": "bytes"
-        },
-        {
-          "Name": "Content-Length",
-          "Value": "1300"
-        },
-        {
-          "Name": "ETag",
-          "Value": "\"NHZe8/AO935nvNz8pKK8wtkXF1tNePInOuRpiXUirs8=\""
-        },
-        {
-          "Name": "Last-Modified",
-          "Value": "Thu, 13 Aug 2026 00:45:08 GMT"
-        },
-        {
-          "Name": "Cache-Control",
-          "Value": "no-cache"
-        },
-        {
-          "Name": "Content-Encoding",
-          "Value": "gzip"
-        },
-        {
-          "Name": "Vary",
-          "Value": "Content-Encoding"
-        },
-        {
-          "Name": "Content-Type",
-          "Value": "text/html"
-        },
-        {
-          "Name": "ETag",
-          "Value": "W/\"O6O7JN6Vj73c6KoCZT3jefHJwDkGBCEzIRHmWMCttwI=\""
-        }
-      ],
-      "EndpointProperties": [
-        {
-          "Name": "integrity",
-          "Value": "sha256-O6O7JN6Vj73c6KoCZT3jefHJwDkGBCEzIRHmWMCttwI="
-        }
-      ]
-    },
-    {
-      "Route": "index.html",
-      "AssetFile": "D:\\anuj\\opnsrc_try\\ai\\QuizWeb_Manual\\obj\\Release\\net9.0\\compressed\\publish\\17ct35ragm-1xm7xz0z22.br",
+      "Route": "js/app.20yt85367g.js",
+      "AssetFile": "D:\\anuj\\opnsrc_try\\ai\\QuizWeb_Manual\\obj\\Release\\net9.0\\compressed\\publish\\usu22hziqv-20yt85367g.br",
       "Selectors": [
         {
           "Name": "Content-Encoding",
           "Value": "br",
-          "Quality": "0.000990099010"
+          "Quality": "0.000121773015"
         }
       ],
       "ResponseHeaders": [
@@ -1070,197 +1252,15 @@
         },
         {
           "Name": "Content-Length",
-          "Value": "1009"
+          "Value": "8211"
         },
         {
           "Name": "ETag",
-          "Value": "\"bIZlrU0S50AhD8l7bopyqNG9WE4Q8w7646pwrrlMyPg=\""
+          "Value": "\"i4HS7zRpfFYcF7J2hLtacYN35ZYXEQ7ZIyeM/F2ttXA=\""
         },
         {
           "Name": "Last-Modified",
-          "Value": "Thu, 13 Aug 2026 00:45:08 GMT"
-        },
-        {
-          "Name": "Cache-Control",
-          "Value": "no-cache"
-        },
-        {
-          "Name": "Content-Encoding",
-          "Value": "br"
-        },
-        {
-          "Name": "Vary",
-          "Value": "Content-Encoding"
-        },
-        {
-          "Name": "Content-Type",
-          "Value": "text/html"
-        },
-        {
-          "Name": "ETag",
-          "Value": "W/\"O6O7JN6Vj73c6KoCZT3jefHJwDkGBCEzIRHmWMCttwI=\""
-        }
-      ],
-      "EndpointProperties": [
-        {
-          "Name": "integrity",
-          "Value": "sha256-O6O7JN6Vj73c6KoCZT3jefHJwDkGBCEzIRHmWMCttwI="
-        }
-      ]
-    },
-    {
-      "Route": "index.html",
-      "AssetFile": "D:\\anuj\\opnsrc_try\\ai\\QuizWeb_Manual\\wwwroot\\index.html",
-      "Selectors": [],
-      "ResponseHeaders": [
-        {
-          "Name": "Accept-Ranges",
-          "Value": "bytes"
-        },
-        {
-          "Name": "Content-Length",
-          "Value": "4488"
-        },
-        {
-          "Name": "Content-Type",
-          "Value": "text/html"
-        },
-        {
-          "Name": "ETag",
-          "Value": "\"O6O7JN6Vj73c6KoCZT3jefHJwDkGBCEzIRHmWMCttwI=\""
-        },
-        {
-          "Name": "Last-Modified",
-          "Value": "Thu, 13 Aug 2026 00:45:08 GMT"
-        },
-        {
-          "Name": "Cache-Control",
-          "Value": "no-cache"
-        }
-      ],
-      "EndpointProperties": [
-        {
-          "Name": "integrity",
-          "Value": "sha256-O6O7JN6Vj73c6KoCZT3jefHJwDkGBCEzIRHmWMCttwI="
-        }
-      ]
-    },
-    {
-      "Route": "index.html.br",
-      "AssetFile": "D:\\anuj\\opnsrc_try\\ai\\QuizWeb_Manual\\obj\\Release\\net9.0\\compressed\\publish\\17ct35ragm-1xm7xz0z22.br",
-      "Selectors": [],
-      "ResponseHeaders": [
-        {
-          "Name": "Accept-Ranges",
-          "Value": "bytes"
-        },
-        {
-          "Name": "Content-Length",
-          "Value": "1009"
-        },
-        {
-          "Name": "Content-Type",
-          "Value": "text/html"
-        },
-        {
-          "Name": "ETag",
-          "Value": "\"bIZlrU0S50AhD8l7bopyqNG9WE4Q8w7646pwrrlMyPg=\""
-        },
-        {
-          "Name": "Last-Modified",
-          "Value": "Thu, 13 Aug 2026 00:45:08 GMT"
-        },
-        {
-          "Name": "Cache-Control",
-          "Value": "no-cache"
-        },
-        {
-          "Name": "Content-Encoding",
-          "Value": "br"
-        },
-        {
-          "Name": "Vary",
-          "Value": "Content-Encoding"
-        }
-      ],
-      "EndpointProperties": [
-        {
-          "Name": "integrity",
-          "Value": "sha256-bIZlrU0S50AhD8l7bopyqNG9WE4Q8w7646pwrrlMyPg="
-        }
-      ]
-    },
-    {
-      "Route": "index.html.gz",
-      "AssetFile": "D:\\anuj\\opnsrc_try\\ai\\QuizWeb_Manual\\obj\\Release\\net9.0\\compressed\\17ct35ragm-1xm7xz0z22.gz",
-      "Selectors": [],
-      "ResponseHeaders": [
-        {
-          "Name": "Accept-Ranges",
-          "Value": "bytes"
-        },
-        {
-          "Name": "Content-Length",
-          "Value": "1300"
-        },
-        {
-          "Name": "Content-Type",
-          "Value": "text/html"
-        },
-        {
-          "Name": "ETag",
-          "Value": "\"NHZe8/AO935nvNz8pKK8wtkXF1tNePInOuRpiXUirs8=\""
-        },
-        {
-          "Name": "Last-Modified",
-          "Value": "Thu, 13 Aug 2026 00:45:08 GMT"
-        },
-        {
-          "Name": "Cache-Control",
-          "Value": "no-cache"
-        },
-        {
-          "Name": "Content-Encoding",
-          "Value": "gzip"
-        },
-        {
-          "Name": "Vary",
-          "Value": "Content-Encoding"
-        }
-      ],
-      "EndpointProperties": [
-        {
-          "Name": "integrity",
-          "Value": "sha256-NHZe8/AO935nvNz8pKK8wtkXF1tNePInOuRpiXUirs8="
-        }
-      ]
-    },
-    {
-      "Route": "js/app.4qms9nk4sj.js",
-      "AssetFile": "D:\\anuj\\opnsrc_try\\ai\\QuizWeb_Manual\\obj\\Release\\net9.0\\compressed\\publish\\usu22hziqv-4qms9nk4sj.br",
-      "Selectors": [
-        {
-          "Name": "Content-Encoding",
-          "Value": "br",
-          "Quality": "0.000139977604"
-        }
-      ],
-      "ResponseHeaders": [
-        {
-          "Name": "Accept-Ranges",
-          "Value": "bytes"
-        },
-        {
-          "Name": "Content-Length",
-          "Value": "7143"
-        },
-        {
-          "Name": "ETag",
-          "Value": "\"cTPyic0nBeyZkDHLBBBKi/c5VCQvwVTsNJUvKLif6jU=\""
-        },
-        {
-          "Name": "Last-Modified",
-          "Value": "Thu, 20 Aug 2026 13:33:58 GMT"
+          "Value": "Sun, 23 Aug 2026 06:18:55 GMT"
         },
         {
           "Name": "Cache-Control",
@@ -1280,13 +1280,13 @@
         },
         {
           "Name": "ETag",
-          "Value": "W/\"9PghRtLbvzKaQtfzr8A7YiW9vbPVUlg3ZLI4PH4xPdk=\""
+          "Value": "W/\"Yj3BDnUud71leBx9cmU9tstphNvHtbLLjTLXaFwn5yo=\""
         }
       ],
       "EndpointProperties": [
         {
           "Name": "fingerprint",
-          "Value": "4qms9nk4sj"
+          "Value": "20yt85367g"
         },
         {
           "Name": "label",
@@ -1294,18 +1294,18 @@
         },
         {
           "Name": "integrity",
-          "Value": "sha256-9PghRtLbvzKaQtfzr8A7YiW9vbPVUlg3ZLI4PH4xPdk="
+          "Value": "sha256-Yj3BDnUud71leBx9cmU9tstphNvHtbLLjTLXaFwn5yo="
         }
       ]
     },
     {
-      "Route": "js/app.4qms9nk4sj.js",
-      "AssetFile": "D:\\anuj\\opnsrc_try\\ai\\QuizWeb_Manual\\obj\\Release\\net9.0\\compressed\\usu22hziqv-4qms9nk4sj.gz",
+      "Route": "js/app.20yt85367g.js",
+      "AssetFile": "D:\\anuj\\opnsrc_try\\ai\\QuizWeb_Manual\\obj\\Release\\net9.0\\compressed\\usu22hziqv-20yt85367g.gz",
       "Selectors": [
         {
           "Name": "Content-Encoding",
           "Value": "gzip",
-          "Quality": "0.000119602918"
+          "Quality": "0.000104515050"
         }
       ],
       "ResponseHeaders": [
@@ -1315,15 +1315,15 @@
         },
         {
           "Name": "Content-Length",
-          "Value": "8360"
+          "Value": "9567"
         },
         {
           "Name": "ETag",
-          "Value": "\"gIdoAjPM7RMUy8q0GUIGHidMGSuKdBf8PPUeHbv0ipw=\""
+          "Value": "\"qIyQ/YhWkzWgY0u41vK0tBVIvPy7GW6rLay8KoxJloY=\""
         },
         {
           "Name": "Last-Modified",
-          "Value": "Thu, 20 Aug 2026 13:33:58 GMT"
+          "Value": "Sun, 23 Aug 2026 06:18:55 GMT"
         },
         {
           "Name": "Cache-Control",
@@ -1343,13 +1343,13 @@
         },
         {
           "Name": "ETag",
-          "Value": "W/\"9PghRtLbvzKaQtfzr8A7YiW9vbPVUlg3ZLI4PH4xPdk=\""
+          "Value": "W/\"Yj3BDnUud71leBx9cmU9tstphNvHtbLLjTLXaFwn5yo=\""
         }
       ],
       "EndpointProperties": [
         {
           "Name": "fingerprint",
-          "Value": "4qms9nk4sj"
+          "Value": "20yt85367g"
         },
         {
           "Name": "label",
@@ -1357,12 +1357,12 @@
         },
         {
           "Name": "integrity",
-          "Value": "sha256-9PghRtLbvzKaQtfzr8A7YiW9vbPVUlg3ZLI4PH4xPdk="
+          "Value": "sha256-Yj3BDnUud71leBx9cmU9tstphNvHtbLLjTLXaFwn5yo="
         }
       ]
     },
     {
-      "Route": "js/app.4qms9nk4sj.js",
+      "Route": "js/app.20yt85367g.js",
       "AssetFile": "D:\\anuj\\opnsrc_try\\ai\\QuizWeb_Manual\\wwwroot\\js\\app.js",
       "Selectors": [],
       "ResponseHeaders": [
@@ -1372,7 +1372,7 @@
         },
         {
           "Name": "Content-Length",
-          "Value": "31641"
+          "Value": "37682"
         },
         {
           "Name": "Content-Type",
@@ -1380,11 +1380,11 @@
         },
         {
           "Name": "ETag",
-          "Value": "\"9PghRtLbvzKaQtfzr8A7YiW9vbPVUlg3ZLI4PH4xPdk=\""
+          "Value": "\"Yj3BDnUud71leBx9cmU9tstphNvHtbLLjTLXaFwn5yo=\""
         },
         {
           "Name": "Last-Modified",
-          "Value": "Thu, 20 Aug 2026 13:33:58 GMT"
+          "Value": "Sun, 23 Aug 2026 06:18:55 GMT"
         },
         {
           "Name": "Cache-Control",
@@ -1394,7 +1394,7 @@
       "EndpointProperties": [
         {
           "Name": "fingerprint",
-          "Value": "4qms9nk4sj"
+          "Value": "20yt85367g"
         },
         {
           "Name": "label",
@@ -1402,13 +1402,13 @@
         },
         {
           "Name": "integrity",
-          "Value": "sha256-9PghRtLbvzKaQtfzr8A7YiW9vbPVUlg3ZLI4PH4xPdk="
+          "Value": "sha256-Yj3BDnUud71leBx9cmU9tstphNvHtbLLjTLXaFwn5yo="
         }
       ]
     },
     {
-      "Route": "js/app.4qms9nk4sj.js.br",
-      "AssetFile": "D:\\anuj\\opnsrc_try\\ai\\QuizWeb_Manual\\obj\\Release\\net9.0\\compressed\\publish\\usu22hziqv-4qms9nk4sj.br",
+      "Route": "js/app.20yt85367g.js.br",
+      "AssetFile": "D:\\anuj\\opnsrc_try\\ai\\QuizWeb_Manual\\obj\\Release\\net9.0\\compressed\\publish\\usu22hziqv-20yt85367g.br",
       "Selectors": [],
       "ResponseHeaders": [
         {
@@ -1417,7 +1417,7 @@
         },
         {
           "Name": "Content-Length",
-          "Value": "7143"
+          "Value": "8211"
         },
         {
           "Name": "Content-Type",
@@ -1425,11 +1425,11 @@
         },
         {
           "Name": "ETag",
-          "Value": "\"cTPyic0nBeyZkDHLBBBKi/c5VCQvwVTsNJUvKLif6jU=\""
+          "Value": "\"i4HS7zRpfFYcF7J2hLtacYN35ZYXEQ7ZIyeM/F2ttXA=\""
         },
         {
           "Name": "Last-Modified",
-          "Value": "Thu, 20 Aug 2026 13:33:58 GMT"
+          "Value": "Sun, 23 Aug 2026 06:18:55 GMT"
         },
         {
           "Name": "Cache-Control",
@@ -1447,7 +1447,7 @@
       "EndpointProperties": [
         {
           "Name": "fingerprint",
-          "Value": "4qms9nk4sj"
+          "Value": "20yt85367g"
         },
         {
           "Name": "label",
@@ -1455,13 +1455,13 @@
         },
         {
           "Name": "integrity",
-          "Value": "sha256-cTPyic0nBeyZkDHLBBBKi/c5VCQvwVTsNJUvKLif6jU="
+          "Value": "sha256-i4HS7zRpfFYcF7J2hLtacYN35ZYXEQ7ZIyeM/F2ttXA="
         }
       ]
     },
     {
-      "Route": "js/app.4qms9nk4sj.js.gz",
-      "AssetFile": "D:\\anuj\\opnsrc_try\\ai\\QuizWeb_Manual\\obj\\Release\\net9.0\\compressed\\usu22hziqv-4qms9nk4sj.gz",
+      "Route": "js/app.20yt85367g.js.gz",
+      "AssetFile": "D:\\anuj\\opnsrc_try\\ai\\QuizWeb_Manual\\obj\\Release\\net9.0\\compressed\\usu22hziqv-20yt85367g.gz",
       "Selectors": [],
       "ResponseHeaders": [
         {
@@ -1470,7 +1470,7 @@
         },
         {
           "Name": "Content-Length",
-          "Value": "8360"
+          "Value": "9567"
         },
         {
           "Name": "Content-Type",
@@ -1478,11 +1478,11 @@
         },
         {
           "Name": "ETag",
-          "Value": "\"gIdoAjPM7RMUy8q0GUIGHidMGSuKdBf8PPUeHbv0ipw=\""
+          "Value": "\"qIyQ/YhWkzWgY0u41vK0tBVIvPy7GW6rLay8KoxJloY=\""
         },
         {
           "Name": "Last-Modified",
-          "Value": "Thu, 20 Aug 2026 13:33:58 GMT"
+          "Value": "Sun, 23 Aug 2026 06:18:55 GMT"
         },
         {
           "Name": "Cache-Control",
@@ -1500,7 +1500,7 @@
       "EndpointProperties": [
         {
           "Name": "fingerprint",
-          "Value": "4qms9nk4sj"
+          "Value": "20yt85367g"
         },
         {
           "Name": "label",
@@ -1508,18 +1508,18 @@
         },
         {
           "Name": "integrity",
-          "Value": "sha256-gIdoAjPM7RMUy8q0GUIGHidMGSuKdBf8PPUeHbv0ipw="
+          "Value": "sha256-qIyQ/YhWkzWgY0u41vK0tBVIvPy7GW6rLay8KoxJloY="
         }
       ]
     },
     {
       "Route": "js/app.js",
-      "AssetFile": "D:\\anuj\\opnsrc_try\\ai\\QuizWeb_Manual\\obj\\Release\\net9.0\\compressed\\publish\\usu22hziqv-4qms9nk4sj.br",
+      "AssetFile": "D:\\anuj\\opnsrc_try\\ai\\QuizWeb_Manual\\obj\\Release\\net9.0\\compressed\\publish\\usu22hziqv-20yt85367g.br",
       "Selectors": [
         {
           "Name": "Content-Encoding",
           "Value": "br",
-          "Quality": "0.000139977604"
+          "Quality": "0.000121773015"
         }
       ],
       "ResponseHeaders": [
@@ -1529,15 +1529,15 @@
         },
         {
           "Name": "Content-Length",
-          "Value": "7143"
+          "Value": "8211"
         },
         {
           "Name": "ETag",
-          "Value": "\"cTPyic0nBeyZkDHLBBBKi/c5VCQvwVTsNJUvKLif6jU=\""
+          "Value": "\"i4HS7zRpfFYcF7J2hLtacYN35ZYXEQ7ZIyeM/F2ttXA=\""
         },
         {
           "Name": "Last-Modified",
-          "Value": "Thu, 20 Aug 2026 13:33:58 GMT"
+          "Value": "Sun, 23 Aug 2026 06:18:55 GMT"
         },
         {
           "Name": "Cache-Control",
@@ -1557,24 +1557,24 @@
         },
         {
           "Name": "ETag",
-          "Value": "W/\"9PghRtLbvzKaQtfzr8A7YiW9vbPVUlg3ZLI4PH4xPdk=\""
+          "Value": "W/\"Yj3BDnUud71leBx9cmU9tstphNvHtbLLjTLXaFwn5yo=\""
         }
       ],
       "EndpointProperties": [
         {
           "Name": "integrity",
-          "Value": "sha256-9PghRtLbvzKaQtfzr8A7YiW9vbPVUlg3ZLI4PH4xPdk="
+          "Value": "sha256-Yj3BDnUud71leBx9cmU9tstphNvHtbLLjTLXaFwn5yo="
         }
       ]
     },
     {
       "Route": "js/app.js",
-      "AssetFile": "D:\\anuj\\opnsrc_try\\ai\\QuizWeb_Manual\\obj\\Release\\net9.0\\compressed\\usu22hziqv-4qms9nk4sj.gz",
+      "AssetFile": "D:\\anuj\\opnsrc_try\\ai\\QuizWeb_Manual\\obj\\Release\\net9.0\\compressed\\usu22hziqv-20yt85367g.gz",
       "Selectors": [
         {
           "Name": "Content-Encoding",
           "Value": "gzip",
-          "Quality": "0.000119602918"
+          "Quality": "0.000104515050"
         }
       ],
       "ResponseHeaders": [
@@ -1584,15 +1584,15 @@
         },
         {
           "Name": "Content-Length",
-          "Value": "8360"
+          "Value": "9567"
         },
         {
           "Name": "ETag",
-          "Value": "\"gIdoAjPM7RMUy8q0GUIGHidMGSuKdBf8PPUeHbv0ipw=\""
+          "Value": "\"qIyQ/YhWkzWgY0u41vK0tBVIvPy7GW6rLay8KoxJloY=\""
         },
         {
           "Name": "Last-Modified",
-          "Value": "Thu, 20 Aug 2026 13:33:58 GMT"
+          "Value": "Sun, 23 Aug 2026 06:18:55 GMT"
         },
         {
           "Name": "Cache-Control",
@@ -1612,13 +1612,13 @@
         },
         {
           "Name": "ETag",
-          "Value": "W/\"9PghRtLbvzKaQtfzr8A7YiW9vbPVUlg3ZLI4PH4xPdk=\""
+          "Value": "W/\"Yj3BDnUud71leBx9cmU9tstphNvHtbLLjTLXaFwn5yo=\""
         }
       ],
       "EndpointProperties": [
         {
           "Name": "integrity",
-          "Value": "sha256-9PghRtLbvzKaQtfzr8A7YiW9vbPVUlg3ZLI4PH4xPdk="
+          "Value": "sha256-Yj3BDnUud71leBx9cmU9tstphNvHtbLLjTLXaFwn5yo="
         }
       ]
     },
@@ -1633,7 +1633,7 @@
         },
         {
           "Name": "Content-Length",
-          "Value": "31641"
+          "Value": "37682"
         },
         {
           "Name": "Content-Type",
@@ -1641,11 +1641,11 @@
         },
         {
           "Name": "ETag",
-          "Value": "\"9PghRtLbvzKaQtfzr8A7YiW9vbPVUlg3ZLI4PH4xPdk=\""
+          "Value": "\"Yj3BDnUud71leBx9cmU9tstphNvHtbLLjTLXaFwn5yo=\""
         },
         {
           "Name": "Last-Modified",
-          "Value": "Thu, 20 Aug 2026 13:33:58 GMT"
+          "Value": "Sun, 23 Aug 2026 06:18:55 GMT"
         },
         {
           "Name": "Cache-Control",
@@ -1655,13 +1655,13 @@
       "EndpointProperties": [
         {
           "Name": "integrity",
-          "Value": "sha256-9PghRtLbvzKaQtfzr8A7YiW9vbPVUlg3ZLI4PH4xPdk="
+          "Value": "sha256-Yj3BDnUud71leBx9cmU9tstphNvHtbLLjTLXaFwn5yo="
         }
       ]
     },
     {
       "Route": "js/app.js.br",
-      "AssetFile": "D:\\anuj\\opnsrc_try\\ai\\QuizWeb_Manual\\obj\\Release\\net9.0\\compressed\\publish\\usu22hziqv-4qms9nk4sj.br",
+      "AssetFile": "D:\\anuj\\opnsrc_try\\ai\\QuizWeb_Manual\\obj\\Release\\net9.0\\compressed\\publish\\usu22hziqv-20yt85367g.br",
       "Selectors": [],
       "ResponseHeaders": [
         {
@@ -1670,7 +1670,7 @@
         },
         {
           "Name": "Content-Length",
-          "Value": "7143"
+          "Value": "8211"
         },
         {
           "Name": "Content-Type",
@@ -1678,11 +1678,11 @@
         },
         {
           "Name": "ETag",
-          "Value": "\"cTPyic0nBeyZkDHLBBBKi/c5VCQvwVTsNJUvKLif6jU=\""
+          "Value": "\"i4HS7zRpfFYcF7J2hLtacYN35ZYXEQ7ZIyeM/F2ttXA=\""
         },
         {
           "Name": "Last-Modified",
-          "Value": "Thu, 20 Aug 2026 13:33:58 GMT"
+          "Value": "Sun, 23 Aug 2026 06:18:55 GMT"
         },
         {
           "Name": "Cache-Control",
@@ -1700,13 +1700,13 @@
       "EndpointProperties": [
         {
           "Name": "integrity",
-          "Value": "sha256-cTPyic0nBeyZkDHLBBBKi/c5VCQvwVTsNJUvKLif6jU="
+          "Value": "sha256-i4HS7zRpfFYcF7J2hLtacYN35ZYXEQ7ZIyeM/F2ttXA="
         }
       ]
     },
     {
       "Route": "js/app.js.gz",
-      "AssetFile": "D:\\anuj\\opnsrc_try\\ai\\QuizWeb_Manual\\obj\\Release\\net9.0\\compressed\\usu22hziqv-4qms9nk4sj.gz",
+      "AssetFile": "D:\\anuj\\opnsrc_try\\ai\\QuizWeb_Manual\\obj\\Release\\net9.0\\compressed\\usu22hziqv-20yt85367g.gz",
       "Selectors": [],
       "ResponseHeaders": [
         {
@@ -1715,7 +1715,7 @@
         },
         {
           "Name": "Content-Length",
-          "Value": "8360"
+          "Value": "9567"
         },
         {
           "Name": "Content-Type",
@@ -1723,11 +1723,11 @@
         },
         {
           "Name": "ETag",
-          "Value": "\"gIdoAjPM7RMUy8q0GUIGHidMGSuKdBf8PPUeHbv0ipw=\""
+          "Value": "\"qIyQ/YhWkzWgY0u41vK0tBVIvPy7GW6rLay8KoxJloY=\""
         },
         {
           "Name": "Last-Modified",
-          "Value": "Thu, 20 Aug 2026 13:33:58 GMT"
+          "Value": "Sun, 23 Aug 2026 06:18:55 GMT"
         },
         {
           "Name": "Cache-Control",
@@ -1745,7 +1745,7 @@
       "EndpointProperties": [
         {
           "Name": "integrity",
-          "Value": "sha256-gIdoAjPM7RMUy8q0GUIGHidMGSuKdBf8PPUeHbv0ipw="
+          "Value": "sha256-qIyQ/YhWkzWgY0u41vK0tBVIvPy7GW6rLay8KoxJloY="
         }
       ]
     }

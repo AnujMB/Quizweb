@@ -97,8 +97,6 @@ D:\anuj\opnsrc_try\ai\QuizWeb_Manual\obj\Release\net9.0\QuizWeb.AssemblyInfo.cs
 D:\anuj\opnsrc_try\ai\QuizWeb_Manual\obj\Release\net9.0\QuizWeb.csproj.CoreCompileInputs.cache
 D:\anuj\opnsrc_try\ai\QuizWeb_Manual\obj\Release\net9.0\QuizWeb.MvcApplicationPartsAssemblyInfo.cache
 D:\anuj\opnsrc_try\ai\QuizWeb_Manual\obj\Release\net9.0\scopedcss\bundle\QuizWeb.styles.css
-D:\anuj\opnsrc_try\ai\QuizWeb_Manual\obj\Release\net9.0\compressed\a57jj5c47z-49l1zisian.gz
-D:\anuj\opnsrc_try\ai\QuizWeb_Manual\obj\Release\net9.0\compressed\17ct35ragm-1xm7xz0z22.gz
 D:\anuj\opnsrc_try\ai\QuizWeb_Manual\obj\Release\net9.0\staticwebassets.build.json
 D:\anuj\opnsrc_try\ai\QuizWeb_Manual\obj\Release\net9.0\staticwebassets.development.json
 D:\anuj\opnsrc_try\ai\QuizWeb_Manual\obj\Release\net9.0\staticwebassets.build.endpoints.json
@@ -118,4 +116,14 @@ D:\anuj\opnsrc_try\ai\QuizWeb_Manual\bin\Release\net9.0\publish\publish\QuizWeb.
 D:\anuj\opnsrc_try\ai\QuizWeb_Manual\bin\Release\net9.0\publish\publish\QuizWeb.runtimeconfig.json
 D:\anuj\opnsrc_try\ai\QuizWeb_Manual\bin\Release\net9.0\publish\publish\QuizWeb.staticwebassets.endpoints.json
 D:\anuj\opnsrc_try\ai\QuizWeb_Manual\obj\Release\net9.0\QuizWeb.sourcelink.json
-D:\anuj\opnsrc_try\ai\QuizWeb_Manual\obj\Release\net9.0\compressed\usu22hziqv-4qms9nk4sj.gz
+D:\anuj\opnsrc_try\ai\QuizWeb_Manual\bin\Release\net9.0\publish\publish\publish\web.config
+D:\anuj\opnsrc_try\ai\QuizWeb_Manual\bin\Release\net9.0\publish\publish\publish\QuizWeb.deps.json
+D:\anuj\opnsrc_try\ai\QuizWeb_Manual\bin\Release\net9.0\publish\publish\publish\QuizWeb.runtimeconfig.json
+D:\anuj\opnsrc_try\ai\QuizWeb_Manual\bin\Release\net9.0\publish\publish\publish\QuizWeb.staticwebassets.endpoints.json
+D:\anuj\opnsrc_try\ai\QuizWeb_Manual\obj\Release\net9.0\compressed\a57jj5c47z-lzrugl5jvj.gz
+D:\anuj\opnsrc_try\ai\QuizWeb_Manual\obj\Release\net9.0\compressed\17ct35ragm-wp8wsd433a.gz
+D:\anuj\opnsrc_try\ai\QuizWeb_Manual\obj\Release\net9.0\compressed\usu22hziqv-20yt85367g.gz
+D:\anuj\opnsrc_try\ai\QuizWeb_Manual\bin\Release\net9.0\publish\publish\publish\publish\web.config
+D:\anuj\opnsrc_try\ai\QuizWeb_Manual\bin\Release\net9.0\publish\publish\publish\publish\QuizWeb.deps.json
+D:\anuj\opnsrc_try\ai\QuizWeb_Manual\bin\Release\net9.0\publish\publish\publish\publish\QuizWeb.runtimeconfig.json
+D:\anuj\opnsrc_try\ai\QuizWeb_Manual\bin\Release\net9.0\publish\publish\publish\publish\QuizWeb.staticwebassets.endpoints.json

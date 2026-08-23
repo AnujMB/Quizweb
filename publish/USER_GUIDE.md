@@ -94,3 +94,71 @@ Your questions are in an Excel file called **questions.xlsx** (in the same folde
 - **Students cannot open the page?** Check the address is exactly what the black window shows, and that students are on the same school network. Check that you clicked **Allow** when Windows asked about the app.
 - **The page looks old or nothing appears?** Ask students to press **Ctrl + F5** on their keyboard to refresh.
 - **You changed config.txt but nothing changed?** You must restart the program after saving the file.
+
+---
+
+## Appendix A — Technical Guide (APIs, Security & App Behaviour)
+
+> For IT support / advanced users. Teachers can skip this.
+
+### 1. How the app works
+
+* Single self-contained Kestrel server (`QuizWeb.exe`, `Program.cs:40`) serves static files from `publish/wwwroot` and an `images/` folder (`Program.cs:61`). Binds `http://0.0.0.0:{Port}` (default `5000`, `config.txt: Port=5000`). No database — questions from `questions.xlsx` (preferred) or `questions.txt`, results appended to `Result.txt` (`Data/ResultFile.cs`).
+* Scoring is **server-side** (`Services/QuizEngine.cs:92`): client sends only selected letters (`A`, `B&D`), server recomputes `correct/wrong/marks` from the bank. Editing JS cannot inflate marks.
+* Data files (`config.txt`, `questions.xlsx`, `Result.txt`) live next to the exe and are **not** web-served — only `wwwroot` + `/images` are exposed (`Program.cs:64`).
+
+### 2. Config flags (server-enforced, restart required)
+
+| Flag | File | Effect |
+|---|---|---|
+| `Time` | `config.txt` | Quiz minutes. Timer is client-side (`wwwroot/js/app.js:122`). |
+| `NegativeMarking` | `config.txt` | `%` deducted per wrong (`QuizEngine.cs:108`). |
+| `allowResultViewing` | `config.txt` | Gates `GET /api/results/students` and `/detail` → `403` if `false`. Hides **View Results** button (`app.js:1025`). |
+| `allowReview` | `config.txt` | Gates `POST /api/submit` `review` field. Hides **Review Answers** button. When `false`, no correct answers ever leave the server. |
+| `allowAnswerDetails` | `config.txt` | Gates `GET /api/results/detail` → `403` if `false`. Hides answer blocks in results view. |
+| `allowImport` | `config.txt` | Gates `POST /api/import` → `403`. In `publish` set `false`. |
+| `Port` / `resultFile` | `config.txt` | Network/file location. |
+
+### 3. APIs (base `http://<host-ip>:5000`)
+
+| Method | Path | Gating | Request | Response / Notes |
+|---|---|---|---|---|
+| `GET` | `/api/config` | none | — | `timeMinutes, negativeMarkingPct, allowResultViewing, allowImport, allowReview, allowAnswerDetails, subject, className, examType, resultFile` (`Program.cs:74`) |
+| `GET` | `/api/questions` | none | — | `quizInfo, source, warnings, questions[]` where each `questions[i]` = `number, text, options, isMultiCorrect, image, passage, groupId` — **no `correctIndices`** (stripped `Program.cs:98`). Fetched **only after** `POST /api/check` succeeds (`app.js: ensureBank()`), so opening the site via `F12` shows no answers. |
+| `POST` | `/api/check` | none | `{"name","class","section"}` | `alreadyTaken, previousMarks, activeSession`. Registers `Time+5 min` session to block same name on another PC (`Services/ActiveSessions.cs`). |
+| `POST` | `/api/submit` | — | `{"name","class","section","answers":{"1":"A","2":"B&D"}}` | `alreadyTaken, previousMarks, marks, correct, wrong, attempted, total, saved, savePending` + **`review: [{number, correctIndices}]` only if `allowReview=true`** (`Program.cs:155`). `answers` keys are question numbers; server ignores unknown keys. IP auto-filled from TCP connection. |
+| `GET` | `/api/results/students` | `allowResultViewing` | — | Array sorted `marks desc`: `name, class, section, subject, examType, quizClass, marks, date, computerName, ipAddress` (`Program.cs:166`). `403` if disabled. |
+| `GET` | `/api/results/detail?name=&className=&section=` | `allowResultViewing && allowAnswerDetails` | query params | `name, class, section, marks, date, computerName, ipAddress, answers, correctMap` (`Program.cs:192`) where `correctMap` is `{ "1":[0], "2":[1,3] }` (indices A=0). `403` if gated, `404` if no match. |
+| `POST` | `/api/import` | `allowImport` | `multipart/form-data` field `questions` (CSV) | `questionsWritten, rowsSkipped, warnings` — also regenerates `questions.xlsx`. `403` in `publish`. |
+
+Test quickly (PowerShell):
+```powershell
+Invoke-RestMethod http://localhost:5000/api/config
+Invoke-RestMethod http://localhost:5000/api/questions | % { $_.questions[0] | Format-List } # should NOT show correctIndices
+Invoke-RestMethod http://localhost:5000/api/check -Method Post -ContentType "application/json" -Body '{"name":"Test","class":"9","section":"A"}'
+```
+
+### 4. Security — what was fixed and what remains
+
+**Fixed (this release):**
+* **Answer leak via `F12` closed.** `/api/questions` never contains answers; answers only return via `POST /api/submit` (`review`) and `GET /api/results/detail` (`correctMap`), both server-gated by `allowReview`/`allowAnswerDetails`. Before, the whole bank with answers was sent on page load.
+* **Detail/Review now server-enforced.** Hiding the button alone is not enough — endpoints now return `403`/omit field when disabled.
+
+**Still by design (LAN classroom, no login):**
+* No authentication — anyone on LAN can submit under any name (sanitized `QuizEngine.cs:143`: letters/digits/space/`-` `.'` only), scrape `/api/results/students`, or spam `/api/check`. Mitigate by keeping `allowResultViewing=false` during exam and using `allowReview=false` until results time.
+* Timer is client-side (`app.js:122`); a student can edit `state.endTime`. Server does not enforce deadline — acceptable for classroom, not for high-stakes.
+* Plain `http://` — bank/results visible to a LAN packet sniffer. Use a tunnel (e.g. `cloudflared tunnel --url http://localhost:5000`) for HTTPS if exposing to internet.
+* `isMultiCorrect` still sent (needed for radio vs checkbox) — reveals single vs multi-answer, minor.
+
+### 5. App behaviour notes
+
+* **Deferred bank load:** `init()` loads only `/api/config` (`app.js:1006`); questions load in `ensureBank()` after `Start` passes the retake guard. This is why `F12` before Start shows no questions.
+* **Retake guard:** `Result.txt` + in-memory `ResultStore` + `ActiveSessions` (`Time+5 min`) block same `name/class/section`. Sanitized names prevent CSV injection (commas/newlines stripped `Data/ResultFile.cs:41`).
+* **Result file:** exclusive OS file lock, header `Name,Class,Section,...,Q1..Qn` (`Data/ResultFile.cs:21`), migrated under lock if Q-count changes, queued retry if Excel has it open (`Services/ResultStore.cs`).
+* **Static files:** `Cache-Control: no-cache, no-store` (`Program.cs:55`) forces fresh `index.html` on update — students `Ctrl+F5` if stale.
+
+### 6. Going to internet
+
+`0.0.0.0:5000` is LAN-only behind NAT. Connecting the host to internet does **not** expose it. For public access use `cloudflared tunnel --url http://localhost:5000` (gives `https://…trycloudflare.com`) — no port forwarding, works behind NTC CGNAT. Keep host awake (`Power > Screen and sleep = Never`).
+
+---
