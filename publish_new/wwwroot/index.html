@@ -178,6 +178,36 @@
         <label>New Admin Password (leave blank to keep)
           <input id="admin-newpass" type="password" autocomplete="new-password" placeholder="min 4 chars">
         </label>
+        <label>Visual Theme — Student UI
+          <div class="theme-picker" id="theme-picker">
+            <button type="button" class="theme-card" data-theme="default" title="Default">
+              <span class="theme-preview default"></span>
+              <span class="theme-name">Default</span>
+              <span class="theme-desc">Clean &amp; simple</span>
+            </button>
+            <button type="button" class="theme-card" data-theme="bright" title="Bright & Colorful">
+              <span class="theme-preview bright"></span>
+              <span class="theme-name">Bright &amp; Colorful</span>
+              <span class="theme-desc">Vibrant cards, energetic</span>
+            </button>
+            <button type="button" class="theme-card" data-theme="gradient" title="Modern Gradient">
+              <span class="theme-preview gradient"></span>
+              <span class="theme-name">Modern Gradient</span>
+              <span class="theme-desc">Polished, contemporary</span>
+            </button>
+            <button type="button" class="theme-card" data-theme="playful" title="Playful Education">
+              <span class="theme-preview playful"></span>
+              <span class="theme-name">Playful Education</span>
+              <span class="theme-desc">Friendly, soft</span>
+            </button>
+            <button type="button" class="theme-card" data-theme="bold" title="Bold & Interactive">
+              <span class="theme-preview bold"></span>
+              <span class="theme-name">Bold &amp; Interactive</span>
+              <span class="theme-desc">High contrast, dynamic</span>
+            </button>
+          </div>
+          <span class="hint">Student view updates instantly on Save — each option appears in a distinct colored card.</span>
+        </label>
       </div>
       <div class="modal-actions">
         <button id="admin-save" class="primary" type="button">Save (hot-reload)</button>

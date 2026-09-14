@@ -97,7 +97,8 @@ app.MapGet("/api/config", () =>
         subject = quizInfo.Subject,
         className = quizInfo.Class,
         examType = quizInfo.ExamType,
-        resultFile = config.ResultFile
+        resultFile = config.ResultFile,
+        theme = config.Theme
     });
 });
 
@@ -414,6 +415,7 @@ app.MapGet("/api/admin/config", (HttpContext ctx) =>
         allowAnswerDetails = config.AllowAnswerDetails,
         port = config.Port,
         quizFolder = config.QuizFolder,
+        theme = config.Theme,
         hasPassword = !string.IsNullOrEmpty(config.AdminPasswordHash),
         availableFolders = folders
     });
@@ -458,6 +460,12 @@ app.MapPost("/api/admin/config", async (HttpContext ctx) =>
         if (req.NewAdminPassword.Length < 4) return Results.BadRequest("Admin password must be at least 4 characters.");
         updates["adminPasswordHash"] = QuizConfig.ComputeHash(req.NewAdminPassword);
         // remove plain adminPassword if present
+    }
+    if (req.Theme != null)
+    {
+        string t = req.Theme.Trim().ToLowerInvariant();
+        if (t is "default" or "bright" or "gradient" or "playful" or "bold")
+            updates["theme"] = t;
     }
 
     string oldFolder = config.QuizFolder;
@@ -609,4 +617,5 @@ public sealed class AdminConfigRequest
     public int? Port { get; set; }
     public string? QuizFolder { get; set; }
     public string? NewAdminPassword { get; set; }
+    public string? Theme { get; set; }
 }

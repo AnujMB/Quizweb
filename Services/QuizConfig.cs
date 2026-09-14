@@ -18,6 +18,7 @@ public sealed class QuizConfig
     public int? Port { get; private set; }
     public string QuizFolder { get; private set; } = "";
     public string AdminPasswordHash { get; private set; } = "";
+    public string Theme { get; private set; } = "default";
 
     public string ResultPath(string dataDir)
         => Path.IsPathRooted(ResultFile) ? ResultFile : Path.Combine(dataDir, ResultFile);
@@ -86,6 +87,12 @@ public sealed class QuizConfig
             else if (key.Equals("adminPasswordHash", StringComparison.OrdinalIgnoreCase) && val.Length > 0)
             {
                 c.AdminPasswordHash = val.Trim().ToLowerInvariant();
+            }
+            else if (key.Equals("theme", StringComparison.OrdinalIgnoreCase) && val.Length > 0)
+            {
+                string t = val.Trim().ToLowerInvariant();
+                if (t is "default" or "bright" or "gradient" or "playful" or "bold")
+                    c.Theme = t;
             }
         }
         return c;

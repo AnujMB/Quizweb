@@ -121,6 +121,11 @@ function toggleStart() {
   );
 }
 
+function applyTheme(theme) {
+  document.body.classList.remove("theme-default","theme-bright","theme-gradient","theme-playful","theme-bold");
+  if (theme && theme !== "default") document.body.classList.add("theme-" + theme);
+}
+
 /* ------------------------------- zoom ------------------------------- */
 function applyZoom() {
   document.documentElement.style.setProperty("--zoom", state.zoom.toFixed(2));
@@ -1023,6 +1028,7 @@ async function init() {
 
   try {
     state.config = await api("/api/config");
+    applyTheme(state.config.theme);
     state.quizInfo = {
       subject: state.config.subject || "",
       className: state.config.className || "",
@@ -1080,6 +1086,7 @@ async function openAdmin() {
 
 function closeAdmin() {
   $("admin-backdrop").hidden = true;
+  if (state.config) applyTheme(state.config.theme);
 }
 
 async function adminLogin() {
@@ -1128,10 +1135,17 @@ async function loadAdminConfig() {
   $("admin-allowReview").checked = !!c.allowReview;
   $("admin-allowAnswerDetails").checked = !!c.allowAnswerDetails;
   $("admin-folders").textContent = (c.availableFolders && c.availableFolders.length) ? c.availableFolders.join(", ") : "(none)";
+  const theme = c.theme || "default";
+  document.querySelectorAll(".theme-card").forEach(card => {
+    card.classList.toggle("selected", card.dataset.theme === theme);
+  });
+  applyTheme(theme);
   $("admin-msg").hidden = true;
 }
 
 async function adminSave() {
+  const selectedThemeEl = document.querySelector(".theme-card.selected");
+  const selectedTheme = selectedThemeEl ? selectedThemeEl.dataset.theme : "default";
   const payload = {
     time: parseInt($("admin-time").value, 10) || undefined,
     negativeMarking: $("admin-neg").value,
@@ -1142,6 +1156,7 @@ async function adminSave() {
     allowImport: $("admin-allowImport").checked,
     allowReview: $("admin-allowReview").checked,
     allowAnswerDetails: $("admin-allowAnswerDetails").checked,
+    theme: selectedTheme,
   };
   const newPass = $("admin-newpass").value.trim();
   if (newPass) {
@@ -1161,6 +1176,7 @@ async function adminSave() {
       // refresh local config display
       try {
         state.config = await api("/api/config");
+        applyTheme(state.config.theme);
         state.quizInfo = { subject: state.config.subject || "", className: state.config.className || "", examType: state.config.examType || "" };
         $("quiz-title").textContent = state.quizInfo.examType || "Quiz";
         $("tb-title").textContent = state.quizInfo.examType || "Quiz";
@@ -1215,6 +1231,13 @@ function wireAdmin() {
   if (rst) rst.addEventListener("click", adminRestart);
   const backdrop = $("admin-backdrop");
   if (backdrop) backdrop.addEventListener("click", e => { if (e.target === backdrop) closeAdmin(); });
+  document.querySelectorAll(".theme-card").forEach(card => {
+    card.addEventListener("click", () => {
+      document.querySelectorAll(".theme-card").forEach(c => c.classList.remove("selected"));
+      card.classList.add("selected");
+      applyTheme(card.dataset.theme);
+    });
+  });
 }
 setTimeout(wireAdmin, 0);
 
