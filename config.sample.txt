@@ -1,14 +1,15 @@
 Time=6
 NegativeMarking=25%
-resultFile=d:\Result.txt
+resultFile=Result.txt
 allowResultViewing=true
 allowImport=false
 allowReview=true
 allowAnswerDetails=true
 # Folder for this quiz (e.g. Math, Radhika_Nepali). Leave empty to use publish/ root.
-quizFolder=Computer
+quizFolder=
 Port=5000
-adminPasswordHash=240be518fabd2724ddb6f04eeb1da5967448d7e831c08c8fa822809f74c720a9
+# Set ONE of these (plain is hashed on load). Never commit the real hash.
+# adminPassword=change-me
 theme=bright
 hideMarksOnSubmitAnyway=true
-perIpSubmitPerMinuteLimit=2
+perIpSubmitPerMinuteLimit=5
