@@ -1,6 +1,0 @@
-Name,Class,Section,Exam Type,Subject,Quiz Class,Marks obtained,Exam date,ComputerName,IPAddress,Q1,Q2,Q3,Q4
-nine,9,A,Practice - CsDC,Computer Science,9,5.75,08-23-2026 08:52,,127.0.0.1,,,C,,,,B,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,E,,,,,,,,,,,,,C,,,,,,,,,,C,,,,,,,,,,,,,,,,,,,,,,,A,,,,,,,,,,,,B,,
-an uj,9,A,Practice - CsDC,Computer Science,9,0.25,09-14-2026 03:15,,127.0.0.1,A,A,A,A
-anuj,9,A,Practice - CsDC,Computer Science,9,0.00,09-14-2026 03:19,,127.0.0.1,,,,
-wsd,3,D,Practice - CsDC,Computer Science,9,0.00,09-14-2026 03:19,,127.0.0.1,,,,
-ewf,32,D,Practice - CsDC,Computer Science,9,0.00,09-14-2026 03:26,,127.0.0.1,,,,

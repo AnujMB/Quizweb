@@ -1,0 +1,20 @@
+# Build outputs (regenerate with: dotnet build / dotnet publish)
+bin/
+obj/
+publish/
+publish_new/
+
+# Visual Studio local cache
+.vs/
+
+# Live config with secrets (see config.sample.txt for the template)
+config.txt
+
+# Live student data / evidence — never push to remote
+Suspect/
+Result.txt
+**/Result*.txt
+
+# Logs
+*.log
+*.err

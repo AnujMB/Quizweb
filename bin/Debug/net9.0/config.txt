@@ -1,7 +1,0 @@
-Time=1
-NegativeMarking=25%
-resultFile=Result.txt
-allowResultViewing=true
-allowImport=true
-allowReview=true
-Port=5000
