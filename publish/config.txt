@@ -1,6 +1,6 @@
 Time=6
 NegativeMarking=25%
-resultFile=Result.txt
+resultFile=d:\Result.txt
 allowResultViewing=true
 allowImport=false
 allowReview=true

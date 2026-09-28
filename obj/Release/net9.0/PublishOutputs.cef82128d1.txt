@@ -3,6 +3,8 @@ D:\anuj\opnsrc_try\ai\QuizWeb_Manual\publish_new\publish\web.config
 D:\anuj\opnsrc_try\ai\QuizWeb_Manual\publish_new\publish_new\publish\web.config
 D:\anuj\opnsrc_try\ai\QuizWeb_Manual\publish_new\publish_new\publish_new\publish\web.config
 D:\anuj\opnsrc_try\ai\QuizWeb_Manual\publish_new\publish_new\publish_new\publish_new\publish\web.config
+D:\anuj\opnsrc_try\ai\QuizWeb_Manual\publish_new\publish_new\publish_new\publish_new\publish_new\publish\web.config
+D:\anuj\opnsrc_try\ai\QuizWeb_Manual\publish_new\publish_new\publish_new\publish_new\publish_new\web.config
 D:\anuj\opnsrc_try\ai\QuizWeb_Manual\publish_new\publish_new\publish_new\publish_new\web.config
 D:\anuj\opnsrc_try\ai\QuizWeb_Manual\publish_new\publish_new\publish_new\web.config
 D:\anuj\opnsrc_try\ai\QuizWeb_Manual\publish_new\publish_new\web.config
@@ -18,6 +20,12 @@ D:\anuj\opnsrc_try\ai\QuizWeb_Manual\publish_new\publish_new\publish_new\publish
 D:\anuj\opnsrc_try\ai\QuizWeb_Manual\publish_new\publish_new\publish_new\publish_new\publish\QuizWeb.deps.json
 D:\anuj\opnsrc_try\ai\QuizWeb_Manual\publish_new\publish_new\publish_new\publish_new\publish\QuizWeb.runtimeconfig.json
 D:\anuj\opnsrc_try\ai\QuizWeb_Manual\publish_new\publish_new\publish_new\publish_new\publish\QuizWeb.staticwebassets.endpoints.json
+D:\anuj\opnsrc_try\ai\QuizWeb_Manual\publish_new\publish_new\publish_new\publish_new\publish_new\publish\QuizWeb.deps.json
+D:\anuj\opnsrc_try\ai\QuizWeb_Manual\publish_new\publish_new\publish_new\publish_new\publish_new\publish\QuizWeb.runtimeconfig.json
+D:\anuj\opnsrc_try\ai\QuizWeb_Manual\publish_new\publish_new\publish_new\publish_new\publish_new\publish\QuizWeb.staticwebassets.endpoints.json
+D:\anuj\opnsrc_try\ai\QuizWeb_Manual\publish_new\publish_new\publish_new\publish_new\publish_new\QuizWeb.deps.json
+D:\anuj\opnsrc_try\ai\QuizWeb_Manual\publish_new\publish_new\publish_new\publish_new\publish_new\QuizWeb.runtimeconfig.json
+D:\anuj\opnsrc_try\ai\QuizWeb_Manual\publish_new\publish_new\publish_new\publish_new\publish_new\QuizWeb.staticwebassets.endpoints.json
 D:\anuj\opnsrc_try\ai\QuizWeb_Manual\publish_new\publish_new\publish_new\publish_new\QuizWeb.deps.json
 D:\anuj\opnsrc_try\ai\QuizWeb_Manual\publish_new\publish_new\publish_new\publish_new\QuizWeb.runtimeconfig.json
 D:\anuj\opnsrc_try\ai\QuizWeb_Manual\publish_new\publish_new\publish_new\publish_new\QuizWeb.staticwebassets.endpoints.json

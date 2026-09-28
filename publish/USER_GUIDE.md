@@ -80,14 +80,15 @@ Your questions are in an Excel file called **questions.xlsx** (in the same folde
 1. Students type their **Name, Class, and Section**, then click **Start Quiz**.
 2. They answer the questions. **Next** and **Previous** buttons move between questions; the last question shows **Submit**.
 3. The **timer** is at the top of the screen. Under 1 minute it turns red. When time runs out, the quiz saves automatically.
-4. A student with the same Name/Class/Section cannot take the quiz twice — the program remembers and shows their previous score.
+4. A student with the same Name/Class/Section cannot take the quiz twice — the program shows "You have already taken this test."
+5. **Exam mode:** students never see any marks — no score screen, no review, no results page. After submitting they only see "Your answers have been submitted successfully."
 
 ---
 
 ## Part 5 — After the quiz (results)
 
-- Every result is saved automatically in **Result.txt** (same folder as the program). Open it with Excel to view, print, or copy.
-- On the start screen, click **View Results** to look at each student's answers question by question.
+- Every answer is saved automatically in **Result.txt** (same folder as the program, or inside the quiz folder). Open it with Excel to view, print, or copy. It logs Name, Class, Section, answers (Q1..Qn), IP, computer name and the computed marks — teachers read marks **only from this file**.
+- Students cannot see any results on screen. There is no View Results page and no Review button.
 
 ---
 
@@ -180,12 +181,11 @@ In Admin, the **theme picker** shows 5 preview mini-cards (4 tiny option blocks 
 
 | Method | Path | Gating | Request | Response / Notes |
 |---|---|---|---|---|
-| `GET` | `/api/config` | none | — | `timeMinutes, negativeMarkingPct, totalQuestions, allowResultViewing, allowImport, allowReview, allowAnswerDetails, subject, className, examType, resultFile, theme, hideMarksOnSubmitAnyway, perIpSubmitPerMinuteLimit` (`Program.cs:74`) |
-| `GET` | `/api/questions` | none | — | `quizInfo, source, warnings, questions[]` where each `questions[i]` = `number, text, options, isMultiCorrect, image, passage, groupId` — **no `correctIndices`** (stripped `Program.cs:98`). Fetched **only after** `POST /api/check` succeeds (`app.js: ensureBank()`), so opening the site via `F12` shows no answers. |
-| `POST` | `/api/check` | none | `{"name","class","section"}` | `alreadyTaken, previousMarks, activeSession`. Registers `Time+5 min` session to block same name on another PC (`Services/ActiveSessions.cs`). |
-| `POST` | `/api/submit` | per-IP limit + `hideMarks` | `{"name","class","section","answers":{"1":"A","2":"B&D"}}` | `alreadyTaken, marks, correct, wrong, attempted, total, saved, savePending, hidden, review` — `review` only if `allowReview=true` **and** not hidden; `hidden:true` when `hideMarksOnSubmitAnyway=true` and `attempted < total` (`Program.cs:147`); `429` if `perIpSubmitPerMinuteLimit` exceeded per `RemoteIpAddress`. IP from `HttpContext.Connection.RemoteIpAddress` (overwrites JSON, not spoofable). |
-| `GET` | `/api/results/students` | `allowResultViewing` | — | Array sorted `marks desc`: `name, class, section, subject, examType, quizClass, marks, date, computerName, ipAddress` (`Program.cs:166`). `403` if disabled. |
-| `GET` | `/api/results/detail?name=&className=&section=` | `allowResultViewing && allowAnswerDetails` | query params | `name, class, section, marks, date, computerName, ipAddress, answers, correctMap` (`Program.cs:192`) where `correctMap` is `{ "1":[0], "2":[1,3] }` (indices A=0). `403` if gated, `404` if no match. |
+| `GET` | `/api/config` | none | — | `timeMinutes, negativeMarkingPct, totalQuestions, subject, className, examType, theme`. No result flags, no file names (`Program.cs:85`). |
+| `GET` | `/api/questions` | none | — | `quizInfo, source, warnings, questions[]` where each `questions[i]` = `number, text, options, isMultiCorrect, image, passage, groupId` — **no `correctIndices`**. Fetched **only after** `POST /api/check` succeeds (`app.js: ensureBank()`), so opening the site via `F12` shows no answers. |
+| `POST` | `/api/check` | none | `{"name","class","section"}` | `alreadyTaken, activeSession` — **no `previousMarks`**. Registers `Time+5 min` session to block same name on another PC (`Services/ActiveSessions.cs`). |
+| `POST` | `/api/submit` | per-IP limit | `{"name","class","section","answers":{"1":"A","2":"B&D"}}` | **Exam mode: `{alreadyTaken, saved, savePending}` only — never marks/correct/wrong/review.** `429` if `perIpSubmitPerMinuteLimit` exceeded per `RemoteIpAddress`. IP from `HttpContext.Connection.RemoteIpAddress` (overwrites JSON, not spoofable). Scoring still logged to `Result.txt` (`Services/QuizEngine.cs`). |
+| ~~`GET`~~ | ~~`/api/results/*`~~ | removed | — | **Deleted.** No student-facing result endpoints exist. Teachers read `Result.txt` directly. Old `allowResultViewing`/`allowReview`/`allowAnswerDetails` UI removed. |
 | `POST` | `/api/import` | `allowImport` | `multipart/form-data` field `questions` (CSV) | `questionsWritten, rowsSkipped, warnings` — also regenerates `questions.xlsx`. `403` in `publish`. |
 | `GET` | `/api/admin/status` | none | — | `hasPassword` |
 | `POST` | `/api/admin/setup` | only when no password | `{"password":"..."} min 4` | `ok` — creates `adminPasswordHash` |
@@ -203,12 +203,13 @@ Invoke-RestMethod http://localhost:5000/api/check -Method Post -ContentType "app
 
 ### 4. Security — what was fixed and what remains
 
-**Fixed (this release):**
-* **Answer leak via `F12` closed.** `/api/questions` never contains answers; answers only return via `POST /api/submit` (`review`) and `GET /api/results/detail` (`correctMap`), both server-gated by `allowReview`/`allowAnswerDetails`. Before, the whole bank with answers was sent on page load.
-* **Detail/Review now server-enforced.** Hiding the button alone is not enough — endpoints now return `403`/omit field when disabled.
+**Fixed (exam mode):**
+* **No marks anywhere.** `POST /api/submit` returns only `{saved}` — no marks/correct/review, even on full submit. `/api/results/*` endpoints deleted (404). `/api/check` returns no `previousMarks`. UI has no score/review/results screen — only "Your answers have been submitted successfully."
+* **Answer leak via `F12` closed.** `/api/questions` never contains answers; fetched only after Start passes the retake guard.
+* **Probe oracle dead.** Single-question submits reveal nothing (`saved:true` regardless of correct/wrong), and per-IP limiter (`429` after limit/min) blocks script bursts.
 
 **Still by design (LAN classroom, no login):**
-* No authentication — anyone on LAN can submit under any name (sanitized `QuizEngine.cs:143`: letters/digits/space/`-` `.'` only), scrape `/api/results/students`, or spam `/api/check`. Mitigate by keeping `allowResultViewing=false` during exam and using `allowReview=false` until results time.
+* No authentication — anyone on LAN can submit under any name (sanitized `QuizEngine.cs:143`: letters/digits/space/`-` `.'` only). Use the class roll to reconcile `Result.txt`; per-IP limit slows fake-name floods.
 * Timer is client-side (`app.js:122`); a student can edit `state.endTime`. Server does not enforce deadline — acceptable for classroom, not for high-stakes.
 * Plain `http://` — bank/results visible to a LAN packet sniffer. Use a tunnel (e.g. `cloudflared tunnel --url http://localhost:5000`) for HTTPS if exposing to internet.
 * `isMultiCorrect` still sent (needed for radio vs checkbox) — reveals single vs multi-answer, minor.

@@ -82,6 +82,9 @@ if (Directory.Exists(imagesDir))
     });
 }
 
+// Exam mode: students only take the quiz. No marks are ever returned.
+// /api/config exposes only what the start screen needs (no result flags,
+// no file names, no limits).
 app.MapGet("/api/config", () =>
 {
     var q = QuestionBank.Load(dataDir);
@@ -91,17 +94,10 @@ app.MapGet("/api/config", () =>
         timeMinutes = config.TimeMinutes,
         negativeMarkingPct = config.NegativeMarkingPct,
         totalQuestions,
-        allowResultViewing = config.AllowResultViewing,
-        allowImport = config.AllowImport,
-        allowReview = config.AllowReview,
-        allowAnswerDetails = config.AllowAnswerDetails,
         subject = quizInfo.Subject,
         className = quizInfo.Class,
         examType = quizInfo.ExamType,
-        resultFile = config.ResultFile,
-        theme = config.Theme,
-        hideMarksOnSubmitAnyway = config.HideMarksOnSubmitAnyway,
-        perIpSubmitPerMinuteLimit = config.PerIpSubmitPerMinuteLimit
+        theme = config.Theme
     });
 });
 
@@ -129,6 +125,7 @@ app.MapGet("/api/questions", () =>
 });
 
 // Retake guard: called when a student clicks Start.
+// Exam mode: never reveals previous marks.
 app.MapPost("/api/check", (CheckRequest req) =>
 {
     var store = app.Services.GetRequiredService<ResultStore>();
@@ -138,13 +135,13 @@ app.MapPost("/api/check", (CheckRequest req) =>
         req.Name, req.Class, req.Section);
 
     if (prev.HasValue)
-        return Results.Ok(new { alreadyTaken = true, previousMarks = prev.Value, activeSession = false });
+        return Results.Ok(new { alreadyTaken = true, activeSession = false });
 
     if (sessions.IsActive(req.Name, req.Class, req.Section, now))
-        return Results.Ok(new { alreadyTaken = true, previousMarks = 0, activeSession = true });
+        return Results.Ok(new { alreadyTaken = true, activeSession = true });
 
     sessions.Register(req.Name, req.Class, req.Section, now.AddMinutes(config.TimeMinutes + 5));
-    return Results.Ok(new { alreadyTaken = false, previousMarks = 0, activeSession = false });
+    return Results.Ok(new { alreadyTaken = false, activeSession = false });
 });
 
 app.MapPost("/api/submit", async (SubmitRequest req, HttpContext httpCtx) =>
@@ -186,39 +183,17 @@ app.MapPost("/api/submit", async (SubmitRequest req, HttpContext httpCtx) =>
         await gate.WaitAsync();
         try
         {
+            // Exam mode: answers are scored and logged to Result.txt as before,
+            // but the response never contains marks/correct/wrong/review.
             var result = QuizEngine.Submit(req, questions, quizInfo, config, dataDir, store);
             sessions.Remove(req.Name, req.Class, req.Section);
-            // Hide marks on partial Submit Anyway (A1): configurable, default true
-            if (!result.AlreadyTaken && config.HideMarksOnSubmitAnyway && result.Attempted < questions.Count)
-            {
-                return Results.Ok(new
-                {
-                    result.AlreadyTaken,
-                    result.Saved,
-                    result.SavePending,
-                    hidden = true,
-                    message = "Submitted. Marks hidden until you complete all questions."
-                });
-            }
-            if (result.AlreadyTaken || !config.AllowReview)
-                return Results.Ok(result);
-            var review = questions.Select(q => new
-            {
-                number = q.Number,
-                correctIndices = q.CorrectIndices
-            }).ToList();
+            if (result.AlreadyTaken)
+                return Results.Ok(new { alreadyTaken = true });
             return Results.Ok(new
             {
-                result.AlreadyTaken,
-                result.PreviousMarks,
-                result.Marks,
-                result.Correct,
-                result.Wrong,
-                result.Attempted,
-                result.Total,
+                alreadyTaken = false,
                 result.Saved,
-                result.SavePending,
-                review
+                result.SavePending
             });
         }
         finally
@@ -227,44 +202,8 @@ app.MapPost("/api/submit", async (SubmitRequest req, HttpContext httpCtx) =>
         }
     });
 
-app.MapGet("/api/results/students", () =>
-{
-    if (!config.AllowResultViewing)
-        return Results.StatusCode(StatusCodes.Status403Forbidden);
-    var rows = ResultFile.LoadResults(config.ResultPath(dataDir));
-    return Results.Ok(rows
-        .OrderByDescending(r => r.Marks)
-        .Select(r => new
-        {
-            r.Name, r.Class, r.Section, r.Subject, r.ExamType, r.QuizClass,
-            r.Marks, r.Date, r.ComputerName, r.IPAddress
-        }));
-});
-
-app.MapGet("/api/results/detail", (string name, string className, string section) =>
-{
-    if (!config.AllowResultViewing)
-        return Results.StatusCode(StatusCodes.Status403Forbidden);
-    if (!config.AllowAnswerDetails)
-        return Results.StatusCode(StatusCodes.Status403Forbidden);
-    var rows = ResultFile.LoadResults(config.ResultPath(dataDir));
-    var match = rows.FirstOrDefault(r =>
-        string.Equals(r.Name, name, StringComparison.OrdinalIgnoreCase) &&
-        string.Equals(r.Class, className, StringComparison.OrdinalIgnoreCase) &&
-        string.Equals(r.Section, section, StringComparison.OrdinalIgnoreCase));
-    if (match == null) return Results.NotFound();
-    var bankQuestions = QuestionBank.Load(dataDir).Questions;
-    var correctMap = bankQuestions.ToDictionary(q => q.Number, q => q.CorrectIndices);
-    return Results.Ok(new
-    {
-        match.Name, match.Class, match.Section, match.Subject, match.ExamType,
-        match.QuizClass, match.Marks, match.Date,
-        match.ComputerName, match.IPAddress,
-        answers = match.Answers,
-        correctMap
-    });
-});
-
+// Exam mode: no student-facing result endpoints. Teachers read Result.txt
+// directly from the quiz folder. (Admin panel uses /api/admin/* only.)
 app.MapPost("/api/import", async (HttpContext ctx) =>
 {
     if (!config.AllowImport)

@@ -45,7 +45,6 @@
       <div id="load-error" class="banner banner-error" hidden></div>
       <div class="actions">
         <button id="btn-start" class="primary" disabled type="button">Start Quiz</button>
-        <button id="btn-results" class="ghost" type="button" hidden>View Results</button>
         <button id="btn-import" class="ghost" type="button" hidden>Import Questions</button>
       </div>
       <p class="hint" id="hint-time"></p>
@@ -77,49 +76,14 @@
     </div>
   </section>
 
-  <!-- ============ SCORE SCREEN ============ -->
+  <!-- ============ SUBMITTED SCREEN ============ -->
   <section id="view-score" class="view" hidden>
     <div class="card score-card">
       <div id="score-banner" class="score-banner"></div>
       <div class="actions">
-        <button id="btn-review" class="primary" type="button">Review Answers</button>
         <button id="btn-finish" class="ghost" type="button">Finish</button>
       </div>
       <p id="save-note" class="hint" hidden></p>
-    </div>
-  </section>
-
-  <!-- ============ RESULTS SCREEN ============ -->
-  <section id="view-results" class="view" hidden>
-    <div class="card results-card">
-      <div class="results-top">
-        <h1>Student Results</h1>
-        <button id="btn-back-results" class="ghost" type="button">&larr; Back</button>
-      </div>
-      <label class="picker">Student
-        <select id="student-select"></select>
-      </label>
-      <div class="results-table-bar">
-        <button id="btn-results-table" class="tb-submit" type="button" title="Show or hide the student summary table">
-          <span class="results-table-ico">&#9636;</span> <span id="results-table-btn-text">Show Student Table</span>
-        </button>
-        <button id="btn-results-refresh" class="ghost" type="button" title="Refresh latest scores">&#8635; Refresh</button>
-      </div>
-      <div id="results-table-wrap" hidden>
-        <table class="results-table">
-          <thead>
-            <tr>
-              <th data-sort="name">Name<span class="sort-arrow"></span></th>
-              <th data-sort="marks">Marks<span class="sort-arrow"></span></th>
-              <th data-sort="ipAddress">IP<span class="sort-arrow"></span></th>
-              <th data-sort="class">Class<span class="sort-arrow"></span></th>
-              <th data-sort="section">Section<span class="sort-arrow"></span></th>
-            </tr>
-          </thead>
-          <tbody id="results-tbody"></tbody>
-        </table>
-      </div>
-      <div id="results-body"></div>
     </div>
   </section>
 </main>
@@ -171,11 +135,7 @@
         <label>Port
           <input id="admin-port" type="number" min="1" max="65535">
         </label>
-        <label class="check"><input id="admin-allowResultViewing" type="checkbox"> Allow Result Viewing (View Results button)</label>
         <label class="check"><input id="admin-allowImport" type="checkbox"> Allow Import</label>
-        <label class="check"><input id="admin-allowReview" type="checkbox"> Allow Review (after quiz)</label>
-        <label class="check"><input id="admin-allowAnswerDetails" type="checkbox"> Allow Answer Details (in View Results)</label>
-        <label class="check"><input id="admin-hideMarks" type="checkbox"> Hide marks on Submit Anyway (anti-probe, default on)</label>
         <label>Per-IP submits per minute (0 = unlimited)
           <input id="admin-perIpLimit" type="number" min="0" max="1000" placeholder="5">
         </label>

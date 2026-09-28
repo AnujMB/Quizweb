@@ -10,12 +10,10 @@ const $ = (id) => document.getElementById(id);
 const state = {
   config: null,          // from /api/config
   quizInfo: { subject: "", className: "", examType: "" },
-  bank: [],              // questions in bank order (numbers = original, no correctIndices until review/detail)
+  bank: [],              // questions in bank order (numbers = original, never contains answers)
   order: [],             // shuffled display order (subset/references of bank)
   index: 0,              // current display index
   answers: new Map(),    // displayIndex -> Set of option indices
-  review: false,
-  reviewData: null,      // Map<number, int[]> — populated only after submit when allowReview
   taken: false,
   zoom: 1,
   timerHandle: null,
@@ -35,7 +33,7 @@ async function api(url, options) {
 }
 
 function showView(name) {
-  for (const v of ["view-start", "view-quiz", "view-score", "view-results"])
+  for (const v of ["view-start", "view-quiz", "view-score"])
     $(v).hidden = v !== "view-" + name;
   window.scrollTo(0, 0);
 }
@@ -130,7 +128,7 @@ function applyTheme(theme) {
 function applyZoom() {
   document.documentElement.style.setProperty("--zoom", state.zoom.toFixed(2));
   $("zoom-label").textContent = Math.round(state.zoom * 100) + "%";
-  if (!state.review && $("question-image").src) sizeImage();
+  if ($("question-image").src) sizeImage();
 }
 
 function changeZoom(delta) {
@@ -180,8 +178,7 @@ function quizHeaderInfo() {
 }
 
 function renderCounter() {
-  const label = state.review ? "Question (Review)" : "Question";
-  $("tb-counter").textContent = label + " " + (state.index + 1) + " of " + state.order.length;
+  $("tb-counter").textContent = "Question " + (state.index + 1) + " of " + state.order.length;
 }
 
 /* ------------------------- shuffle (Fisher–Yates) ------------------------- */
@@ -274,66 +271,25 @@ function renderQuestion() {
   const multi = q.isMultiCorrect;
   const selected = state.answers.get(state.index) || new Set();
 
-  // Review-mode status tag (marks questions the student never attempted).
-  // The element is created on the fly if a stale/cached index.html does not
-  // contain it, so a missing element can never break question rendering.
-  let reviewStatus = $("review-status");
-  if (!reviewStatus) {
-    reviewStatus = document.createElement("div");
-    reviewStatus.id = "review-status";
-    reviewStatus.className = "review-status";
-    reviewStatus.hidden = true;
-    $("question-text").parentNode.insertBefore(reviewStatus, $("question-text"));
-  }
-  if (state.review) {
-    if (selected.size === 0) {
-      reviewStatus.textContent = "Not attempted";
-      reviewStatus.hidden = false;
-    } else {
-      reviewStatus.hidden = true;
-    }
-  } else {
-    reviewStatus.hidden = true;
-  }
-
   q.options.forEach((optText, i) => {
     const letter = String.fromCharCode(65 + i);
     const row = document.createElement("label");
     row.className = "option";
     row.dataset.index = i;
 
-    if (state.review) {
-      const correctIndices = state.reviewData ? (state.reviewData.get(q.number) || []) : [];
-      const isCorrect = correctIndices.includes(i);
-      const isSelected = selected.has(i);
-      if (isCorrect) row.classList.add("correct");
-      else if (isSelected) row.classList.add("wrong");
+    const input = document.createElement("input");
+    input.type = multi ? "checkbox" : "radio";
+    input.name = multi ? "opt" + state.index : "q" + state.index;
+    input.value = i;
+    input.checked = selected.has(i);
+    input.addEventListener("change", () => onOptionChange(i, multi));
 
-      const input = document.createElement("span");
-      input.className = "opt-letter";
-      input.textContent = letter + ".";
-      const text = document.createElement("span");
-      text.textContent = "  " + optText;
-      const mark = document.createElement("span");
-      mark.className = "mark";
-      if (isCorrect) mark.textContent = "✓ Correct answer";
-      else if (isSelected) mark.textContent = "✗ Your answer";
-      row.append(input, text, mark);
-    } else {
-      const input = document.createElement("input");
-      input.type = multi ? "checkbox" : "radio";
-      input.name = multi ? "opt" + state.index : "q" + state.index;
-      input.value = i;
-      input.checked = selected.has(i);
-      input.addEventListener("change", () => onOptionChange(i, multi));
-
-      const letterSpan = document.createElement("span");
-      letterSpan.className = "opt-letter";
-      letterSpan.textContent = letter + ".";
-      const text = document.createElement("span");
-      text.textContent = "  " + optText;
-      row.append(input, letterSpan, text);
-    }
+    const letterSpan = document.createElement("span");
+    letterSpan.className = "opt-letter";
+    letterSpan.textContent = letter + ".";
+    const text = document.createElement("span");
+    text.textContent = "  " + optText;
+    row.append(input, letterSpan, text);
 
     if (selected.has(i)) row.classList.add("selected");
     container.appendChild(row);
@@ -341,15 +297,10 @@ function renderQuestion() {
 
   // Navigation
   $("btn-prev").disabled = state.index === 0;
-  if (state.review) {
-    $("btn-next").textContent = state.index === state.order.length - 1 ? "Finish Review" : "Next →";
-  } else {
-    $("btn-next").textContent = state.index === state.order.length - 1 ? "Submit" : "Next →";
-  }
+  $("btn-next").textContent = state.index === state.order.length - 1 ? "Submit" : "Next →";
 }
 
 function onOptionChange(idx, multi) {
-  if (state.review) return;
   const selected = state.answers.get(state.index) || new Set();
   if (multi) {
     if (selected.has(idx)) selected.delete(idx);
@@ -379,84 +330,12 @@ function go(delta) {
   renderQuestion();
 }
 
-function saveProgressNow() {
-  saveProgress();
-}
-
-/* ------------------------------ save progress ------------------------------ */
-async function saveProgress() {
-  if (state.submitting) return;
-  if (!state.student.name) {
-    showInfoDialog("Cannot Save", "Please enter your name first.");
-    return;
-  }
-  if (state.answers.size === 0) {
-    showInfoDialog("Cannot Save", "Please attempt at least one question first.");
-    return;
-  }
-  state.submitting = true;
-  stopTimer();
-
-  const payload = {
-    name: state.student.name,
-    class: state.student.className,
-    section: state.student.section,
-    answers: buildAnswerPayload(),
-  };
-
-  try {
-    const res = await api("/api/submit", {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify(payload),
-    });
-
-    state.submitting = false;
-    if (res.alreadyTaken) {
-      showInfoDialog("Already Taken", "You have already taken this test.");
-      return;
-    }
-    showScore(res);
-  } catch (err) {
-    state.submitting = false;
-    showInfoDialog("Error", "Could not save progress: " + err.message);
-  }
-}
-
-// Helper: show a non-modal info dialog
-function showInfoDialog(title, text) {
-  return new Promise((resolve) => {
-    $("modal-title").textContent = title;
-    $("modal-text").textContent = text;
-    $("modal-no").hidden = false;
-    $("modal-yes").textContent = "OK";
-    $("modal-backdrop").hidden = false;
-    $("modal-yes").onclick = () => {
-      $("modal-backdrop").hidden = true;
-      resolve(true);
-    };
-    $("modal-no").onclick = () => {
-      $("modal-backdrop").hidden = true;
-      resolve(false);
-    };
-  });
-}
-
 async function nextClicked() {
   if (state.submitting) return;
-  if (state.review) {
-    if (state.index === state.order.length - 1) {
-      const ok = await confirmDialog("Finish Review", "You have finished reviewing your answers.\n\nDo you want to exit the quiz?");
-      if (ok) resetToStart();
-    } else {
-      go(1);
-    }
-    return;
-  }
   if (state.index === state.order.length - 1) {
     const ok = await confirmDialog(
-      "Final Submission",
-      "This is the last question. Submitting will finalize your answers.\nYou will not be able to go back and revise.\n\nDo you want to submit?"
+      "Submit Answers",
+      "This is the last question. Once submitted, you cannot go back and change your answers.\n\nDo you want to submit?"
     );
     if (ok) submitQuiz(false);
   } else {
@@ -501,15 +380,16 @@ async function submitQuiz(confirmFirst) {
   if (state.submitting) return;
   if (confirmFirst) {
     const ok = await confirmDialog(
-      "Final Submission",
-      "This is the last question. Submitting will finalize your answers.\nYou will not be able to go back and revise.\n\nDo you want to submit?"
+      "Submit Answers",
+      "This is the last question. Once submitted, you cannot go back and change your answers.\n\nDo you want to submit?"
     );
     if (!ok) return;
   }
   state.submitting = true;
   stopTimer();
 
-  // Submit immediately - IP will be captured server-side
+  // Submit immediately - IP will be captured server-side.
+  // Exam mode: the server never returns marks.
   try {
     const res = await api("/api/submit", {
       method: "POST",
@@ -524,24 +404,12 @@ async function submitQuiz(confirmFirst) {
     });
     if (res.alreadyTaken) {
       state.submitting = false;
-      showTakenState(res.previousMarks);
+      showTakenState();
       return;
     }
 
-    if (res.hidden) {
-      state.reviewData = null;
-      state.submitting = false;
-      showScore(res);
-      return;
-    }
-
-    if (res.review && Array.isArray(res.review)) {
-      state.reviewData = new Map(res.review.map(r => [r.number, r.correctIndices || []]));
-    } else {
-      state.reviewData = null;
-    }
     state.submitting = false;
-    showScore(res);
+    showSubmitted(res);
   } catch (err) {
     state.submitting = false;
     if (String(err.message).includes("429")) {
@@ -560,27 +428,30 @@ async function submitQuiz(confirmFirst) {
       state.endTime = Date.now() + remain;
       state.timerHandle = setInterval(tick, 250);
       showView("quiz");
-      infoDialog("Error", "Your result could not be submitted: " + err.message +
+      infoDialog("Error", "Your answers could not be submitted: " + err.message +
         "\n\nPlease try again.");
     } else {
-      infoDialog("Error", "Your result could not be submitted: " + err.message +
+      infoDialog("Error", "Your answers could not be submitted: " + err.message +
         "\n\nPlease contact the teacher.");
     }
   }
 }
 
 /* --------------------------- submit anyway --------------------------- */
+// Exam mode: mid-way save for late starters when class time ends.
+// Only saves progress — never shows marks.
 async function submitAnywayClicked() {
-  if (state.submitting || state.review) return;
+  if (state.submitting) return;
   const ok = await confirmDialog(
-    "Final Submission",
-    "Submitting will finalize your answers.\nYou will not be able to go back and revise.\n\nDo you want to submit?"
+    "Submit Answers",
+    "This will submit whatever you have answered so far. Once submitted, you cannot go back and change your answers.\n\nDo you want to submit?"
   );
   if (ok) submitQuiz(false);
 }
 
-/* ------------------------------ score view ------------------------------ */
-function showScore(res) {
+/* ------------------------------ submitted view ------------------------------ */
+// Exam mode: no marks are ever shown. This screen only confirms receipt.
+function showSubmitted(res) {
   $("tb-counter").hidden = true;
   $("tb-timer").hidden = true;
   $("btn-submit-anyway").hidden = true;
@@ -588,36 +459,13 @@ function showScore(res) {
   let banner = state.student.name + "  |  Class: " + state.student.className +
     "  |  Section: " + state.student.section;
   if (info) banner += "\n" + info;
-  banner += "\n\n";
-
-  if (res.hidden) {
-    banner += res.message || "Submitted. Marks hidden until you complete all questions.";
-  } else if (state.config.negativeMarkingPct > 0) {
-    const pct = Math.round(state.config.negativeMarkingPct);
-    banner += "Correct: " + res.correct + "\n" +
-              "Wrong: " + res.wrong + "\n\n" +
-              "Marks obtained: " + res.marks.toFixed(2) +
-              "  (" + res.correct + " – " + res.wrong + " × " + pct + "%)\n" +
-              "Out of " + res.total;
-  } else {
-    banner += "You scored " + res.correct + " out of " + res.total;
-  }
+  banner += "\n\nYour answers have been submitted successfully.";
   $("score-banner").textContent = banner;
-  $("save-note").textContent = res.savePending
-    ? "Your result is being saved in the background (the result file was busy)."
+  $("save-note").textContent = res && res.savePending
+    ? "Your answers are being saved in the background (the result file was busy)."
     : "";
-  $("save-note").hidden = !res.savePending;
+  $("save-note").hidden = !(res && res.savePending);
   showView("score");
-}
-
-function startReview() {
-  state.review = true;
-  state.index = 0;
-  $("tb-counter").hidden = false;
-  $("tb-timer").hidden = true;
-  $("btn-submit-anyway").hidden = true;
-  showView("quiz");
-  renderQuestion();
 }
 
 /* ----------------------------- helper: ensure bank loaded ----------------------------- */
@@ -655,7 +503,7 @@ async function startClicked() {
       let txt = state.student.name + "  |  Class: " + state.student.className +
         "  |  Section: " + state.student.section;
       if (info) txt += "\n" + info;
-      txt += "\n\nThis student has given the test.\nView Results instead?";
+      txt += "\n\nThis student has already started the test on another computer.";
       $("taken-banner").textContent = txt;
       $("taken-banner").hidden = false;
       $("btn-start").hidden = true;
@@ -664,7 +512,7 @@ async function startClicked() {
       return;
     }
     if (res.alreadyTaken) {
-      showTakenState(res.previousMarks);
+      showTakenState();
       return;
     }
     await ensureBank();
@@ -676,7 +524,7 @@ async function startClicked() {
   }
 }
 
-function showTakenState(prevMarks) {
+function showTakenState() {
   state.taken = true;
   $("btn-start").disabled = true;
   for (const id of ["in-name", "in-class", "in-section"]) $(id).readOnly = true;
@@ -684,9 +532,7 @@ function showTakenState(prevMarks) {
   let txt = state.student.name + "  |  Class: " + state.student.className +
     "  |  Section: " + state.student.section;
   if (info) txt += "\n" + info;
-  const totalStr = state.bank.length > 0 ? " out of " + state.bank.length : "";
-  txt += "\n\nYou have already taken this test.\nYour previous score: " +
-    prevMarks.toFixed(2) + totalStr;
+  txt += "\n\nYou have already taken this test.\nYour answers have been recorded.";
   $("taken-banner").textContent = txt;
   $("taken-banner").hidden = false;
   $("btn-start").hidden = true;
@@ -698,8 +544,6 @@ function beginQuiz() {
   state.order = shuffleBank();
   state.index = 0;
   state.answers = new Map();
-  state.review = false;
-  state.reviewData = null;
   state.taken = false;
 
   $("taken-banner").hidden = true;
@@ -709,240 +553,6 @@ function beginQuiz() {
   showView("quiz");
   renderQuestion();
   startTimer();
-}
-
-/* ------------------------------- results ------------------------------- */
-async function openResults() {
-  try {
-    await ensureBank();
-    const students = await api("/api/results/students");
-    const sel = $("student-select");
-    sel.innerHTML = "";
-    state.resultsStudents = students;
-    state.resultsSortKey = null;
-    state.resultsSortDir = 1;
-    $("results-table-wrap").hidden = true;
-    $("results-table-btn-text").textContent = "Show Student Table";
-    if (students.length === 0) {
-      $("results-body").innerHTML = "<p class='hint'>No student results found yet.</p>";
-    } else {
-      students.forEach((s, i) => {
-        const opt = document.createElement("option");
-        opt.value = i;
-        opt.dataset.name = s.name;
-        opt.dataset.className = s.class;
-        opt.dataset.section = s.section;
-        opt.textContent = s.name + "  |  Marks: " + s.marks.toFixed(2) +
-          "  |  IP: " + (s.ipAddress || "N/A") +
-          "  |  Class: " + s.class + "  |  Section: " + s.section;
-        sel.appendChild(opt);
-      });
-      sel.selectedIndex = 0;
-    }
-    $("btn-results-table").hidden = students.length === 0;
-    renderResultsTable();
-    showView("results");
-    renderStudentDetail();
-  } catch (err) {
-    showLoadError("Could not load results: " + err.message);
-  }
-}
-
-function resultsSortValue(key, s) {
-  if (key === "marks") return s.marks;
-  const v = s[key];
-  return (v == null ? "" : String(v)).toLowerCase();
-}
-
-function renderResultsTable() {
-  const key = state.resultsSortKey;
-  const dir = state.resultsSortDir;
-  let rows = state.resultsStudents.slice();
-  if (key) {
-    rows.sort((a, b) => {
-      const av = resultsSortValue(key, a);
-      const bv = resultsSortValue(key, b);
-      if (av < bv) return -1 * dir;
-      if (av > bv) return 1 * dir;
-      return 0;
-    });
-  }
-  const tb = $("results-tbody");
-  tb.innerHTML = "";
-  rows.forEach((s) => {
-    const tr = document.createElement("tr");
-    const displayName = s.name.length > 40 ? s.name.slice(0, 40) + "..." : s.name;
-    const nameTd = document.createElement("td");
-    nameTd.textContent = displayName;
-    if (s.name.length > 40) nameTd.title = s.name;
-    tr.appendChild(nameTd);
-    [s.marks.toFixed(2), s.ipAddress || "N/A", s.class, s.section].forEach((c) => {
-      const td = document.createElement("td");
-      td.textContent = c;
-      tr.appendChild(td);
-    });
-    tb.appendChild(tr);
-  });
-  document.querySelectorAll(".results-table thead th").forEach((th) => {
-    const arrow = th.querySelector(".sort-arrow");
-    if (th.dataset.sort === key) arrow.textContent = dir > 0 ? " \u25B2" : " \u25BC";
-    else arrow.textContent = "";
-  });
-}
-
-function resultsTableHeaderClicked(th) {
-  const key = th.dataset.sort;
-  if (!key) return;
-  if (state.resultsSortKey === key) state.resultsSortDir *= -1;
-  else { state.resultsSortKey = key; state.resultsSortDir = 1; }
-  renderResultsTable();
-}
-
-function toggleResultsTable() {
-  const wrap = $("results-table-wrap");
-  wrap.hidden = !wrap.hidden;
-  $("results-table-btn-text").textContent = wrap.hidden ? "Show Student Table" : "Hide Student Table";
-  if (!wrap.hidden) renderResultsTable();
-}
-
-async function refreshResults() {
-  const btn = $("btn-results-refresh");
-  if (btn.disabled) return;
-  btn.disabled = true;
-  const origLabel = btn.textContent;
-  btn.textContent = "\u21BB Refreshing...";
-  try {
-    const students = await api("/api/results/students");
-    const sel = $("student-select");
-    const prevOpt = sel.selectedOptions[0];
-    const prevKey = prevOpt
-      ? prevOpt.dataset.name + "\u0001" + prevOpt.dataset.className + "\u0001" + prevOpt.dataset.section
-      : null;
-    const wasOpen = !$("results-table-wrap").hidden;
-
-    state.resultsStudents = students;
-    sel.innerHTML = "";
-    if (students.length === 0) {
-      $("results-body").innerHTML = "<p class='hint'>No student results found yet.</p>";
-      $("btn-results-table").hidden = true;
-      $("results-table-wrap").hidden = true;
-    } else {
-      students.forEach((s, i) => {
-        const opt = document.createElement("option");
-        opt.value = i;
-        opt.dataset.name = s.name;
-        opt.dataset.className = s.class;
-        opt.dataset.section = s.section;
-        opt.textContent = s.name + "  |  Marks: " + s.marks.toFixed(2) +
-          "  |  IP: " + (s.ipAddress || "N/A") +
-          "  |  Class: " + s.class + "  |  Section: " + s.section;
-        sel.appendChild(opt);
-      });
-      let restoreIdx = 0;
-      if (prevKey) {
-        for (let i = 0; i < sel.options.length; i++) {
-          const o = sel.options[i];
-          const k = o.dataset.name + "\u0001" + o.dataset.className + "\u0001" + o.dataset.section;
-          if (k.toLowerCase() === prevKey.toLowerCase()) { restoreIdx = i; break; }
-        }
-      }
-      sel.selectedIndex = restoreIdx;
-      $("btn-results-table").hidden = false;
-      $("results-table-wrap").hidden = wasOpen ? false : true;
-    }
-    renderResultsTable();
-    await renderStudentDetail();
-  } catch (err) {
-    await infoDialog("Refresh failed", err.message);
-  } finally {
-    btn.disabled = false;
-    btn.textContent = origLabel;
-  }
-}
-
-async function renderStudentDetail() {
-  const sel = $("student-select");
-  const opt = sel.selectedOptions[0];
-  $("results-body").innerHTML = "";
-  // When answer details are disabled by config, show only the student list
-  // in the dropdown and keep the detail area hidden (no details fetched).
-  if (state.config && !state.config.allowAnswerDetails) {
-    $("results-body").hidden = true;
-    if (opt) {
-      const hint = document.createElement("p");
-      hint.className = "hint";
-      hint.textContent = "Answer details are disabled by the teacher.";
-      $("results-body").appendChild(hint);
-      $("results-body").hidden = false;
-    }
-    return;
-  }
-  $("results-body").hidden = false;
-  if (!opt) return;
-  try {
-    const d = await api("/api/results/detail?name=" + encodeURIComponent(opt.dataset.name) +
-      "&className=" + encodeURIComponent(opt.dataset.className) +
-      "&section=" + encodeURIComponent(opt.dataset.section));
-
-    const summary = document.createElement("div");
-    summary.className = "results-summary";
-    summary.textContent = d.name + "   |   Class: " + d.class + "   |   Section: " + d.section +
-      "\nMarks: " + d.marks.toFixed(2) + "   |   Date: " + d.date +
-      "   |   IP: " + (d.ipAddress || "N/A") +
-      "   |   Computer: " + (d.computerName || "N/A");
-    $("results-body").appendChild(summary);
-
-    const correctMap = d.correctMap || {};
-    for (const q of state.bank) {
-      const qno = q.number;
-      const correctIndices = correctMap[qno] ?? correctMap[String(qno)] ?? [];
-      const studentAns = d.answers && d.answers[qno] ? String(d.answers[qno]) : "";
-      const correctLetters = correctIndices.map((i) => String.fromCharCode(65 + i)).join("&");
-      const answered = !!studentAns.trim();
-      const correct = answered && studentAns.toUpperCase() === correctLetters.toUpperCase();
-      const verdict = !answered ? "Not attempted" : correct ? "Correct" : "Wrong";
-
-      const block = document.createElement("div");
-      block.className = "rq-block";
-
-      const qel = document.createElement("div");
-      qel.className = "rq-q";
-      qel.textContent = "Q" + qno + ".  " + q.text;
-      block.appendChild(qel);
-
-      if (q.passage) {
-        const pel = document.createElement("div");
-        pel.className = "rq-passage";
-        pel.textContent = q.passage;
-        block.appendChild(pel);
-      }
-
-      const vel = document.createElement("div");
-      vel.className = "rq-verdict " + (!answered ? "na" : correct ? "correct" : "wrong");
-      vel.textContent = "Your answer: " + (answered ? studentAns : "(not answered)") +
-        "      Correct: " + correctLetters + "      [" + verdict + "]";
-      block.appendChild(vel);
-
-      const chosen = answered ? studentAns.toUpperCase().split("&") : [];
-      q.options.forEach((optText, i) => {
-        const letter = String.fromCharCode(65 + i);
-        const oel = document.createElement("div");
-        oel.className = "rq-option";
-        const isCorrectOpt = correctIndices.includes(i);
-        const isSelected = chosen.includes(letter);
-        if (isCorrectOpt) oel.classList.add("correct");
-        if (isSelected && !isCorrectOpt) oel.classList.add("wrong");
-        oel.textContent = letter + ".  " + optText +
-          (isCorrectOpt ? "   (correct)" : "") +
-          (isSelected && !isCorrectOpt ? "   <- your answer" : "");
-        block.appendChild(oel);
-      });
-
-      $("results-body").appendChild(block);
-    }
-  } catch (err) {
-    $("results-body").innerHTML = "<p class='hint'>Could not load details: " + err.message + "</p>";
-  }
 }
 
 /* ------------------------------- import ------------------------------- */
@@ -972,8 +582,6 @@ function showLoadError(msg) {
 
 function resetToStart() {
   stopTimer();
-  state.review = false;
-  state.reviewData = null;
   state.taken = false;
   state.order = [];
   state.answers = new Map();
@@ -1027,23 +635,15 @@ async function init() {
   $("btn-zoom-in").addEventListener("click", () => changeZoom(0.1));
   $("btn-zoom-out").addEventListener("click", () => changeZoom(-0.1));
   $("btn-submit-anyway").addEventListener("click", submitAnywayClicked);
-  $("btn-review").addEventListener("click", startReview);
   $("btn-finish").addEventListener("click", async () => {
     const ok = await confirmDialog("Exit Quiz", "Do you want to exit the quiz?");
     if (ok) resetToStart();
   });
-  $("btn-back-results").addEventListener("click", resetToStart);
-  $("btn-results").addEventListener("click", openResults);
   $("btn-import").addEventListener("click", () => $("import-file").click());
   $("import-file").addEventListener("change", (e) => {
     if (e.target.files.length) importFile(e.target.files[0]);
     e.target.value = "";
   });
-  $("student-select").addEventListener("change", renderStudentDetail);
-  $("btn-results-table").addEventListener("click", toggleResultsTable);
-  $("btn-results-refresh").addEventListener("click", refreshResults);
-  document.querySelectorAll(".results-table thead th").forEach((th) =>
-    th.addEventListener("click", () => resultsTableHeaderClicked(th)));
 
   try {
     state.config = await api("/api/config");
@@ -1073,9 +673,9 @@ async function init() {
     }
     hintEl.innerHTML = html;
 
-    $("btn-results").hidden = !state.config.allowResultViewing;
-    $("btn-import").hidden = !state.config.allowImport;
-    $("btn-review").hidden = !state.config.allowReview;
+    // Exam mode: no student-facing result/import buttons. Teachers use
+    // the Result.txt file and the Admin panel.
+    $("btn-import").hidden = true;
     toggleStart();
   } catch (err) {
     showLoadError("Could not load quiz config: " + err.message);
@@ -1149,11 +749,7 @@ async function loadAdminConfig() {
   $("admin-folder").value = c.quizFolder ?? "";
   $("admin-resultfile").value = c.resultFile ?? "";
   $("admin-port").value = c.port ?? "";
-  $("admin-allowResultViewing").checked = !!c.allowResultViewing;
   $("admin-allowImport").checked = !!c.allowImport;
-  $("admin-allowReview").checked = !!c.allowReview;
-  $("admin-allowAnswerDetails").checked = !!c.allowAnswerDetails;
-  $("admin-hideMarks").checked = c.hideMarksOnSubmitAnyway !== false;
   $("admin-perIpLimit").value = c.perIpSubmitPerMinuteLimit ?? 5;
   $("admin-folders").textContent = (c.availableFolders && c.availableFolders.length) ? c.availableFolders.join(", ") : "(none)";
   const theme = c.theme || "default";
@@ -1173,12 +769,8 @@ async function adminSave() {
     quizFolder: $("admin-folder").value,
     resultFile: $("admin-resultfile").value || undefined,
     port: $("admin-port").value ? parseInt($("admin-port").value, 10) : undefined,
-    allowResultViewing: $("admin-allowResultViewing").checked,
     allowImport: $("admin-allowImport").checked,
-    allowReview: $("admin-allowReview").checked,
-    allowAnswerDetails: $("admin-allowAnswerDetails").checked,
     theme: selectedTheme,
-    hideMarksOnSubmitAnyway: $("admin-hideMarks").checked,
     perIpSubmitPerMinuteLimit: parseInt($("admin-perIpLimit").value, 10) || 0,
   };
   const newPass = $("admin-newpass").value.trim();
@@ -1210,8 +802,7 @@ async function adminSave() {
         html2 += (html2 ? "  |  " : "") + "Time: " + state.config.timeMinutes + " min";
         if (state.config.negativeMarkingPct > 0) html2 += '  |  <span style="color:var(--red);font-weight:700">Negative marking: ' + Math.round(state.config.negativeMarkingPct) + '%</span>';
         hintEl2.innerHTML = html2;
-        $("btn-results").hidden = !state.config.allowResultViewing;
-        $("btn-review").hidden = !state.config.allowReview;
+        $("btn-import").hidden = true;
       } catch {}
     }
     $("admin-newpass").value = "";
@@ -1319,8 +910,8 @@ async function saveProgressSilent() {
         }
 
         state.submitting = false;
-        // Show their progress/score
-        showScore(res);
+        // Exam mode: only confirm receipt, never show marks.
+        showSubmitted(res);
     } catch (err) {
         state.submitting = false;
         console.log("Could not save progress:", err);
