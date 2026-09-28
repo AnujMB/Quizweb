@@ -175,6 +175,10 @@
         <label class="check"><input id="admin-allowImport" type="checkbox"> Allow Import</label>
         <label class="check"><input id="admin-allowReview" type="checkbox"> Allow Review (after quiz)</label>
         <label class="check"><input id="admin-allowAnswerDetails" type="checkbox"> Allow Answer Details (in View Results)</label>
+        <label class="check"><input id="admin-hideMarks" type="checkbox"> Hide marks on Submit Anyway (anti-probe, default on)</label>
+        <label>Per-IP submits per minute (0 = unlimited)
+          <input id="admin-perIpLimit" type="number" min="0" max="1000" placeholder="5">
+        </label>
         <label>New Admin Password (leave blank to keep)
           <input id="admin-newpass" type="password" autocomplete="new-password" placeholder="min 4 chars">
         </label>

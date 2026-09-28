@@ -126,6 +126,20 @@ On the start page click **Admin** (small link under the timer hint).
 
 ---
 
+## Part 5D — Visual Themes (for students 11–16)
+
+The student UI has **5 looks** you can switch in **Admin → Visual Theme**:
+
+* **Default** — clean light, simple borders (original).
+* **Bright & Colorful** — warm confetti background, white cards with thick colored left borders; each option (A–E) gets a distinct pastel card (red, blue, green, amber, purple), hover lifts. Energetic but not childish.
+* **Modern Gradient** — soft purple-blue gradient background, glass-like cards, gradient primary buttons, polished 18px rounded cards.
+* **Playful Education** — warm cream with soft pastel blobs, teal top bar, rounded 20px cards, option letters in teal circles, friendly and calm.
+* **Bold & Interactive** — light slate, navy cards with `6px` offset shadow, options turn navy/white on hover/selected, strong contrast, dynamic.
+
+In Admin, the **theme picker** shows 5 preview mini-cards (4 tiny option blocks per theme). Click a card to preview instantly on the student page behind the modal (body gets `theme-bright` etc., `wwwroot/css/app.css:669`). **Save** writes `theme=bright` to `config.txt` (`Services/QuizConfig.cs:20`) and hot-reloads — students see it on next refresh. No restart needed. `GET /api/config` now also returns `theme`.
+
+---
+
 ## Quick help
 
 - **Students cannot open the page?** Check the address is exactly what the black window shows, and that students are on the same school network. Check that you clicked **Allow** when Windows asked about the app.
@@ -156,13 +170,14 @@ On the start page click **Admin** (small link under the timer hint).
 | `allowImport` | `config.txt` | Gates `POST /api/import` → `403`. In `publish` set `false`. |
 | `quizFolder` | `config.txt` | Subfolder for this quiz (`Math`, `Radhika_Nepali`). Empty = root. Sanitized to `a-z0-9 _-`, first segment only, `..` blocked. Creates folder if missing. |
 | `adminPassword` / `adminPasswordHash` | `config.txt` | Admin password (plain or `SHA256` hash). Set via Admin panel; leave empty for no password. `adminPasswordHash` is preferred. |
+| `theme` | `config.txt` | Student UI theme: `default`, `bright`, `gradient`, `playful`, `bold`. Set via Admin → Visual Theme. `wwwroot/css/app.css:669` `body.theme-*`. |
 | `Port` / `resultFile` | `config.txt` | Network/file location. `resultFile` is relative to `quizFolder` when set. |
 
 ### 3. APIs (base `http://<host-ip>:5000`)
 
 | Method | Path | Gating | Request | Response / Notes |
 |---|---|---|---|---|
-| `GET` | `/api/config` | none | — | `timeMinutes, negativeMarkingPct, allowResultViewing, allowImport, allowReview, allowAnswerDetails, subject, className, examType, resultFile` (`Program.cs:74`) |
+| `GET` | `/api/config` | none | — | `timeMinutes, negativeMarkingPct, totalQuestions, allowResultViewing, allowImport, allowReview, allowAnswerDetails, subject, className, examType, resultFile, theme` (`Program.cs:74`) |
 | `GET` | `/api/questions` | none | — | `quizInfo, source, warnings, questions[]` where each `questions[i]` = `number, text, options, isMultiCorrect, image, passage, groupId` — **no `correctIndices`** (stripped `Program.cs:98`). Fetched **only after** `POST /api/check` succeeds (`app.js: ensureBank()`), so opening the site via `F12` shows no answers. |
 | `POST` | `/api/check` | none | `{"name","class","section"}` | `alreadyTaken, previousMarks, activeSession`. Registers `Time+5 min` session to block same name on another PC (`Services/ActiveSessions.cs`). |
 | `POST` | `/api/submit` | — | `{"name","class","section","answers":{"1":"A","2":"B&D"}}` | `alreadyTaken, previousMarks, marks, correct, wrong, attempted, total, saved, savePending` + **`review: [{number, correctIndices}]` only if `allowReview=true`** (`Program.cs:155`). `answers` keys are question numbers; server ignores unknown keys. IP auto-filled from TCP connection. |

@@ -19,6 +19,8 @@ public sealed class QuizConfig
     public string QuizFolder { get; private set; } = "";
     public string AdminPasswordHash { get; private set; } = "";
     public string Theme { get; private set; } = "default";
+    public bool HideMarksOnSubmitAnyway { get; private set; } = true;
+    public int PerIpSubmitPerMinuteLimit { get; private set; } = 5;
 
     public string ResultPath(string dataDir)
         => Path.IsPathRooted(ResultFile) ? ResultFile : Path.Combine(dataDir, ResultFile);
@@ -93,6 +95,16 @@ public sealed class QuizConfig
                 string t = val.Trim().ToLowerInvariant();
                 if (t is "default" or "bright" or "gradient" or "playful" or "bold")
                     c.Theme = t;
+            }
+            else if (key.Equals("hideMarksOnSubmitAnyway", StringComparison.OrdinalIgnoreCase) && val.Length > 0)
+            {
+                c.HideMarksOnSubmitAnyway = !IsFalseValue(val);
+            }
+            else if (key.Equals("perIpSubmitPerMinuteLimit", StringComparison.OrdinalIgnoreCase) && val.Length > 0
+                  || key.Equals("perIpLimit", StringComparison.OrdinalIgnoreCase) && val.Length > 0)
+            {
+                if (int.TryParse(val, out int lim) && lim >= 0 && lim <= 1000)
+                    c.PerIpSubmitPerMinuteLimit = lim;
             }
         }
         return c;

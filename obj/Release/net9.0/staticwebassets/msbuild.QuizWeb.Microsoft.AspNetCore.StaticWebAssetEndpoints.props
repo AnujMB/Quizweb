@@ -12,29 +12,29 @@
       <EndpointProperties><![CDATA[[{"Name":"fingerprint","Value":"dkqdeu0ev5"},{"Name":"integrity","Value":"sha256-vU3KzPbecsN5hMociYAPH7sUl2BUcDBTmhmHvus2tpA="},{"Name":"label","Value":"_content/QuizWeb/css/app.css"}]]]></EndpointProperties>
       <ResponseHeaders><![CDATA[[{"Name":"Accept-Ranges","Value":"bytes"},{"Name":"Cache-Control","Value":"max-age=31536000, immutable"},{"Name":"Content-Length","Value":"20508"},{"Name":"Content-Type","Value":"text/css"},{"Name":"ETag","Value":"\u0022vU3KzPbecsN5hMociYAPH7sUl2BUcDBTmhmHvus2tpA=\u0022"},{"Name":"Last-Modified","Value":"Mon, 07 Sep 2026 15:42:00 GMT"}]]]></ResponseHeaders>
     </StaticWebAssetEndpoint>
-    <StaticWebAssetEndpoint Include="_content/QuizWeb/index.cqlzq19ptg.html">
+    <StaticWebAssetEndpoint Include="_content/QuizWeb/index.0k21s7klpr.html">
       <AssetFile>$([System.IO.Path]::GetFullPath('$(MSBuildThisFileDirectory)..\staticwebassets\index.html'))</AssetFile>
       <Selectors><![CDATA[[]]]></Selectors>
-      <EndpointProperties><![CDATA[[{"Name":"fingerprint","Value":"cqlzq19ptg"},{"Name":"integrity","Value":"sha256-xCbHSr9wr58dpkp0MRCUhlpVYj/cfbk4LdeotHIk3bw="},{"Name":"label","Value":"_content/QuizWeb/index.html"}]]]></EndpointProperties>
-      <ResponseHeaders><![CDATA[[{"Name":"Accept-Ranges","Value":"bytes"},{"Name":"Cache-Control","Value":"max-age=31536000, immutable"},{"Name":"Content-Length","Value":"10278"},{"Name":"Content-Type","Value":"text/html"},{"Name":"ETag","Value":"\u0022xCbHSr9wr58dpkp0MRCUhlpVYj/cfbk4LdeotHIk3bw=\u0022"},{"Name":"Last-Modified","Value":"Mon, 07 Sep 2026 15:41:43 GMT"}]]]></ResponseHeaders>
+      <EndpointProperties><![CDATA[[{"Name":"fingerprint","Value":"0k21s7klpr"},{"Name":"integrity","Value":"sha256-MFtmgTl45p8qm\u002BpT1hhbnBiWw1K\u002Brg79ysBlwEiuguQ="},{"Name":"label","Value":"_content/QuizWeb/index.html"}]]]></EndpointProperties>
+      <ResponseHeaders><![CDATA[[{"Name":"Accept-Ranges","Value":"bytes"},{"Name":"Cache-Control","Value":"max-age=31536000, immutable"},{"Name":"Content-Length","Value":"10576"},{"Name":"Content-Type","Value":"text/html"},{"Name":"ETag","Value":"\u0022MFtmgTl45p8qm\u002BpT1hhbnBiWw1K\u002Brg79ysBlwEiuguQ=\u0022"},{"Name":"Last-Modified","Value":"Mon, 14 Sep 2026 06:26:11 GMT"}]]]></ResponseHeaders>
     </StaticWebAssetEndpoint>
     <StaticWebAssetEndpoint Include="_content/QuizWeb/index.html">
       <AssetFile>$([System.IO.Path]::GetFullPath('$(MSBuildThisFileDirectory)..\staticwebassets\index.html'))</AssetFile>
       <Selectors><![CDATA[[]]]></Selectors>
-      <EndpointProperties><![CDATA[[{"Name":"integrity","Value":"sha256-xCbHSr9wr58dpkp0MRCUhlpVYj/cfbk4LdeotHIk3bw="}]]]></EndpointProperties>
-      <ResponseHeaders><![CDATA[[{"Name":"Accept-Ranges","Value":"bytes"},{"Name":"Cache-Control","Value":"no-cache"},{"Name":"Content-Length","Value":"10278"},{"Name":"Content-Type","Value":"text/html"},{"Name":"ETag","Value":"\u0022xCbHSr9wr58dpkp0MRCUhlpVYj/cfbk4LdeotHIk3bw=\u0022"},{"Name":"Last-Modified","Value":"Mon, 07 Sep 2026 15:41:43 GMT"}]]]></ResponseHeaders>
+      <EndpointProperties><![CDATA[[{"Name":"integrity","Value":"sha256-MFtmgTl45p8qm\u002BpT1hhbnBiWw1K\u002Brg79ysBlwEiuguQ="}]]]></EndpointProperties>
+      <ResponseHeaders><![CDATA[[{"Name":"Accept-Ranges","Value":"bytes"},{"Name":"Cache-Control","Value":"no-cache"},{"Name":"Content-Length","Value":"10576"},{"Name":"Content-Type","Value":"text/html"},{"Name":"ETag","Value":"\u0022MFtmgTl45p8qm\u002BpT1hhbnBiWw1K\u002Brg79ysBlwEiuguQ=\u0022"},{"Name":"Last-Modified","Value":"Mon, 14 Sep 2026 06:26:11 GMT"}]]]></ResponseHeaders>
     </StaticWebAssetEndpoint>
     <StaticWebAssetEndpoint Include="_content/QuizWeb/js/app.js">
       <AssetFile>$([System.IO.Path]::GetFullPath('$(MSBuildThisFileDirectory)..\staticwebassets\js\app.js'))</AssetFile>
       <Selectors><![CDATA[[]]]></Selectors>
-      <EndpointProperties><![CDATA[[{"Name":"integrity","Value":"sha256-b35R1uy6dUk0eaO9CZsNbgWEp6qhh36UJR6Myh0IDqM="}]]]></EndpointProperties>
-      <ResponseHeaders><![CDATA[[{"Name":"Accept-Ranges","Value":"bytes"},{"Name":"Cache-Control","Value":"no-cache"},{"Name":"Content-Length","Value":"47016"},{"Name":"Content-Type","Value":"text/javascript"},{"Name":"ETag","Value":"\u0022b35R1uy6dUk0eaO9CZsNbgWEp6qhh36UJR6Myh0IDqM=\u0022"},{"Name":"Last-Modified","Value":"Mon, 07 Sep 2026 15:43:21 GMT"}]]]></ResponseHeaders>
+      <EndpointProperties><![CDATA[[{"Name":"integrity","Value":"sha256-G/\u002BVjOUcR4PCehUT4BuvMkC2HjeyGeENg5sQhkYMUBY="}]]]></EndpointProperties>
+      <ResponseHeaders><![CDATA[[{"Name":"Accept-Ranges","Value":"bytes"},{"Name":"Cache-Control","Value":"no-cache"},{"Name":"Content-Length","Value":"47932"},{"Name":"Content-Type","Value":"text/javascript"},{"Name":"ETag","Value":"\u0022G/\u002BVjOUcR4PCehUT4BuvMkC2HjeyGeENg5sQhkYMUBY=\u0022"},{"Name":"Last-Modified","Value":"Mon, 14 Sep 2026 06:26:57 GMT"}]]]></ResponseHeaders>
     </StaticWebAssetEndpoint>
-    <StaticWebAssetEndpoint Include="_content/QuizWeb/js/app.n6gut5ytu1.js">
+    <StaticWebAssetEndpoint Include="_content/QuizWeb/js/app.pnl9v7775v.js">
       <AssetFile>$([System.IO.Path]::GetFullPath('$(MSBuildThisFileDirectory)..\staticwebassets\js\app.js'))</AssetFile>
       <Selectors><![CDATA[[]]]></Selectors>
-      <EndpointProperties><![CDATA[[{"Name":"fingerprint","Value":"n6gut5ytu1"},{"Name":"integrity","Value":"sha256-b35R1uy6dUk0eaO9CZsNbgWEp6qhh36UJR6Myh0IDqM="},{"Name":"label","Value":"_content/QuizWeb/js/app.js"}]]]></EndpointProperties>
-      <ResponseHeaders><![CDATA[[{"Name":"Accept-Ranges","Value":"bytes"},{"Name":"Cache-Control","Value":"max-age=31536000, immutable"},{"Name":"Content-Length","Value":"47016"},{"Name":"Content-Type","Value":"text/javascript"},{"Name":"ETag","Value":"\u0022b35R1uy6dUk0eaO9CZsNbgWEp6qhh36UJR6Myh0IDqM=\u0022"},{"Name":"Last-Modified","Value":"Mon, 07 Sep 2026 15:43:21 GMT"}]]]></ResponseHeaders>
+      <EndpointProperties><![CDATA[[{"Name":"fingerprint","Value":"pnl9v7775v"},{"Name":"integrity","Value":"sha256-G/\u002BVjOUcR4PCehUT4BuvMkC2HjeyGeENg5sQhkYMUBY="},{"Name":"label","Value":"_content/QuizWeb/js/app.js"}]]]></EndpointProperties>
+      <ResponseHeaders><![CDATA[[{"Name":"Accept-Ranges","Value":"bytes"},{"Name":"Cache-Control","Value":"max-age=31536000, immutable"},{"Name":"Content-Length","Value":"47932"},{"Name":"Content-Type","Value":"text/javascript"},{"Name":"ETag","Value":"\u0022G/\u002BVjOUcR4PCehUT4BuvMkC2HjeyGeENg5sQhkYMUBY=\u0022"},{"Name":"Last-Modified","Value":"Mon, 14 Sep 2026 06:26:57 GMT"}]]]></ResponseHeaders>
     </StaticWebAssetEndpoint>
   </ItemGroup>
 </Project>

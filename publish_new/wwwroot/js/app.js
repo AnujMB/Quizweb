@@ -528,6 +528,13 @@ async function submitQuiz(confirmFirst) {
       return;
     }
 
+    if (res.hidden) {
+      state.reviewData = null;
+      state.submitting = false;
+      showScore(res);
+      return;
+    }
+
     if (res.review && Array.isArray(res.review)) {
       state.reviewData = new Map(res.review.map(r => [r.number, r.correctIndices || []]));
     } else {
@@ -537,6 +544,16 @@ async function submitQuiz(confirmFirst) {
     showScore(res);
   } catch (err) {
     state.submitting = false;
+    if (String(err.message).includes("429")) {
+      const remain = Math.max(0, state.endTime - Date.now());
+      if (remain > 0) {
+        state.endTime = Date.now() + remain;
+        state.timerHandle = setInterval(tick, 250);
+        showView("quiz");
+      }
+      infoDialog("Too many submissions", "You are submitting too quickly. Please wait a minute and try again.");
+      return;
+    }
     const remain = Math.max(0, state.endTime - Date.now());
     if (remain > 0) {
       // Resume the clock with whatever time was left.
@@ -573,7 +590,9 @@ function showScore(res) {
   if (info) banner += "\n" + info;
   banner += "\n\n";
 
-  if (state.config.negativeMarkingPct > 0) {
+  if (res.hidden) {
+    banner += res.message || "Submitted. Marks hidden until you complete all questions.";
+  } else if (state.config.negativeMarkingPct > 0) {
     const pct = Math.round(state.config.negativeMarkingPct);
     banner += "Correct: " + res.correct + "\n" +
               "Wrong: " + res.wrong + "\n\n" +
@@ -1134,6 +1153,8 @@ async function loadAdminConfig() {
   $("admin-allowImport").checked = !!c.allowImport;
   $("admin-allowReview").checked = !!c.allowReview;
   $("admin-allowAnswerDetails").checked = !!c.allowAnswerDetails;
+  $("admin-hideMarks").checked = c.hideMarksOnSubmitAnyway !== false;
+  $("admin-perIpLimit").value = c.perIpSubmitPerMinuteLimit ?? 5;
   $("admin-folders").textContent = (c.availableFolders && c.availableFolders.length) ? c.availableFolders.join(", ") : "(none)";
   const theme = c.theme || "default";
   document.querySelectorAll(".theme-card").forEach(card => {
@@ -1157,6 +1178,8 @@ async function adminSave() {
     allowReview: $("admin-allowReview").checked,
     allowAnswerDetails: $("admin-allowAnswerDetails").checked,
     theme: selectedTheme,
+    hideMarksOnSubmitAnyway: $("admin-hideMarks").checked,
+    perIpSubmitPerMinuteLimit: parseInt($("admin-perIpLimit").value, 10) || 0,
   };
   const newPass = $("admin-newpass").value.trim();
   if (newPass) {

@@ -46,6 +46,7 @@ if (!string.IsNullOrWhiteSpace(config.QuizFolder))
 var bank = QuestionBank.Load(dataDir);
 var quizInfo = bank.Info;
 int port = config.Port ?? 5000;
+var submitIpTracker = new System.Collections.Concurrent.ConcurrentDictionary<string, List<DateTime>>();
 
 var builder = WebApplication.CreateBuilder(args);
 builder.Logging.SetMinimumLevel(LogLevel.Warning);
@@ -98,7 +99,9 @@ app.MapGet("/api/config", () =>
         className = quizInfo.Class,
         examType = quizInfo.ExamType,
         resultFile = config.ResultFile,
-        theme = config.Theme
+        theme = config.Theme,
+        hideMarksOnSubmitAnyway = config.HideMarksOnSubmitAnyway,
+        perIpSubmitPerMinuteLimit = config.PerIpSubmitPerMinuteLimit
     });
 });
 
@@ -146,16 +149,30 @@ app.MapPost("/api/check", (CheckRequest req) =>
 
 app.MapPost("/api/submit", async (SubmitRequest req, HttpContext httpCtx) =>
     {
-        // Extract client IP from the connection
+        // Extract client IP from the connection (overwrites any spoofed JSON field)
+        string clientIp = "unknown";
         var ipAddress = httpCtx.Connection.RemoteIpAddress;
         if (ipAddress != null)
         {
-            // Handle both IPv4 and IPv6 (prefer IPv4 if mapped)
             string ipStr = ipAddress.ToString();
-            // If IPv6 mapped IPv4, extract the IPv4 part
             if (ipStr.StartsWith("::ffff:"))
                 ipStr = ipStr.Substring(7);
             req.IPAddress = ipStr;
+            clientIp = ipStr;
+        }
+
+        // Per-IP rate limit (B5): configurable per minute, 0 = unlimited
+        if (config.PerIpSubmitPerMinuteLimit > 0)
+        {
+            var now = DateTime.UtcNow;
+            var list = submitIpTracker.GetOrAdd(clientIp, _ => new List<DateTime>());
+            lock (list)
+            {
+                list.RemoveAll(t => (now - t).TotalSeconds > 60);
+                if (list.Count >= config.PerIpSubmitPerMinuteLimit)
+                    return Results.StatusCode(StatusCodes.Status429TooManyRequests);
+                list.Add(now);
+            }
         }
 
         // Try to get computer name from the connection (if available on intranet)
@@ -171,6 +188,18 @@ app.MapPost("/api/submit", async (SubmitRequest req, HttpContext httpCtx) =>
         {
             var result = QuizEngine.Submit(req, questions, quizInfo, config, dataDir, store);
             sessions.Remove(req.Name, req.Class, req.Section);
+            // Hide marks on partial Submit Anyway (A1): configurable, default true
+            if (!result.AlreadyTaken && config.HideMarksOnSubmitAnyway && result.Attempted < questions.Count)
+            {
+                return Results.Ok(new
+                {
+                    result.AlreadyTaken,
+                    result.Saved,
+                    result.SavePending,
+                    hidden = true,
+                    message = "Submitted. Marks hidden until you complete all questions."
+                });
+            }
             if (result.AlreadyTaken || !config.AllowReview)
                 return Results.Ok(result);
             var review = questions.Select(q => new
@@ -416,6 +445,8 @@ app.MapGet("/api/admin/config", (HttpContext ctx) =>
         port = config.Port,
         quizFolder = config.QuizFolder,
         theme = config.Theme,
+        hideMarksOnSubmitAnyway = config.HideMarksOnSubmitAnyway,
+        perIpSubmitPerMinuteLimit = config.PerIpSubmitPerMinuteLimit,
         hasPassword = !string.IsNullOrEmpty(config.AdminPasswordHash),
         availableFolders = folders
     });
@@ -467,6 +498,8 @@ app.MapPost("/api/admin/config", async (HttpContext ctx) =>
         if (t is "default" or "bright" or "gradient" or "playful" or "bold")
             updates["theme"] = t;
     }
+    if (req.HideMarksOnSubmitAnyway.HasValue) updates["hideMarksOnSubmitAnyway"] = req.HideMarksOnSubmitAnyway.Value ? "true" : "false";
+    if (req.PerIpSubmitPerMinuteLimit.HasValue) updates["perIpSubmitPerMinuteLimit"] = req.PerIpSubmitPerMinuteLimit.Value.ToString();
 
     string oldFolder = config.QuizFolder;
     int? oldPort = config.Port;
@@ -618,4 +651,6 @@ public sealed class AdminConfigRequest
     public string? QuizFolder { get; set; }
     public string? NewAdminPassword { get; set; }
     public string? Theme { get; set; }
+    public bool? HideMarksOnSubmitAnyway { get; set; }
+    public int? PerIpSubmitPerMinuteLimit { get; set; }
 }

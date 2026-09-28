@@ -45,6 +45,8 @@ All your settings are in one small text file called **config.txt**, in the same 
 | `allowImport=true` | Shows the **Import Questions** button. Set to `false` to hide it from students. | `allowImport=false` |
 | `allowReview=true` | Shows the **Review Answers** button (after the quiz). Set to `false` to hide it from students. | `allowReview=false` |
 | `allowAnswerDetails=true` | In **View Results**, shows each student's detailed answers (question by question). Set to `false` to show only the student list in the dropdown, with no answer details. | `allowAnswerDetails=false` |
+| `hideMarksOnSubmitAnyway=true` | Hides marks when a student uses **Submit Anyway** with incomplete quiz (anti-probe, default `true`). Set `false` to show marks even on early submit. | `hideMarksOnSubmitAnyway=false` |
+| `perIpSubmitPerMinuteLimit=5` | Max submits per IP per minute (anti-brute-force, default `5`, `0` = unlimited). | `perIpSubmitPerMinuteLimit=0` |
 | `Port=5000` | Part of the web address. Leave it alone unless the address does not work. | `Port=5000` |
 | `resultFile=Result.txt` | The file where results are saved. Leave it alone. | `resultFile=Result.txt` |
 
@@ -171,16 +173,17 @@ In Admin, the **theme picker** shows 5 preview mini-cards (4 tiny option blocks 
 | `quizFolder` | `config.txt` | Subfolder for this quiz (`Math`, `Radhika_Nepali`). Empty = root. Sanitized to `a-z0-9 _-`, first segment only, `..` blocked. Creates folder if missing. |
 | `adminPassword` / `adminPasswordHash` | `config.txt` | Admin password (plain or `SHA256` hash). Set via Admin panel; leave empty for no password. `adminPasswordHash` is preferred. |
 | `theme` | `config.txt` | Student UI theme: `default`, `bright`, `gradient`, `playful`, `bold`. Set via Admin → Visual Theme. `wwwroot/css/app.css:669` `body.theme-*`. |
-| `Port` / `resultFile` | `config.txt` | Network/file location. `resultFile` is relative to `quizFolder` when set. |
+| `hideMarksOnSubmitAnyway` | `config.txt` | Hides `marks/correct/wrong` on early `Submit Anyway` (when `attempted < total`). `true` (default) returns `{hidden:true}` instead of marks — stops probe oracle. |
+| `perIpSubmitPerMinuteLimit` | `config.txt` | Max `POST /api/submit` per IP per minute. `5` (default), `0` = unlimited. `429` when exceeded. `Program.cs:147` uses `RemoteIpAddress`, not JSON, so spoof via payload fails. |
 
 ### 3. APIs (base `http://<host-ip>:5000`)
 
 | Method | Path | Gating | Request | Response / Notes |
 |---|---|---|---|---|
-| `GET` | `/api/config` | none | — | `timeMinutes, negativeMarkingPct, totalQuestions, allowResultViewing, allowImport, allowReview, allowAnswerDetails, subject, className, examType, resultFile, theme` (`Program.cs:74`) |
+| `GET` | `/api/config` | none | — | `timeMinutes, negativeMarkingPct, totalQuestions, allowResultViewing, allowImport, allowReview, allowAnswerDetails, subject, className, examType, resultFile, theme, hideMarksOnSubmitAnyway, perIpSubmitPerMinuteLimit` (`Program.cs:74`) |
 | `GET` | `/api/questions` | none | — | `quizInfo, source, warnings, questions[]` where each `questions[i]` = `number, text, options, isMultiCorrect, image, passage, groupId` — **no `correctIndices`** (stripped `Program.cs:98`). Fetched **only after** `POST /api/check` succeeds (`app.js: ensureBank()`), so opening the site via `F12` shows no answers. |
 | `POST` | `/api/check` | none | `{"name","class","section"}` | `alreadyTaken, previousMarks, activeSession`. Registers `Time+5 min` session to block same name on another PC (`Services/ActiveSessions.cs`). |
-| `POST` | `/api/submit` | — | `{"name","class","section","answers":{"1":"A","2":"B&D"}}` | `alreadyTaken, previousMarks, marks, correct, wrong, attempted, total, saved, savePending` + **`review: [{number, correctIndices}]` only if `allowReview=true`** (`Program.cs:155`). `answers` keys are question numbers; server ignores unknown keys. IP auto-filled from TCP connection. |
+| `POST` | `/api/submit` | per-IP limit + `hideMarks` | `{"name","class","section","answers":{"1":"A","2":"B&D"}}` | `alreadyTaken, marks, correct, wrong, attempted, total, saved, savePending, hidden, review` — `review` only if `allowReview=true` **and** not hidden; `hidden:true` when `hideMarksOnSubmitAnyway=true` and `attempted < total` (`Program.cs:147`); `429` if `perIpSubmitPerMinuteLimit` exceeded per `RemoteIpAddress`. IP from `HttpContext.Connection.RemoteIpAddress` (overwrites JSON, not spoofable). |
 | `GET` | `/api/results/students` | `allowResultViewing` | — | Array sorted `marks desc`: `name, class, section, subject, examType, quizClass, marks, date, computerName, ipAddress` (`Program.cs:166`). `403` if disabled. |
 | `GET` | `/api/results/detail?name=&className=&section=` | `allowResultViewing && allowAnswerDetails` | query params | `name, class, section, marks, date, computerName, ipAddress, answers, correctMap` (`Program.cs:192`) where `correctMap` is `{ "1":[0], "2":[1,3] }` (indices A=0). `403` if gated, `404` if no match. |
 | `POST` | `/api/import` | `allowImport` | `multipart/form-data` field `questions` (CSV) | `questionsWritten, rowsSkipped, warnings` — also regenerates `questions.xlsx`. `403` in `publish`. |
